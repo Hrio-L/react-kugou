@@ -1,0 +1,35 @@
+.swiper{
+	width:100%;
+	overflow: hidden;
+	position: relative;
+	&-wrap{
+		display: table;
+		.swiper-item{
+			display: table-cell;
+			position: relative;
+			vertical-align: top;
+			img{
+				width:100%;
+			}
+		}
+	}
+	.swiper-dots{
+		position: absolute;
+	    width: 100%;
+	    bottom: 0;
+	    left: 0;
+	    text-align: center;
+	    padding: 10px 0;
+		.swiper-dot{
+			display: inline-block;
+			width:10Px;
+			height: 10Px;
+			background: white;
+			border-radius:50%;
+			margin: 0 5px;
+			&-active{
+				background: #2CA2F9
+			}
+		}
+	}
+}

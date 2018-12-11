@@ -1,0 +1,75 @@
+.action-sheet {
+    text-align: center;
+    padding:0 20px;
+    @keyframes vertical-fade{
+    	0%{
+			opacity: .1;
+			transform: translateY(100%);
+    	}
+    	100%{
+			opacity: 1;
+			transform: translateY(0%);
+    	}
+    }
+    .action-list {
+    	animation:vertical-fade .3s ;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+
+        .action-info {
+            width: 100%;
+            background: white;
+            text-align: left;
+            padding: 8px 15px;
+            border-bottom: .01em solid silver;
+
+            .name {
+                font-size: 14px;
+                font-weight:400;
+            }
+
+            .desc {
+                font-size: 12px;
+                color: silver;
+            }
+        }
+
+        .action-wrap {
+            background: white;
+            width: 100%;
+
+            .action-item {
+                padding: 15px;
+                font-size: 16px;
+                color: rgba(0, 0, 0, .9);
+                border-bottom: .01em solid silver;
+            }
+        }
+
+        .action-cancel-mask {
+            background: #ddd;
+            height: 6px;
+            width: 100%;
+            display: block;
+        }
+
+        .action-cancel {
+            padding: 15px;
+            font-size: 16px;
+            color: rgba(0, 0, 0, .9);
+            background: white;
+        }
+
+    }
+
+    &-active {
+        opacity: 1;
+        visibility: visible;
+
+        .action-list {
+            transform: translateY(0%);
+        }
+    }
+}
