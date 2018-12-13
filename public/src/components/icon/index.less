@@ -9,6 +9,7 @@
 .icon-loading{
 	animation:rotate .8s infinite linear;
 	display: inline-block;
+	color:white;
 	width:1em;
 	height: 1em;
 	font-size:36px;
@@ -55,5 +56,111 @@
 	}
 	&:after{
 		left: 1em;
+	}
+}
+
+.icon-search{
+	position:relative;
+	display: inline-block;
+	color:white;
+	width:1em;
+	height:1em;
+	border-radius:50%;
+	border:.1em solid currentColor;
+	&:after{
+		position: absolute;
+		left: 80%;
+		top: 100%;
+		display: inline-block;
+		content:'';
+		width:.5em;
+		height: .1em;
+		border-radius:20Px;
+		transform: rotate(45deg);
+		background:currentColor;
+	}
+}
+
+.icon-play{
+	display: inline-block;
+	color:white;
+	width: 2em;
+	height: 2em;
+	border:.1em solid currentColor;
+	border-radius:50%;
+	position:relative;
+	&:after{
+		position:absolute;
+		content:'';
+		display: inline-block;
+		border-width:.5em .5em .5em; 
+		left: 39%;
+		top: 22%;
+		border-style:solid;
+		border-color:transparent transparent transparent currentColor;
+	}
+}
+.icon-pause{
+	display: inline-block;
+	color:white;
+	width: 2em;
+	height: 2em;
+	border:.1em solid currentColor;
+	border-radius:50%;
+	position:relative;
+	&:before,&:after{
+		display: inline-block;
+		content:'';
+		position:absolute;
+		width:.2em;
+		height: .8em;
+		background:currentColor;
+		border-radius:20Px;
+		left: 30%;
+		top: 30%;
+	}
+	&:after{
+		left: 60%;
+	}
+}
+
+.icon-next,.icon-prev{
+	display: inline-block;
+	position:relative;
+	width:2em;
+	height:2em;
+	color:white;
+	border:.1em solid currentColor;
+	border-radius:50%;
+	&:before{
+		display: inline-block;
+		content:'';
+		position:absolute;
+		width:.2em;
+		height: .8em;
+		background:currentColor;
+		border-radius:20Px;
+		left: 30%;
+		top: 30%;
+	}
+	&:after{
+		position:absolute;
+		content:'';
+		display: inline-block;
+		border-width:.5em .5em .5em 0; 
+		left: 42%;
+		top: 25%;
+		border-style:solid;
+		border-color:transparent currentColor transparent transparent;
+	}
+}
+.icon-next{
+	&:before{
+		left: 60%;
+	}
+	&:after{
+		left: 30%;
+		border-width:.5em 0 .5em .5em; 
+		border-color:transparent currentColor transparent;
 	}
 }

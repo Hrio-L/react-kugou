@@ -329,19 +329,19 @@ class Swiper extends Component {
 	}
 	renderItem = () => {
 		const {children} = this.props
-		const {swiperCount} = this.state
+		const {swiperWidth} = this.state
 		const {loop} = this.state
 		if(children.length){
 			const middle = children.map((d,i) => (
-				<li style={{width:`${100 / swiperCount}%`}} className="swiper-item" key={i}>
+				<li style={{width:swiperWidth}} className="swiper-item" key={i}>
 					{d}
 				</li>
 			))
 			if(loop){
 				return [
-					<li style={{width:`${100 / swiperCount}%`}} className="swiper-item" key="last">{children[children.length - 1]}</li>,
+					<li style={{width:swiperWidth}} className="swiper-item" key="last">{children[children.length - 1]}</li>,
 					...middle,
-					<li style={{width:`${100 / swiperCount}%`}} className="swiper-item" key="first">{children[0]}</li>
+					<li style={{width:swiperWidth}} className="swiper-item" key="first">{children[0]}</li>
 				]
 			}
 			return middle
@@ -366,7 +366,7 @@ class Swiper extends Component {
 		}
 	}
 	initWrapWidth = () => {
-		const {swiperCount} = this.state
+		const {swiperCount,swiperWidth} = this.state
 		return swiperCount * 100 + '%'
 	}
 	render(){

@@ -58,7 +58,7 @@ class App extends Component{
 		return (
 			routes.map((d,i) => {
 				return (
-					<Scrolltop timeout={300} isTop={isTop !== d.path} style={{paddingTop:91}} key={d.path}>
+					<Scrolltop timeout={300} isTop={isTop !== d.path} style={{paddingTop:91,paddingBottom:70}} key={d.path}>
 						<CacheComponent render={selected.includes(d.path)} component={d.component} />
 					</Scrolltop>
 				)
@@ -66,11 +66,14 @@ class App extends Component{
 		)
 	}
 	onChange = key => {
-		this.setState({
-			isTop:key
-		})
-		this.selectedChange(key)
-		this.props.history.push(key)
+		const {pathname} = this.props.location
+		if(pathname !== key){
+			this.setState({
+				isTop:key
+			})
+			this.selectedChange(key)
+			this.props.history.push(key)
+		}
 	}
 	render(){
 		const {location,routes} = this.props
@@ -80,15 +83,18 @@ class App extends Component{
 					<div className="logo">
 						<img src="http://m.kugou.com/v3/static/images/index/logo.png" alt=""/>
 					</div>
+					<div className="search">
+						<NavLink to="/search">
+							<Icon style={{fontSize:18}} type="search" />
+						</NavLink>
+					</div>
 				</div>
 				<Menu fixed={true}  style={{top:'3.125rem'}}>
 					{this.renderMenu()}
 				</Menu>
-				<Switch location={location}>
-						<Swiper timeout={300} onChange={this.onChange} defaultSelected={location.pathname}>
-							{this.renderContent()}
-						</Swiper>
-				</Switch>
+				<Swiper  timeout={300} onChange={this.onChange} defaultSelected={location.pathname}>
+					{this.renderContent()}
+				</Swiper>
 				<Player />
 			</div>
 		)

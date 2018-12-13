@@ -2,7 +2,6 @@ import React from 'react'
 import Loadable from 'react-loadable'
 import ToastLoading from '../components/toast/loading'
 
-
 const Newlist = Loadable({
 	loader:() => import ('../pages/newlist'),
 	loading:() => (<ToastLoading />)
@@ -19,17 +18,30 @@ const SingerClasslist = Loadable({
 	loader:() => import ('../pages/singer-classlist'),
 	loading:() => (<ToastLoading />)
 })
+const Search = Loadable({
+	loader:() => import ('../pages/search'),
+	loading:() => (<ToastLoading />)
+})
 
 const App = Loadable({
 	loader:() => import ('../pages/app'),
 	loading:() => (<ToastLoading  />)
 })
 
+const Test = () => (<div></div>)
 
 export default [{
 	path:'/',
 	redirect:'/newlist',
 	exact:true
+},{
+	path:'/test',
+	exact:true,
+	component:Test
+},{
+	path:'/search',
+	exact:true,
+	component:Search
 },{
 	path:'/',
 	component:App,

@@ -3,11 +3,13 @@ const webpack = require('webpack')
 const pxtorem = require('postcss-pxtorem')
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 const publicPath = '/'
 
 module.exports = options => {
     const dev = options && options.mode === 'production'
     const mode = dev ? 'production' : 'development'
+    const port = 8080
     console.log(mode)
     return ({
         mode,
@@ -51,7 +53,7 @@ module.exports = options => {
             }]
         },
         devServer: {
-            port: 8080,
+            port,
             inline:true,
             stats: {
                 colors: true
@@ -70,6 +72,9 @@ module.exports = options => {
         },
         plugins: [
             new webpack.HotModuleReplacementPlugin(),
+            new OpenBrowserPlugin({
+                url:`http://localhost:${port}`
+            }),
             new HtmlWebpackPlugin({
                 template: path.join(__dirname, 'public', 'src', 'template', 'index.html'),
                 title: "Practice"

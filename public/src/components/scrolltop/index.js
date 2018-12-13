@@ -11,7 +11,6 @@ class Scrolltop extends Component{
 	}
 	state = {
 		style:{
-			width:window.innerWidth,
 			height:window.innerHeight
 		}
 	}
@@ -26,13 +25,12 @@ class Scrolltop extends Component{
 		window.addEventListener('resize',this.handleResize,false)
 	}
 	componentWillUnmount = () => {
-		window.removeListener('resize',this.handleResize,false)
+		window.removeEventListener('resize',this.handleResize,false)
 	}
 
 	handleResize = () => {
 		this.setState({
 			style:{
-				width:window.innerWidth,
 				height:window.innerHeight
 			}
 		})

@@ -9,8 +9,10 @@ class Silder extends Component{
 		used:0,
 		step:2,
 		style:{
-			width:'100%'
+			width:'100%',
+			height:3
 		},
+		dotSize:12,
 		onChange:used => {
 			console.log('used :',used)
 		}
@@ -19,26 +21,32 @@ class Silder extends Component{
 		super(props)
 		this.state = {
 			used:props.used,
+			startX:0,
 			silderWidth:0,
-			dotWidth:0,
 			minUsed:0,
 			maxUsed:100
 		}
 	}
 	componentDidMount = () => {
 		this.initSilder()
-		document.addEventListener('keydown',this.handleKeyDown,{
-			passive:false
-		})
+		window.addEventListener('resize',this.initSilder,false)
+		document.addEventListener('keydown',this.handleKeyDown,false)
 	}
 	componentWillUnmount = () => {
-		document.removeListener('keydown',this.handleKeyDown,{
-			passive:false
+		window.removeEventListener('resize',this.initSilder,false)
+		document.removeEventListener('keydown',this.handleKeyDown,false)
+	}
+	initSilder = () => {
+		const {silder} = this.refs
+		const {offsetWidth:silderWidth} = silder
+		this.setState({
+			silderWidth
 		})
 	}
 	handleChange = used => {
 		const {onChange} = this.props
 		const {minUsed,maxUsed} = this.state
+
 		switch(used){
 			case minUsed:
 				onChange(0)
@@ -50,82 +58,77 @@ class Silder extends Component{
 				onChange(used)
 		}
 	}
-	initSilder = () => {
-		const {silder,dot} = this.refs
-		const {offsetWidth:silderWidth} = silder
-		const {offsetWidth:dotWidth} = dot
+	setUsed = used => {
+		const {minUsed,maxUsed} = this.state
+		let newUsed = used
+		if(used <= minUsed){
+			newUsed = minUsed
+		}else if(used >= maxUsed){
+			newUsed = maxUsed
+		}
 		this.setState({
-			minUsed:parseFloat((dotWidth / silderWidth * 100).toFixed(2)),
-			used:parseFloat((dotWidth / silderWidth * 100).toFixed(2)) + this.props.used,
-			silderWidth:silderWidth - dotWidth,
-			dotWidth
+			used:newUsed
 		})
 	}
-	handleTouchStart = ev => {
-	}
-	handleTouchMove = ev => {
+	handleTouch = (ev,target) => {
 		const {touches} = ev
 		const {clientX} = touches[0]
-		const {minUsed,silderWidth,maxUsed,dotWidth} = this.state
-		const dis = clientX + dotWidth / 2
-	
-		const used = parseFloat((dis / silderWidth * 100).toFixed(2))
-
-		if((used >= minUsed)&&(used<=maxUsed)){
-			this.setState({
-				used
-			})
-		}else{
-			if(used > 0){
-				this.setState({
-					used:maxUsed
-				})
-			}else{
-				this.setState({
-					used:minUsed
-				})
-			}
-		}
+		const {silderWidth} = this.state
+		const rect = target.getBoundingClientRect()
+		const startX = clientX - rect.left
+		const used = parseFloat((startX / silderWidth * 100).toFixed(2))
+		this.setUsed(used)
+	}
+	handleTouchStart = ev => {
+		this.handleTouch(ev,ev.target)
+	}
+	handleTouchMove = ev => {
+		this.handleTouch(ev,ev.target)
 	}
 	handleTouchEnd = ev => {
 		const {used} = this.state
 		this.handleChange(used)
 	}
+	dotTouchStart = ev => {
+		ev.stopPropagation()
+	}
+	dotTouchMove = ev => {
+		ev.stopPropagation()
+		const {silder} = this.refs
+		this.handleTouch(ev,silder)
+	}
 	handleKeyDown = ev => {
 		const {keyCode} = ev
 		const {used,minUsed,maxUsed} = this.state
 		const {step,onChange} = this.props
-		const left = 37
-		const right = 39
+		const leftCode = 37
+		const rightCode = 39
 		let newUsed = 0
 		switch(keyCode){
-			case left:
+			case leftCode:
 				if((used > minUsed) && ((used - step) > minUsed)){
 					newUsed = used - step
 				}else{
 					newUsed = minUsed
 				}
-				this.setState({
-					used:newUsed
-				})
+				this.setUsed(newUsed)
 				this.handleChange(newUsed)
 			break
-			case right:
+			case rightCode:
 				if((used < maxUsed) && ((used + step) < maxUsed)){
 					newUsed = used + step
 				}else{
 					newUsed = maxUsed
 				}
-				this.setState({
-					used:newUsed
-				})
+				this.setUsed(newUsed)
 				this.handleChange(newUsed)
 			break
 		}
 	}
+
 	render(){
 		const {used} = this.state
-		const {style,className,classPrefixer} = this.props
+		const {style,className,classPrefixer,dotSize} = this.props
 		const events = {
 			onTouchStart:this.handleTouchStart,
 			onTouchMove:this.handleTouchMove,
@@ -133,9 +136,9 @@ class Silder extends Component{
 		}
 		const classes = classNames(classPrefixer,className)
 		return(
-			<div style={style} ref="silder" className={classes}>
+			<div  {...events}  style={style} ref="silder" className={classes}>
 				<span style={{width:`${used}%`}} className={`${classPrefixer}-used`}>
-					<span ref="dot" {...events} className={`${classPrefixer}-dot`}></span>
+					<span onTouchStart={this.dotTouchStart} onTouchMove={this.dotTouchMove} style={{width:dotSize,height:dotSize,top:(style.height - dotSize) /2}} className={`${classPrefixer}-dot`}></span>
 				</span>
 			</div>
 		)
@@ -146,7 +149,9 @@ Silder.propTypes = {
 	used:PropTypes.number,
 	step:PropTypes.number,
 	onChange:PropTypes.func,
-	className:PropTypes.string
+	className:PropTypes.string,
+	dotWidth:PropTypes.number,
+	style:PropTypes.object
 }
 
 export default Silder
