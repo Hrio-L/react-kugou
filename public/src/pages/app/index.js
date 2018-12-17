@@ -1,7 +1,6 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
-import {NavLink,Route,Switch,Redirect} from 'react-router-dom'
-import {TransitionGroup,CSSTransition} from 'react-transition-group'
+import {NavLink,Redirect,Route} from 'react-router-dom'
 import Icon from '../../components/icon'
 import Authorized from '../../components/authorized'
 import Menu from '../../components/menu'
@@ -9,6 +8,7 @@ import Player from '../../components/player'
 import Swiper from '../../components/swiper'
 import CacheComponent from '../../components/cache-component'
 import Scrolltop from '../../components/scrolltop'
+import Header from '../../components/header'
 import './index.less'
 
 
@@ -34,6 +34,7 @@ class App extends Component{
 		const {location} = this.props
 		this.selectedChange(location.pathname)
 	}
+
 	selectedChange = path => {
 		const {menus:{selected},menuChange} = this.props
 		if(!selected.includes(path)){
@@ -76,19 +77,20 @@ class App extends Component{
 		}
 	}
 	render(){
-		const {location,routes} = this.props
+		const {location} = this.props
 		return(
 			<div className="app">
-				<div className="header">
-					<div className="logo">
-						<img src="http://m.kugou.com/v3/static/images/index/logo.png" alt=""/>
-					</div>
-					<div className="search">
+				<Header 
+					fixed={true}
+					logo={(
+						<img src="http://m.kugou.com/v3/static/images/index/logo.png" alt="logo"/>
+					)} 
+					extra={(
 						<NavLink to="/search">
 							<Icon style={{fontSize:18}} type="search" />
 						</NavLink>
-					</div>
-				</div>
+						)}
+				/>
 				<Menu fixed={true}  style={{top:'3.125rem'}}>
 					{this.renderMenu()}
 				</Menu>

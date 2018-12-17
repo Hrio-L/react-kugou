@@ -13,19 +13,16 @@ class Swiper extends Component {
 		defaultSelected:'',
 		overflowScale:0.3,
 		dot:false,
-		style:{
-			width:'100%'
-		},
 		onChange:key => {}
 	}
 	constructor(props){
 		super(props)
 		const {style} = props
-
+	
 		this.state = {
 			selected:props.defaultSelected,
 			swiperCount:0,
-			swiperWidth:style.width,
+			swiperWidth:0,
 			prevTranslate:0,
 			translate:0,
 			transition:``,
@@ -37,6 +34,7 @@ class Swiper extends Component {
 			horizontalDirection:0,
 			direction:''
 		}
+		window.addEventListener('resize',this.resetWidth,false)
 	}
 	componentWillReceiveProps = nextProps => {
 		const {defaultSelected} = this.props
@@ -52,7 +50,6 @@ class Swiper extends Component {
 	}
 	componentDidMount = () => {
 		this.initSwiper(this.props)
-		window.addEventListener('resize',this.resetWidth,false)
 	}
 	componentWillUnmount = () => {
 		this.handleUnMount()
@@ -64,15 +61,16 @@ class Swiper extends Component {
 	initSwiper = props => {
 		const {swiper} = this.refs
 		const {children} = props
-		const {loop,swiperWidth} = this.state
+		const {loop} = this.state
 		const index = this.getSelectedIndex(props.defaultSelected)
-		this.autoplayTimer()
+		const swiperWidth = swiper.clientWidth > window.innerWidth ? window.innerWidth : swiper.clientWidth
 		this.setState({
-			swiperWidth: swiper.clientWidth,
-			translate:-index * swiper.clientWidth,
+			swiperWidth,
+			translate:-index * swiperWidth,
 			swiperCount:loop ? children.length + 2 : children.length,
 			transition:''
 		})
+		this.autoplayTimer()
 	}
 	resetWidth = (ev) => {
 		ev.stopPropagation()
@@ -329,19 +327,19 @@ class Swiper extends Component {
 	}
 	renderItem = () => {
 		const {children} = this.props
-		const {swiperWidth} = this.state
+		const {swiperWidth,swiperCount} = this.state
 		const {loop} = this.state
 		if(children.length){
 			const middle = children.map((d,i) => (
-				<li style={{width:swiperWidth}} className="swiper-item" key={i}>
+				<li style={{width:100/swiperCount+'%'}} className="swiper-item" key={i}>
 					{d}
 				</li>
 			))
 			if(loop){
 				return [
-					<li style={{width:swiperWidth}} className="swiper-item" key="last">{children[children.length - 1]}</li>,
+					<li style={{width:100/swiperCount+'%'}} className="swiper-item" key="last">{children[children.length - 1]}</li>,
 					...middle,
-					<li style={{width:swiperWidth}} className="swiper-item" key="first">{children[0]}</li>
+					<li style={{width:100/swiperCount+'%'}} className="swiper-item" key="first">{children[0]}</li>
 				]
 			}
 			return middle

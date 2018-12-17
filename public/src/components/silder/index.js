@@ -26,11 +26,11 @@ class Silder extends Component{
 			minUsed:0,
 			maxUsed:100
 		}
+		window.addEventListener('resize',this.initSilder,false)
+		document.addEventListener('keydown',this.handleKeyDown,false)
 	}
 	componentDidMount = () => {
 		this.initSilder()
-		window.addEventListener('resize',this.initSilder,false)
-		document.addEventListener('keydown',this.handleKeyDown,false)
 	}
 	componentWillUnmount = () => {
 		window.removeEventListener('resize',this.initSilder,false)

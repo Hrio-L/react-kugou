@@ -13,7 +13,7 @@ class Card extends Component{
 		onClick && onClick(data)
 	}
 	render(){
-		const {source,className,classPrefixer} = this.props
+		const {source,className,classPrefixer,extra} = this.props
 		const {title,desc,avatar} = source
 		const classes = classNames(classPrefixer,className)
 	    return (
@@ -24,7 +24,7 @@ class Card extends Component{
 						<h5 className="title">{title}</h5>
 						<span>{desc}</span>
 					</div>
-					<Icon type="arraw-right" />
+					{extra}
 				</div>
 			</div>
 	    )
@@ -47,7 +47,12 @@ Card.propTypes = {
 	    avatar: PropTypes.string,
     }).isRequired,
     onClick:PropTypes.func,
-    className:PropTypes.string
+    className:PropTypes.string,
+    extra:PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.node,
+        PropTypes.func
+    ])
 }
 
 export default Card

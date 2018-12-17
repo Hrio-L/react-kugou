@@ -4,20 +4,20 @@ const initialState = {
 	selected:[],
 	data:[{
 		name:'新歌',
-		path:'/newlist',
-		key:'/newlist'
+		path:'/basic/newlist',
+		key:'/basic/newlist'
 	},{
 		name:'排行',
-		path:'/toplist',
-		key:'/toplist'
+		path:'/basic/toplist',
+		key:'/basic/toplist'
 	},{
 		name:'歌单',
-		path:'/plist',
-		key:'/plist'
+		path:'/basic/plist',
+		key:'/basic/plist'
 	},{
 		name:'歌手',
-		path:'/singer-classlist',
-		key:'/singer-classlist'
+		path:'/basic/singer-classlist',
+		key:'/basic/singer-classlist'
 	}]
 }
 

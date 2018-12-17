@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import './index.less'
 
 const createComponent = name => props => {
-	const {classPrefixer,className,...rest} = props
+	const {classPrefixer,className,type,...rest} = props
 	const classes = classNames(classPrefixer,`${classPrefixer}-${name}`,className)
 	return (
 		<i  {...rest} className={classes}></i>
@@ -18,6 +18,10 @@ const Play = createComponent('play')
 const Pause = createComponent('pause')
 const Next = createComponent('next')
 const Prev = createComponent('prev')
+const ArrowLeft = createComponent('arrow-left')
+const ArrowRight = createComponent('arrow-right')
+const Clock = createComponent('clock')
+const Close = createComponent('close')
 
 class Icon extends Component {
 	static defaultProps = {
@@ -33,6 +37,10 @@ class Icon extends Component {
 			pause:(<Pause {...props} />),
 			next:(<Next {...props} />),
 			prev:(<Prev {...props} />),
+			'arrow-left':(<ArrowLeft {...props} />),
+			'arrow-right':(<ArrowRight{...props} />),
+			'clock':(<Clock{...props} />),
+			'close':(<Close{...props} />),
 		}
 	}
 	render(){

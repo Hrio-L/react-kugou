@@ -3,6 +3,7 @@ import newlistAction from './newlist'
 import toplistAction from './toplist'
 import plistAction from './plist'
 import singerClasslistAction from './singer-classlist'
+import searchAction from './search'
 
 const watch = function* (){
 	while(true){
@@ -24,6 +25,7 @@ export default function* rootSaga(){
 		newlistAction(),
 		toplistAction(),
 		plistAction(),
-		singerClasslistAction()
+		singerClasslistAction(),
+		searchAction()
 	])
 }

@@ -4,6 +4,7 @@ import newlist from './newlist'
 import toplist from './toplist'
 import plist from './plist'
 import singerClasslist from './singer-classlist'
+import search from './search'
 
 const initialState = {
 	title:'Music'
@@ -24,5 +25,6 @@ export default combineReducers({
 	newlist,
 	toplist,
 	plist,
-	singerClasslist
+	singerClasslist,
+	search
 })

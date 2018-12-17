@@ -27,9 +27,7 @@ class Singerlist extends Component{
 	renderItem = interval => {
 		const {lists} = this.props
 		if(!lists.length){
-			return (
-				<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
-			)
+			return null
 		}
 		const first = lists[0]
 		const result = []
@@ -38,6 +36,7 @@ class Singerlist extends Component{
 			center.push((
 				<li onClick={this.handleClick.bind(this,lists[i])} key={i} className="singer-item">
 					{lists[i].classname}
+					<Icon type="arrow-right" />
 				</li>
 			))
 			if(i % interval === 0){
@@ -48,7 +47,10 @@ class Singerlist extends Component{
 		
 		return [
 			<ul className="singer-group" key={0}>
-				<li onClick={this.handleClick.bind(this,first)} className="singer-item">{first.classname}</li>
+				<li onClick={this.handleClick.bind(this,first)} className="singer-item">
+					{first.classname}
+					<Icon type="arrow-right" />
+				</li>
 			</ul>,
 			result.map((d,i) => (
 				<ul className="singer-group-close" key={i}>
@@ -61,8 +63,12 @@ class Singerlist extends Component{
 		]
 	}
 	render(){
+		const {lists} = this.props
 		return(
 			<div className="singerlist">
+				{!lists.length && (
+					<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
+				)}
 				{this.renderItem(3)}
 			</div>
 		)

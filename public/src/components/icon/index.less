@@ -32,7 +32,6 @@
 		border-color:currentColor currentColor currentColor transparent;
 	}
 }
-
 .icon-ellipsis{
 	display: inline-block;
 	position: relative;
@@ -58,7 +57,6 @@
 		left: 1em;
 	}
 }
-
 .icon-search{
 	position:relative;
 	display: inline-block;
@@ -80,7 +78,6 @@
 		background:currentColor;
 	}
 }
-
 .icon-play{
 	display: inline-block;
 	color:white;
@@ -123,7 +120,6 @@
 		left: 60%;
 	}
 }
-
 .icon-next,.icon-prev{
 	display: inline-block;
 	position:relative;
@@ -162,5 +158,89 @@
 		left: 30%;
 		border-width:.5em 0 .5em .5em; 
 		border-color:transparent currentColor transparent;
+	}
+}
+.icon-arrow-left,.icon-arrow-right{
+	display: inline-block;
+	width: 2.4em;
+	height: 2.4em;
+	color:white;
+	position:relative;
+	&:before,&:after{
+		position:absolute;
+		content:'';
+		display: inline-block;
+		width:1.5em;
+		height: .2em;
+		background:currentColor;
+		left: 0;
+		top: .75em;
+	}
+}
+.icon-arrow-left{
+	&:before{
+		transform: rotate(-45deg);
+	}
+	&:after{
+		transform: rotate(45deg);
+		top: 1.7em;
+	}
+}
+.icon-arrow-right{
+	&:before{
+		transform: rotate(45deg);
+	}
+	&:after{
+		transform: rotate(-45deg);
+		top: 1.7em;
+	}
+}
+.icon-clock{
+	display: inline-block;
+	width:2em;
+	height: 2em;
+	position:relative;
+	border:.2em solid currentColor;
+	border-radius:50%;
+	&:before,&:after{
+		content: '';
+		display: inline-block;
+		position:absolute;
+		width:.6em;
+		height: .2em;
+		background:currentColor;
+		left: 25%;
+		top: 20%;
+	}
+	&:before{
+		width: .8em;
+		transform: rotate(90deg);
+	}
+	&:after{
+		transform: rotate(45deg);
+		top: 54%;
+		left: 43%;
+	}
+}
+.icon-close{
+	display: inline-block;
+	width:2em;
+	height: 2em;
+	position:relative;
+	&:before,&:after{
+		display: inline-block;
+		content:'';
+		position:absolute;
+		width:1em;
+		height: .1em;
+		background:currentColor;
+		left: 25%;
+		top: 45%;
+	}
+	&:before{
+		transform: rotate(45deg);
+	}
+	&:after{
+		transform: rotate(-45deg);
 	}
 }

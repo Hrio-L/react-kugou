@@ -43,6 +43,15 @@ class Index {
 			handleError(ctx,err.message)
 		}
 	}
+	static async getRankList(ctx){
+		try{
+			const {rankid} = ctx.query
+			const res = await request.get(`http://m.kugou.com/rank/info/?rankid=${rankid}&json=true`)
+			handleSuccess(ctx,JSON.parse(res))
+		}catch(err){
+			handleError(ctx,err.message)
+		}
+	}
 	static async getPlist(ctx){
 		try{
 			const res = await request.get('http://m.kugou.com/plist/index&json=true')
@@ -54,6 +63,23 @@ class Index {
 	static async getSingerClasslist(ctx){
 		try{
 			const res = await request.get('http://m.kugou.com/singer/class&json=true')
+			handleSuccess(ctx,JSON.parse(res))
+		}catch(err){
+			handleError(ctx,err.message)
+		}
+	}
+	static async getHotSearch(ctx){
+		try{
+			const res = await request.get('http://mobilecdn.kugou.com/api/v3/search/hot?format=json&plat=0&count=30')
+			handleSuccess(ctx,JSON.parse(res))
+		}catch(err){
+			handleError(ctx,err.message)
+		}
+	}
+	static async search(ctx){
+		try{
+			const {keyword} = ctx.query
+			const res = await request.get(`http://mobilecdn.kugou.com/api/v3/search/song?format=json&keyword=${encodeURIComponent(keyword)}`)
 			handleSuccess(ctx,JSON.parse(res))
 		}catch(err){
 			handleError(ctx,err.message)

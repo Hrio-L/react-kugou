@@ -1,11 +1,12 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import Songslist from '../../components/songslist'
-import AcationSheet from '../../components/action-sheet'
+import ActionSheet from '../../components/action-sheet'
 import Swiper from '../../components/swiper'
+import Icon from '../../components/icon'
 import './index.less'
 
-const mapStateToProps = ({newlist:{songs}}) => ({songs})
+const mapStateToProps = ({newlist:{songs,banners}}) => ({songs,banners})
 const mapDispatchToProps = dispatch => ({
 	getListRequest:() => {
 		dispatch({
@@ -16,6 +17,9 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps,mapDispatchToProps)
 class Newlist extends Component{
+	constructor(props){
+		super(props)
+	}
 	componentDidMount = () => {
 		const {getListRequest,songs} = this.props
 
@@ -26,7 +30,7 @@ class Newlist extends Component{
 	getSongs = () => {
 		const {songs} = this.props
 		return songs.map((d,i) => {
-			const info = d.filename.trim().split('-')
+			const info = d.filename.trim().split(' - ')
 			const author =info[0]
 			const name = info[1]
 			const id = d.hash
@@ -37,8 +41,20 @@ class Newlist extends Component{
 			}
 		})
 	}
+	renderBanner = () => {
+		const {banners} = this.props
+		if(banners.length){
+			return (
+				<Swiper defaultSelected={`${banners[0].id}`} dot={true} autoplay={true}>
+					{banners.map((d,i) => (
+						<img onClick={() => {location.href=d.extra.tourl}} key={d.id} src={d.imgurl} alt={d.title}/>
+					))}
+				</Swiper>
+			)
+		}
+	}
 	render(){
-		
+		const {songs} = this.props
 		const actions = [{
 			name:'播放',
 			key:'play'
@@ -57,17 +73,16 @@ class Newlist extends Component{
 		}]
 		return(
 			<div className="newlist">
-				<Swiper defaultSelected="one" dot={true} autoplay={true}>
-					<img key="one" src="http://imge.kugou.com/mobilebanner/20181118/20181118235002945118.jpg" alt=""/>
-					<img key="two" src="http://imge.kugou.com/mobilebanner/20181115/20181115234723303157.jpg" alt=""/>
-					<img key="three" src="http://imge.kugou.com/mobilebanner/20181116/20181116195523184006.jpg" alt=""/>
-				</Swiper>
+				{!songs.length && (
+					<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
+				)}
+				{this.renderBanner()}
 				<Songslist 
 					onClick={info => console.log(info)} 
 					songs={this.getSongs()} 
 					actions={actions}
 					actionClick={row => console.log(row)}
-					actionComponent={AcationSheet} 
+					actionComponent={ActionSheet} 
 				/>
 			</div>
 		)

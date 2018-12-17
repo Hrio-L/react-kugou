@@ -24,11 +24,6 @@ class Plist extends Component{
 	}
 	renderCardItem = () => {
 		const {lists} = this.props
-		if(!lists.length){
-			return (
-				<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
-			)
-		}
 		return lists.map((d,i) => {
 			const {specialname:title,intro:desc,imgurl,specialid:id} = d
 			return (
@@ -46,9 +41,12 @@ class Plist extends Component{
 		})
 	}
 	render(){
-
+		const {lists} = this.props
 		return(
 			<div className="plist">
+				{!lists.length && (
+					<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
+				)}
 				{this.renderCardItem()}
 			</div>
 		)

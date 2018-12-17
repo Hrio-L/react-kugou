@@ -12,11 +12,6 @@ const Songslist = props => {
 	}
 	const renderItem = lists => {
 		const Action = props.actionComponent
-		if(!lists.length){
-			return (
-				<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
-			)
-		}
 		return lists.map((d,i) => (
 			<li onClick={handleClick.bind(null,d)} key={i} className="songs-item">
 				<div className="detail">

@@ -9,6 +9,10 @@ class Scrolltop extends Component{
 		isTop:false,
 		timeout:0
 	}
+	constructor(props){
+		super(props)
+		window.addEventListener('resize',this.handleResize,false)
+	}
 	state = {
 		style:{
 			height:window.innerHeight
@@ -20,9 +24,6 @@ class Scrolltop extends Component{
 				this.refs.scrolltop.scrollTo(0,0)
 			},nextProps.timeout)
 		}
-	}
-	componentDidMount = () => {
-		window.addEventListener('resize',this.handleResize,false)
 	}
 	componentWillUnmount = () => {
 		window.removeEventListener('resize',this.handleResize,false)

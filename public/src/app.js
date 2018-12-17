@@ -8,6 +8,7 @@ import rootSaga from './sagas/index.js'
 import Authorized from './components/authorized'
 import routerConfig from './config/router.config.js'
 import 'normalize.css'
+import './base.less'
 
 
 const sagaMiddleware = createSagaMiddleware(rootSaga)

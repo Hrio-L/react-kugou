@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 import Card from '../../components/card'
 import Icon from '../../components/icon'
 import './index.less'
@@ -12,7 +13,6 @@ const mapDispatchToProps = dispatch => ({
 		})
 	}
 })
-
 @connect(mapStateToProps,mapDispatchToProps)
 class Toplist extends Component{
 	componentDidMount = () => {
@@ -21,37 +21,40 @@ class Toplist extends Component{
 			getListRequest()
 		}
 	}
-
+	toRank = id => {
+		const {history} = this.props
+		history.push('/rank/' + id)
+	}
 	renderCardItem = () => {
 		const {lists} = this.props
-		if(!lists.length){
-			return (
-				<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
-			)
-		}
 		return lists.map((d,i) => {
 			const {rankname:title,imgurl,rankid:id,update_frequency:desc} = d
 			return (
 				<Card 
-					onClick={row => {console.log(d)}}
+					onClick={this.toRank.bind(this,d.rankid)}
 					key={i} 
 					source={{
 						id,
 						title,
 						desc,
-						avatar:imgurl.replace(/{size}/g,640)
+						avatar:imgurl.replace(/{size}/g,640),
 					}}
+					extra={(<Icon style={{color:'silver',padding:5,fontSize:8}} type="arrow-right" />)}
 				 />
 			)
 		})
 	}
 	render(){
+		const {lists} = this.props
 		return(
 			<div className="toplist">
+				{!lists.length && (
+					<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
+				)}
 				{this.renderCardItem()}
 			</div>
 		)
 	}
 }
 
-export default Toplist
+export default withRouter(Toplist)
