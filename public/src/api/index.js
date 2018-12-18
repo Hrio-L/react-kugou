@@ -43,9 +43,33 @@ class Api{
 			console.error(err.message)
 		}
 	}
+	static async getPlistDetail(id){
+		try{
+			const xhr = await axios.get(`/plist-detail?plistid=${id}`)
+			return handle(xhr)
+		}catch(err){
+			console.error(err.message)
+		}
+	}
 	static async getSingerClasslist(){
 		try{
 			const xhr = await axios.get('/singer-classlist')
+			return handle(xhr)
+		}catch(err){
+			console.error(err.message)
+		}
+	}
+	static async getSingerList(id){
+		try{
+			const xhr = await axios.get(`/singer-list?classid=${id}`)
+			return handle(xhr)
+		}catch(err){
+			console.error(err.message)
+		}
+	}
+	static async getSingerSongsList(id){
+		try{
+			const xhr = await axios.get(`/singer-songs?singerid=${id}`)
 			return handle(xhr)
 		}catch(err){
 			console.error(err.message)

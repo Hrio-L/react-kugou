@@ -101,7 +101,7 @@ class SongsView extends Component{
 }
 
 SongsView.propTypes = {
-	lists:PropTypes.array,
+	lists:PropTypes.array.isRequired,
 	title:PropTypes.string,
 	footText:PropTypes.string,
 	banner:PropTypes.string,

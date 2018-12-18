@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 import Icon from '../../components/icon'
 
 import './index.less'
@@ -22,7 +23,8 @@ class Singerlist extends Component{
 		}
 	}
 	handleClick = info => {
-		console.log(info)
+		const {history} = this.props
+		history.push(`/singerclass/${info.classid}`)
 	}
 	renderItem = interval => {
 		const {lists} = this.props
@@ -75,4 +77,4 @@ class Singerlist extends Component{
 	}
 }
 
-export default Singerlist
+export default withRouter(Singerlist)

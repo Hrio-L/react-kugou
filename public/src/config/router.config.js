@@ -7,14 +7,26 @@ import Newlist from '../pages/newlist'
 import Toplist from '../pages/toplist'
 import Plist from '../pages/plist'
 import SingerClasslist from '../pages/singer-classlist'
-
+import Collapse from '../components/collapse'
 
 const Search = Loadable({
 	loader:() => import ('../pages/search'),
 	loading:() => (<ToastLoading />)
 })
-const SongsView = Loadable({
-	loader:() => import ('../pages/rank'),
+const Rank = Loadable({
+	loader:() => import ('../pages/toplist/rank'),
+	loading:() => (<ToastLoading />)
+})
+const PlistDetail = Loadable({
+	loader:() => import ('../pages/plist/detail'),
+	loading:() => (<ToastLoading />)
+})
+const SingerList = Loadable({
+	loader:() => import ('../pages/singer-classlist/singers'),
+	loading:() => (<ToastLoading />)
+})
+const SingerSongsList = Loadable({
+	loader:() => import ('../pages/singer-classlist/songs'),
 	loading:() => (<ToastLoading />)
 })
 const App = Loadable({
@@ -22,7 +34,9 @@ const App = Loadable({
 	loading:() => (<ToastLoading  />)
 })
 
-const Test = () => (<div></div>)
+const Test = () => (<div>
+	
+</div>)
 
 export default [{
 	path:'/',
@@ -55,7 +69,16 @@ export default [{
 	}]
 },{
 	path:'/rank/:id',
-	component:SongsView,
+	component:Rank,
+},{
+	path:'/plist/:id',
+	component:PlistDetail,
+},{
+	path:'/singerclass/:id',
+	component:SingerList,
+},{
+	path:'/singer/:id',
+	component:SingerSongsList,
 },{
 	path:'/test',
 	component:Test

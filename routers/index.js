@@ -9,7 +9,10 @@ router
 	.get('/toplist',controller.getToplist)
 	.get('/rank',controller.getRankList)
 	.get('/plist',controller.getPlist)
+	.get('/plist-detail',controller.getPlistDetail)
 	.get('/singer-classlist',controller.getSingerClasslist)
+	.get('/singer-list',controller.getSingerList)
+	.get('/singer-songs',controller.getSingerSongsList)
 	.get('/hot-search',controller.getHotSearch)
 	.get('/search',controller.search)
 

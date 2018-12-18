@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 import Card from '../../components/card'
 import Icon from '../../components/icon'
 
@@ -22,18 +23,27 @@ class Plist extends Component{
 			getListRequest()
 		}
 	}
+	toDetail = id => {
+		const {history} = this.props
+		history.push(`/plist/${id}`)
+	}
 	renderCardItem = () => {
 		const {lists} = this.props
 		return lists.map((d,i) => {
-			const {specialname:title,intro:desc,imgurl,specialid:id} = d
+			const {specialname:title,playcount,imgurl,specialid:id} = d
 			return (
 				<Card
 					key={i}
-					onClick={() => {console.log(d)}}
+					onClick={this.toDetail.bind(this,d.specialid)}
 					source={{
 						id,
 						title,
-						desc,
+						desc:(
+							<span>
+								<Icon type="headphone" style={{fontSize:5,color:'silver',marginRight:5}} />
+								{playcount}
+							</span>
+						),
 						avatar:imgurl.replace(/{size}/,100)
 					}}
 				/>
@@ -53,4 +63,4 @@ class Plist extends Component{
 	}
 }
 
-export default Plist
+export default withRouter(Plist)

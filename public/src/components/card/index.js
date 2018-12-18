@@ -22,7 +22,9 @@ class Card extends Component{
 					{avatar && <img src={avatar} alt="" className="avatar"/>}
 					<div className="info">
 						<h5 className="title">{title}</h5>
-						<span>{desc}</span>
+						{desc && (
+							<span>{desc}</span>
+						)}
 					</div>
 					{extra}
 				</div>

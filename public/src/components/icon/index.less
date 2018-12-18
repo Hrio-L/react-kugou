@@ -160,7 +160,7 @@
 		border-color:transparent currentColor transparent;
 	}
 }
-.icon-arrow-left,.icon-arrow-right{
+.icon-arrow-left,.icon-arrow-right,.icon-arrow-up,.icon-arrow-down{
 	display: inline-block;
 	width: 2.4em;
 	height: 2.4em;
@@ -193,6 +193,24 @@
 	&:after{
 		transform: rotate(-45deg);
 		top: 1.7em;
+	}
+}
+.icon-arrow-down{
+	&:before{
+		transform: rotate(45deg);
+	}
+	&:after{
+		transform: rotate(-45deg);
+		left: 39%;
+	}
+}
+.icon-arrow-up{
+	&:before{
+		transform: rotate(45deg);
+		left: 39%;
+	}
+	&:after{
+		transform: rotate(-45deg);
 	}
 }
 .icon-clock{
@@ -243,4 +261,27 @@
 	&:after{
 		transform: rotate(-45deg);
 	}
+}
+
+.icon-headphone{
+	display: inline-block;
+	vertical-align: middle;
+	width: 2.5em;
+    height: 2.25em;
+    border-radius: 2.7em ~"/" 2.7em 2.7em 16Px 16Px;
+    margin: .1em .1em .4em;
+    border:.2em solid;
+    border-bottom-color: transparent;
+    position:relative;
+    &:before{
+    	content:'';
+	    position: absolute;
+	    width: .5em;
+	    height: 1em;
+	    left: 6.5%;
+	    bottom: -.3em;
+	    border-radius: .4em;
+	    box-shadow: inset 0 0 0 2.7em, 1.35em 0 0 0;
+	    pointer-events: none;
+    }
 }

@@ -21,7 +21,7 @@ const watch = function* (){
 
 export default function* rootSaga(){
 	yield all([
-		watch(),
+		// watch(),
 		newlistAction(),
 		toplistAction(),
 		plistAction(),

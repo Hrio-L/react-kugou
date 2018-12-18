@@ -20,8 +20,11 @@ const Next = createComponent('next')
 const Prev = createComponent('prev')
 const ArrowLeft = createComponent('arrow-left')
 const ArrowRight = createComponent('arrow-right')
+const ArrowDown = createComponent('arrow-down')
+const ArrowUp = createComponent('arrow-up')
 const Clock = createComponent('clock')
 const Close = createComponent('close')
+const HeadPhone = createComponent('headphone')
 
 class Icon extends Component {
 	static defaultProps = {
@@ -38,9 +41,12 @@ class Icon extends Component {
 			next:(<Next {...props} />),
 			prev:(<Prev {...props} />),
 			'arrow-left':(<ArrowLeft {...props} />),
-			'arrow-right':(<ArrowRight{...props} />),
-			'clock':(<Clock{...props} />),
-			'close':(<Close{...props} />),
+			'arrow-right':(<ArrowRight {...props} />),
+			'arrow-up':(<ArrowUp {...props} />),
+			'arrow-down':(<ArrowDown {...props} />),
+			'clock':(<Clock {...props} />),
+			'close':(<Close {...props} />),
+			'headphone':(<HeadPhone {...props} />),
 		}
 	}
 	render(){

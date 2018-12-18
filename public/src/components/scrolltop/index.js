@@ -20,13 +20,14 @@ class Scrolltop extends Component{
 	}
 	componentWillReceiveProps =  nextProps => {
 		if(nextProps.isTop){
-			setTimeout(() => {
+			this.timer = setTimeout(() => {
 				this.refs.scrolltop.scrollTo(0,0)
 			},nextProps.timeout)
 		}
 	}
 	componentWillUnmount = () => {
 		window.removeEventListener('resize',this.handleResize,false)
+		clearTimeout(this.timer)
 	}
 
 	handleResize = () => {

@@ -1,8 +1,7 @@
 import React,{Component} from 'react'
 import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
-import SongsView from '../../components/songs-view'
-import './index.less'
+import SongsView from '../../../components/songs-view'
 
 const mapStateToProps = ({toplist:{rank:{lists,banner,rankname,time}}}) => ({lists,banner,rankname,time})
 const mapDispatchToProps = dispatch => ({

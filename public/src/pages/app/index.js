@@ -34,7 +34,10 @@ class App extends Component{
 		const {location} = this.props
 		this.selectedChange(location.pathname)
 	}
-
+	componentWillReceiveProps = nextProps => {
+		const {location:{pathname}} = nextProps
+		this.selectedChange(pathname)
+	}
 	selectedChange = path => {
 		const {menus:{selected},menuChange} = this.props
 		if(!selected.includes(path)){
