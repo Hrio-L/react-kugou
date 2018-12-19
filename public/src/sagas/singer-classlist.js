@@ -43,10 +43,11 @@ const getSongsList = function* (){
 			const action = yield take('GET_SINGER_SONGS_LIST_REQUEST')
 			const result = yield call(Api.getSingerSongsList,action.id)
 			if(result){
-				const {info:{singername:singerName,imgurl},songs:{list}} = result
+				const {info:{singername:singerName,imgurl,intro},songs:{list}} = result
 				yield put({
 					type:'INIT_SINGER',
 					list,
+					intro,
 					banner:imgurl.replace(/{size}/g,200),
 					singerName
 				})

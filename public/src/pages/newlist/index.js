@@ -4,6 +4,7 @@ import Songslist from '../../components/songslist'
 import ActionSheet from '../../components/action-sheet'
 import Swiper from '../../components/swiper'
 import Icon from '../../components/icon'
+import Scroll from '../../components/scroll'
 import './index.less'
 
 const mapStateToProps = ({newlist:{songs,banners}}) => ({songs,banners})
@@ -54,7 +55,7 @@ class Newlist extends Component{
 		}
 	}
 	render(){
-		const {songs} = this.props
+		const {songs,isTop} = this.props
 		const actions = [{
 			name:'播放',
 			key:'play'
@@ -73,17 +74,19 @@ class Newlist extends Component{
 		}]
 		return(
 			<div className="newlist">
-				{!songs.length && (
-					<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
-				)}
-				{this.renderBanner()}
-				<Songslist 
-					onClick={info => console.log(info)} 
-					songs={this.getSongs()} 
-					actions={actions}
-					actionClick={row => console.log(row)}
-					actionComponent={ActionSheet} 
-				/>
+				<Scroll isTop={isTop} timeout={300} style={{paddingTop:91,paddingBottom:70}}>
+					{!songs.length && (
+						<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
+					)}
+					{this.renderBanner()}
+					<Songslist 
+						onClick={info => console.log(info)} 
+						songs={this.getSongs()} 
+						actions={actions}
+						actionClick={row => console.log(row)}
+						actionComponent={ActionSheet} 
+					/>
+				</Scroll>
 			</div>
 		)
 	}

@@ -10,7 +10,8 @@ class CacheComponent extends Component{
 	}
 	render(){
 		const {component:C} = this.state
-		return this.props.render ? <C /> : null
+		const {state,render} = this.props
+		return render ? <C {...state} /> : null
 	}
 }
 
@@ -20,7 +21,8 @@ CacheComponent.propTypes = {
 		PropTypes.element,
 		PropTypes.func
 	]),
-	render:PropTypes.bool
+	render:PropTypes.bool,
+	state:PropTypes.object
 }
 
 export default CacheComponent

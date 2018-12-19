@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import Card from '../../components/card'
 import Icon from '../../components/icon'
+import Scroll from '../../components/scroll'
 import './index.less'
 
 const mapStateToProps = ({toplist:{lists}}) => ({lists})
@@ -45,13 +46,15 @@ class Toplist extends Component{
 		})
 	}
 	render(){
-		const {lists} = this.props
+		const {lists,isTop} = this.props
 		return(
 			<div className="toplist">
-				{!lists.length && (
-					<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
-				)}
-				{this.renderCardItem()}
+				<Scroll isTop={isTop} timeout={300} style={{paddingTop:91,paddingBottom:70}}>
+					{!lists.length && (
+						<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
+					)}
+					{this.renderCardItem()}
+				</Scroll>
 			</div>
 		)
 	}

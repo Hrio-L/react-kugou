@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
 import SongsView from '../../../components/songs-view'
 
-const mapStateToProps = ({plist:{detail:{lists,banner,specialname}}}) => ({lists,banner,specialname})
+const mapStateToProps = ({plist:{detail:{lists,banner,specialname,intro}}}) => ({lists,banner,specialname,intro})
 const mapDispatchToProps = dispatch => ({
 	getDetailRequest:id => {
 		dispatch({
@@ -34,13 +34,17 @@ class PlistDetail extends Component{
 		initDetail()
 	}
 	render(){
-		const {lists,specialname,banner} = this.props
+		const {lists,specialname,banner,intro} = this.props
 		return(
 			<div className="plist-detail">
 				<SongsView
 					banner={banner}
 					lists={lists}
 					title={specialname}
+					collapse={{
+						header:specialname,
+						content:intro
+					}}
 				/>
 			</div>
 		)

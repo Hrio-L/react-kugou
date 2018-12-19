@@ -6,6 +6,7 @@ import Icon from '../icon'
 import Songslist from '../songslist'
 import Header from '../header'
 import ActionSheet from '../action-sheet'
+import Collapse from '../collapse'
 import './index.less'
 
 class SongsView extends Component{
@@ -32,7 +33,7 @@ class SongsView extends Component{
 	}
 
 	render(){
-		const {banner,title,footText,className,classPrefixer,lists} = this.props
+		const {banner,title,footText,className,classPrefixer,lists,collapse} = this.props
 		const classes = classNames(`${classPrefixer}-view`,className)
 		const actions = [{
 			name:'播放',
@@ -88,6 +89,11 @@ class SongsView extends Component{
 						 />
 					)}
 				</div>
+				{(lists.length  && collapse) ? (
+					<Collapse header={collapse.header}>
+						{collapse.content}
+					</Collapse>
+				):null}
 				<Songslist 
 					onClick={info => console.log(info)} 
 					songs={this.getSongs()} 
@@ -105,7 +111,19 @@ SongsView.propTypes = {
 	title:PropTypes.string,
 	footText:PropTypes.string,
 	banner:PropTypes.string,
-	className:PropTypes.string
+	className:PropTypes.string,
+	collapse:PropTypes.shape({
+		header:PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.node,
+			PropTypes.element
+		]),
+		content:PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.node,
+			PropTypes.element
+		])
+	})
 }
 
 export default withRouter(SongsView)

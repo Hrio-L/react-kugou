@@ -3,14 +3,22 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import Card from '../../components/card'
 import Icon from '../../components/icon'
+import Scroll from '../../components/scroll'
 
 import './index.less'
 
-const mapStateToProps = ({plist:{lists}}) => ({lists})
+const mapStateToProps = ({plist:{lists,total,page,loading}}) => ({lists,total,page,loading})
 const mapDispatchToProps = dispatch => ({
-	getListRequest:() => {
+	getListRequest:page => {
 		dispatch({
-			type:'GET_PLIST_REQUEST'
+			type:'GET_PLIST_REQUEST' ,
+			page
+		})
+	},
+	showLoading:() => {
+		dispatch({
+			type:'CHANGE_LOADING_STATE',
+			loading:true
 		})
 	}
 })
@@ -18,10 +26,13 @@ const mapDispatchToProps = dispatch => ({
 @connect(mapStateToProps,mapDispatchToProps)
 class Plist extends Component{
 	componentDidMount = () => {
-		const {lists,getListRequest} = this.props
+		const {lists,getListRequest,page} = this.props
 		if(!lists.length){
-			getListRequest()
+			getListRequest(page)
 		}
+	}
+	componentWillUnmount  = () => {
+		this.props.initList()
 	}
 	toDetail = id => {
 		const {history} = this.props
@@ -50,14 +61,23 @@ class Plist extends Component{
 			)
 		})
 	}
+	loadList = () => {
+		const {total,lists,page,getListRequest,showLoading} = this.props
+		if(total >= lists.length){
+			showLoading()
+			getListRequest(page)
+		}
+	}
 	render(){
-		const {lists} = this.props
+		const {lists,total,isTop,loading} = this.props
 		return(
 			<div className="plist">
-				{!lists.length && (
-					<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
-				)}
-				{this.renderCardItem()}
+				<Scroll loading={loading} onBottom={this.loadList} isTop={isTop} timeout={300} style={{paddingTop:91,paddingBottom:70}}>
+					{!lists.length && (
+						<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
+					)}
+					{this.renderCardItem()}
+				</Scroll>
 			</div>
 		)
 	}

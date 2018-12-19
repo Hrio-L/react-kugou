@@ -7,7 +7,6 @@ import Menu from '../../components/menu'
 import Player from '../../components/player'
 import Swiper from '../../components/swiper'
 import CacheComponent from '../../components/cache-component'
-import Scrolltop from '../../components/scrolltop'
 import Header from '../../components/header'
 import './index.less'
 
@@ -62,9 +61,7 @@ class App extends Component{
 		return (
 			routes.map((d,i) => {
 				return (
-					<Scrolltop timeout={300} isTop={isTop !== d.path} style={{paddingTop:91,paddingBottom:70}} key={d.path}>
-						<CacheComponent render={selected.includes(d.path)} component={d.component} />
-					</Scrolltop>
+					<CacheComponent key={d.path} state={{isTop:isTop !== d.path}} render={selected.includes(d.path)} component={d.component} />
 				)
 			})
 		)

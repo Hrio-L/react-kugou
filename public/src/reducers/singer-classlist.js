@@ -20,8 +20,8 @@ const singerClasslist = (state = initialState,action) => {
 		case INIT_SINGER_LIST:
 			return{...state,singerLists:action.list,classname:action.classname}
 		case INIT_SINGER:
-			const {banner,singerName,list} = action
-			return{...state,singer:{banner,singerName,lists:list}}
+			const {banner,singerName,list,intro} = action
+			return{...state,singer:{banner,singerName,lists:list,intro}}
 		default:
 			return state
 	}

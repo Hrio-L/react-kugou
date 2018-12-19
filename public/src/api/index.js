@@ -35,9 +35,9 @@ class Api{
 			console.error(err.message)
 		}
 	}
-	static async getPlist(){
+	static async getPlist(page){
 		try{
-			const xhr = await axios.get('/plist')
+			const xhr = await axios.get(`/plist?page=${page}`)
 			return handle(xhr)
 		}catch(err){
 			console.error(err.message)

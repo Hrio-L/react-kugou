@@ -34,9 +34,11 @@ const App = Loadable({
 	loading:() => (<ToastLoading  />)
 })
 
-const Test = () => (<div>
-	
-</div>)
+const Test = () => (
+	<div>
+		
+	</div>
+)
 
 export default [{
 	path:'/',

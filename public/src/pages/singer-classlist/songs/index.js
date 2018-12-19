@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Icon from '../../../components/icon'
 import SongsView from '../../../components/songs-view'
 
-const mapStateToProps = ({singerClasslist:{singer:{lists,singerName,banner}}}) => ({lists,singerName,banner})
+const mapStateToProps = ({singerClasslist:{singer:{lists,singerName,banner,intro}}}) => ({lists,singerName,banner,intro})
 const mapDispatchToProps = dispatch => ({
 	getSongsRequest:id => {
 		dispatch({
@@ -34,7 +34,7 @@ class Songs extends Component{
 		initSinger()
 	}
 	render(){
-		const {lists,singerName,banner} = this.props
+		const {lists,singerName,banner,intro} = this.props
 		return (
 			<div className="songs">
 				{!lists.length && (
@@ -44,6 +44,10 @@ class Songs extends Component{
 					lists={lists}
 					title={singerName}
 					banner={banner}
+					collapse={{
+						header:singerName,
+						content:intro
+					}}
 				/>
 			</div>
 		)

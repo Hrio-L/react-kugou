@@ -58,7 +58,8 @@ class Index {
 	}
 	static async getPlist(ctx){
 		try{
-			const res = await request.get('http://m.kugou.com/plist/index&json=true',baseRequsetOption)
+			const {page} = ctx.query
+			const res = await request.get(`http://m.kugou.com/plist/index?json=true&page=${page}`,baseRequsetOption)
 			handleSuccess(ctx,JSON.parse(res))
 		}catch(err){
 			handleError(ctx,err.message)
