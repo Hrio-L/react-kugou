@@ -4,21 +4,28 @@ import {NavLink} from 'react-router-dom'
 import Card from '../../../components/card'
 import Icon from '../../../components/icon'
 import Header from '../../../components/header'
+import Scroll from '../../../components/scroll'
 import './index.less'
 
 
-const mapStateToProps = ({singerClasslist:{singerLists,classname}}) => ({singerLists,classname})
+const mapStateToProps = ({singerClasslist:{singerLists,classname,page,loading,total}}) => ({singerLists,classname,page,loading,total})
 const mapDispatchToProps = dispatch => ({
-	getListRequest:id => {
+	getListRequest:(id,page) => {
 		dispatch({
 			type:'GET_SINGER_LIST_REQUEST',
-			id
+			id,
+			page
 		})
 	},
 	initSingerList:() => {
 		dispatch({
-			type:'INIT_SINGER_LIST',
-			list:[]
+			type:'INIT_SINGER_LIST'
+		})
+	},
+	showLoading:() => {
+		dispatch({
+			type:'CHANGE_SINGER_LIST_LOADING',
+			loading:true
 		})
 	}
 })
@@ -26,8 +33,8 @@ const mapDispatchToProps = dispatch => ({
 @connect(mapStateToProps,mapDispatchToProps)
 class Singers extends Component{
 	componentDidMount = () => {
-		const {getListRequest,match:{params:{id}}} = this.props
-		getListRequest(id)
+		const {getListRequest,page,match:{params:{id}}} = this.props
+		getListRequest(id,page)
 	}
 	componentWillUnmount = () => {
 		const {initSingerList} = this.props
@@ -59,33 +66,44 @@ class Singers extends Component{
 		const {history} = this.props
 		history.go(-1)
 	}
+	loadList = () => {
+		const {getListRequest,page,total,singerLists,showLoading,match:{params:{id}}} = this.props
+		if(total > singerLists.length){
+			showLoading()
+			getListRequest(id,page)
+		}
+	}
 	render(){
-		const {singerLists,classname} = this.props
+		const {singerLists,classname,loading} = this.props
 		return(
 			<div className="singer-list">
-				<Header 
-					fixed={true}
-					logo={(
-						<img src="http://m.kugou.com/v3/static/images/index/logo.png" alt="logo"/>
-					)} 
-					extra={(
-						<NavLink to="/search">
-							<Icon style={{fontSize:18}} type="search" />
-						</NavLink>
-						)}
-				/>
-				<Header
-					className="singer-classname"
-					fixed={true}
-					style={{top:50}}
-					logo={(
-						<Icon onClick={this.handleBack} type="arrow-left" />
-					)}
-				>{classname}</Header>
 				{!singerLists.length && (
-					<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
+					<Icon style={{display:'block',margin:'55px auto',fontSize:22,color:'silver'}} type="loading" />
 				)}
-				{this.renderSingerList()}
+				<Scroll loading={loading} onBottom={this.loadList}>
+					<Header 
+						fixed={true}
+						logo={(
+							<img src="http://m.kugou.com/v3/static/images/index/logo.png" alt="logo"/>
+						)} 
+						extra={(
+							<NavLink to="/search">
+								<Icon style={{fontSize:18}} type="search" />
+							</NavLink>
+							)}
+					/>
+					{classname && (
+						<Header
+							className="singer-classname"
+							fixed={true}
+							style={{top:50}}
+							logo={(
+								<Icon onClick={this.handleBack} type="arrow-left" />
+							)}
+						>{classname}</Header>
+					)}
+					{this.renderSingerList()}
+				</Scroll>
 			</div>
 		)
 	}

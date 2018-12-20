@@ -25,7 +25,6 @@ class Player extends Component {
 							<span className={`${classPrefixer}-song-desc`}>Ayo97</span>
 						</div>
 						<div className={`${classPrefixer}-actions`}>
-							<Icon type="prev" />
 							<Icon type="play" />
 							<Icon type="next" />
 						</div>

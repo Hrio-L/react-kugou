@@ -49,8 +49,8 @@ class Index {
 	}
 	static async getRankList(ctx){
 		try{
-			const {rankid} = ctx.query
-			const res = await request.get(`http://m.kugou.com/rank/info/?rankid=${rankid}&json=true`,baseRequsetOption)
+			const {rankid,page} = ctx.query
+			const res = await request.get(`http://m.kugou.com/rank/info/?rankid=${rankid}&json=true&page=${page}`,baseRequsetOption)
 			handleSuccess(ctx,JSON.parse(res))
 		}catch(err){
 			handleError(ctx,err.message)
@@ -67,8 +67,8 @@ class Index {
 	}
 	static async getPlistDetail(ctx){
 		try{
-			const {plistid} = ctx.query
-			const res = await request.get(`http://m.kugou.com/plist/list/${plistid}?json=true`,baseRequsetOption)
+			const {plistid,page} = ctx.query
+			const res = await request.get(`http://m.kugou.com/plist/list/${plistid}?json=true&page=${page}`,baseRequsetOption)
 			handleSuccess(ctx,JSON.parse(res))
 		}catch(err){
 			handleError(ctx,err.message)
@@ -84,8 +84,8 @@ class Index {
 	}
 	static async getSingerList(ctx){
 		try{
-			const {classid} = ctx.query
-			const res = await request.get(`http://m.kugou.com/singer/list/${classid}?json=true`,baseRequsetOption)
+			const {classid,page} = ctx.query
+			const res = await request.get(`http://m.kugou.com/singer/list/${classid}?json=true&page=${page}`,baseRequsetOption)
 			handleSuccess(ctx,JSON.parse(res))
 		}catch(err){
 			handleError(ctx,err.message)
@@ -93,8 +93,8 @@ class Index {
 	}
 	static async getSingerSongsList(ctx){
 		try{
-			const {singerid} = ctx.query
-			const res = await request.get(`http://m.kugou.com/singer/info/${singerid}?json=true`,baseRequsetOption)
+			const {singerid,page} = ctx.query
+			const res = await request.get(`http://m.kugou.com/singer/info/${singerid}?json=true&page=${page}`,baseRequsetOption)
 			handleSuccess(ctx,JSON.parse(res))
 		}catch(err){
 			handleError(ctx,err.message)

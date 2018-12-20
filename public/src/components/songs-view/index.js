@@ -68,16 +68,18 @@ class SongsView extends Component{
 						)}
 				/>
 				<div className={`${classPrefixer}-banner`}>
-					<Header
-						logo={(
-							<Icon onClick={this.handleBack} style={{fontSize:8}} type="arrow-left" />
-						)}
-						fixed={true}
-						style={{top:50}}
-					 	className="banner-head"
-					 >
-						<span>{title}</span>
-					</Header>
+					{title && (
+						<Header
+							logo={(
+								<Icon onClick={this.handleBack} style={{fontSize:8}} type="arrow-left" />
+							)}
+							fixed={true}
+							style={{top:50}}
+						 	className="banner-head"
+						 >
+							<span>{title}</span>
+						</Header>
+					)}
 					{banner && ( <img src={banner} alt="banner"/>)}
 					{footText && (
 						<Header

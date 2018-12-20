@@ -27,9 +27,9 @@ class Api{
 			console.error(err.message)
 		}
 	}
-	static async getRankList(id){
+	static async getRankList(id,page){
 		try{
-			const xhr = await axios.get(`/rank?rankid=${id}`)
+			const xhr = await axios.get(`/rank?rankid=${id}&page=${page}`)
 			return handle(xhr)
 		}catch(err){
 			console.error(err.message)
@@ -43,9 +43,9 @@ class Api{
 			console.error(err.message)
 		}
 	}
-	static async getPlistDetail(id){
+	static async getPlistDetail(id,page){
 		try{
-			const xhr = await axios.get(`/plist-detail?plistid=${id}`)
+			const xhr = await axios.get(`/plist-detail?plistid=${id}&page=${page}`)
 			return handle(xhr)
 		}catch(err){
 			console.error(err.message)
@@ -59,17 +59,17 @@ class Api{
 			console.error(err.message)
 		}
 	}
-	static async getSingerList(id){
+	static async getSingerList(id,page){
 		try{
-			const xhr = await axios.get(`/singer-list?classid=${id}`)
+			const xhr = await axios.get(`/singer-list?classid=${id}&page=${page}`)
 			return handle(xhr)
 		}catch(err){
 			console.error(err.message)
 		}
 	}
-	static async getSingerSongsList(id){
+	static async getSingerSongsList(id,page){
 		try{
-			const xhr = await axios.get(`/singer-songs?singerid=${id}`)
+			const xhr = await axios.get(`/singer-songs?singerid=${id}&page=${page}`)
 			return handle(xhr)
 		}catch(err){
 			console.error(err.message)

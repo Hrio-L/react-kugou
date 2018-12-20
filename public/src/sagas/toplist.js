@@ -20,20 +20,27 @@ const getTopList = function* (){
 }
 const getRankList = function* (){
 	while(true){
+		const action = yield take('GET_RANK_LIST_REQUEST')
 		try{
-			const action = yield take('GET_RANK_LIST_REQUEST')
-			const result = yield call(Api.getRankList,action.id)
+			const result = yield call(Api.getRankList,action.id,action.page)
 			if(result){
-				const {songs:{list},info:{imgurl,rankname,update_frequency:time}} = result
+				const {songs:{list,total},info:{imgurl,rankname,update_frequency:time}} = result
 				yield put({
-					type:'INIT_RANK',
+					type:'UPDATE_RANK_LIST',
 					rankname,
+					total,
 					time,
-					list,
-					banner:imgurl.replace(/{size}/g,400)
+					page:action.page + 1,
+					lists:list,
+					banner:imgurl.replace(/{size}/g,640)
 				})
 			}
 		}catch(err){
+			yield put({
+				type:'UPDATE_RANK_LIST',
+				page:action.page,
+				lists:[]
+			})
 			console.error(err)
 		}
 	}

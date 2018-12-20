@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
 	},
 	showLoading:() => {
 		dispatch({
-			type:'CHANGE_LOADING_STATE',
+			type:'CHANGE_PLIST_LOADING_STATE',
 			loading:true
 		})
 	}
@@ -32,7 +32,6 @@ class Plist extends Component{
 		}
 	}
 	componentWillUnmount  = () => {
-		this.props.initList()
 	}
 	toDetail = id => {
 		const {history} = this.props
@@ -63,7 +62,7 @@ class Plist extends Component{
 	}
 	loadList = () => {
 		const {total,lists,page,getListRequest,showLoading} = this.props
-		if(total >= lists.length){
+		if(total > lists.length){
 			showLoading()
 			getListRequest(page)
 		}

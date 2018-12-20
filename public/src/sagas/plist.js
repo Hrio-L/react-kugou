@@ -8,26 +8,17 @@ const getList = function* (){
 			const result = yield call(Api.getPlist,action.page)
 			if(result){
 				const {plist:{list:{info,total},pagesize}} = result
-				if(action.page === 1){
-					yield put({
-						type:'INIT_PLIST_LIST',
-						data:info,
-						total,
-						page:action.page + 1
-					})
-				}else{
-					yield put({
-						type:'UPDATE_PLIST_LIST',
-						data:info,
-						page:action.page + 1,
-						total
-					})
-				}
+				yield put({
+					type:'UPDATE_PLIST_LIST',
+					lists:info,
+					page:action.page + 1,
+					total
+				})
 			}
 		}catch(err){
 			yield put({
 				type:'UPDATE_PLIST_LIST',
-				data:[],
+				lists:[],
 				page:action.page
 			})
 			console.error(err.message)
@@ -37,21 +28,27 @@ const getList = function* (){
 
 const getDetail = function* (){
 	while(true){
+		const action = yield take('GET_PLIST_DETAIL_REQUEST')
 		try{
-			const action = yield take('GET_PLIST_DETAIL_REQUEST')
-			const result = yield call(Api.getPlistDetail,action.id)
+			const result = yield call(Api.getPlistDetail,action.id,action.page)
 			if(result){
-				const {list:{list:{info}},info:{list:{specialname,imgurl,intro}}} = result
-				
+				const {list:{list:{total,info}},info:{list:{specialname,imgurl,intro}}} = result
 				yield put({
-					type:'INIT_PLIST_DETAIL',
-					list:info,
+					type:'UPDATE_PLIST_DETAIL_LIST',
+					lists:info,
+					total,
 					specialname,
 					intro,
-					banner:imgurl.replace(/{size}/g,400)
+					banner:imgurl.replace(/{size}/g,400),
+					page:action.page + 1
 				})
 			}
 		}catch(err){
+			yield put({
+				type:'UPDATE_PLIST_DETAIL_LIST',
+				lists:[],
+				page:action.page
+			})
 			console.error(err.message)
 		}
 	}

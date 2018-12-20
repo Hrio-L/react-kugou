@@ -21,38 +21,52 @@ const getClassList = function* (){
 
 const getSingerList = function* (){
 	while(true){
+		const action = yield take('GET_SINGER_LIST_REQUEST')
 		try{
-			const action = yield take('GET_SINGER_LIST_REQUEST')
-			const result = yield call(Api.getSingerList,action.id)
+			const result = yield call(Api.getSingerList,action.id,action.page)
 			if(result){
-				const {classname,singers:{list:{info}}} = result
+				const {classname,singers:{list:{info,total}}} = result
 				yield put({
-					type:'INIT_SINGER_LIST',
-					list:info,
-					classname
+					type:'UPDATE_SINGER_LIST',
+					lists:info,
+					classname,
+					page:action.page + 1,
+					total
 				})
 			}
 		}catch(err){
+			yield put({
+				type:'UPDATE_SINGER_LIST',
+				lists:[],
+				page:action.page
+			})
 			console.error(err.message)
 		}
 	}
 }
 const getSongsList = function* (){
 	while(true){
+		const action = yield take('GET_SINGER_SONGS_LIST_REQUEST')
 		try{
-			const action = yield take('GET_SINGER_SONGS_LIST_REQUEST')
-			const result = yield call(Api.getSingerSongsList,action.id)
+			const result = yield call(Api.getSingerSongsList,action.id,action.page)
 			if(result){
-				const {info:{singername:singerName,imgurl,intro},songs:{list}} = result
+				const {info:{singername:singerName,imgurl,intro},songs:{list,total}} = result
 				yield put({
-					type:'INIT_SINGER',
-					list,
+					type:'UPDATE_SINGER_SONGS',
+					lists:list,
+					total,
 					intro,
 					banner:imgurl.replace(/{size}/g,200),
-					singerName
+					singerName,
+					page:action.page + 1
 				})
 			}
 		}catch(err){
+			yield put({
+				type:'UPDATE_SINGER_SONGS',
+				lists:[],
+				page:action.page
+			})
 			console.error(err.message)
 		}
 	}

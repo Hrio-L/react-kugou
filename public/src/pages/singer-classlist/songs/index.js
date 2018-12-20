@@ -2,21 +2,26 @@ import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import Icon from '../../../components/icon'
 import SongsView from '../../../components/songs-view'
+import Scroll from '../../../components/scroll'
 
-const mapStateToProps = ({singerClasslist:{singer:{lists,singerName,banner,intro}}}) => ({lists,singerName,banner,intro})
+const mapStateToProps = ({singerClasslist:{singer:{songs,singerName,banner,intro,page,loading,total}}}) => ({songs,singerName,banner,intro,page,loading,total})
 const mapDispatchToProps = dispatch => ({
-	getSongsRequest:id => {
+	getSongsRequest:(id,page) => {
 		dispatch({
 			type:'GET_SINGER_SONGS_LIST_REQUEST',
-			id
+			id,
+			page
 		})
 	},
 	initSinger:() => {
 		dispatch({
-			type:'INIT_SINGER',
-			list:[],
-			singerName:'',
-			banner:''
+			type:'INIT_SINGER'
+		})
+	},
+	showLoading:() => {
+		dispatch({
+			type:'CHANGE_SINGER_LOADING',
+			loading:true
 		})
 	}
 })
@@ -24,31 +29,37 @@ const mapDispatchToProps = dispatch => ({
 @connect(mapStateToProps,mapDispatchToProps)
 class Songs extends Component{
 	componentDidMount = () => {
-		const {match:{params:{id}},getSongsRequest} = this.props
+		const {match:{params:{id}},getSongsRequest,page} = this.props
 		if(id){
-			getSongsRequest(id)
+			getSongsRequest(id,page)
 		}
 	}
 	componentWillUnmount = () => {
 		const {initSinger} = this.props
 		initSinger()
 	}
+	loadList = () => {
+		const {match:{params:{id}},getSongsRequest,page,total,songs,showLoading} = this.props
+		if(total > songs.length){
+			showLoading()
+			getSongsRequest(id,page)
+		}
+	}
 	render(){
-		const {lists,singerName,banner,intro} = this.props
+		const {songs,singerName,banner,intro,loading} = this.props
 		return (
 			<div className="songs">
-				{!lists.length && (
-					<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
-				)}
-				<SongsView
-					lists={lists}
-					title={singerName}
-					banner={banner}
-					collapse={{
-						header:singerName,
-						content:intro
-					}}
-				/>
+				<Scroll loading={loading} onBottom={this.loadList}>
+					<SongsView
+						lists={songs}
+						title={singerName}
+						banner={banner}
+						collapse={{
+							header:singerName,
+							content:intro
+						}}
+					/>
+				</Scroll>
 			</div>
 		)
 	}

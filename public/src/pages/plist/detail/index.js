@@ -2,21 +2,26 @@ import React,{Component} from 'react'
 import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
 import SongsView from '../../../components/songs-view'
+import Scroll from '../../../components/scroll'
 
-const mapStateToProps = ({plist:{detail:{lists,banner,specialname,intro}}}) => ({lists,banner,specialname,intro})
+const mapStateToProps = ({plist:{detail:{lists,banner,specialname,intro,loading,total,page}}}) => ({lists,banner,specialname,intro,loading,total,page})
 const mapDispatchToProps = dispatch => ({
-	getDetailRequest:id => {
+	getDetailRequest:(id,page) => {
 		dispatch({
 			type:'GET_PLIST_DETAIL_REQUEST',
-			id
+			id,
+			page
 		})
 	},
 	initDetail:() => {
 		dispatch({
-			type:'INIT_PLIST_DETAIL',
-			list:[],
-			specialname:'',
-			banner:''
+			type:'INIT_PLIST_DETAIL'
+		})
+	},
+	showLoading:() => {
+		dispatch({
+			type:'CHANGE_PLIST_DETAIL_LOADING_STATE',
+			loading:true
 		})
 	}
 })
@@ -24,28 +29,37 @@ const mapDispatchToProps = dispatch => ({
 @connect(mapStateToProps,mapDispatchToProps)
 class PlistDetail extends Component{
 	componentDidMount = () => {
-		const {getDetailRequest,match:{params:{id}}} = this.props
+		const {getDetailRequest,page,match:{params:{id}}} = this.props
 		if(id){
-			getDetailRequest(id)
+			getDetailRequest(id,page)
 		}
 	}
 	componentWillUnmount = () => {
 		const {initDetail} = this.props
 		initDetail()
 	}
+	loadList = () => {
+		const {page,total,lists,showLoading,getDetailRequest,match:{params:{id}}} = this.props
+		if(total > lists.length){
+			showLoading()
+			getDetailRequest(id,page)
+		}
+	}
 	render(){
-		const {lists,specialname,banner,intro} = this.props
+		const {lists,specialname,banner,intro,loading} = this.props
 		return(
 			<div className="plist-detail">
-				<SongsView
-					banner={banner}
-					lists={lists}
-					title={specialname}
-					collapse={{
-						header:specialname,
-						content:intro
-					}}
-				/>
+				<Scroll loading={loading} onBottom={this.loadList}>
+					<SongsView
+						banner={banner}
+						lists={lists}
+						title={specialname}
+						collapse={{
+							header:specialname,
+							content:intro
+						}}
+					/>
+				</Scroll>
 			</div>
 		)
 	}
