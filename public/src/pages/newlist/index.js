@@ -5,6 +5,7 @@ import ActionSheet from '../../components/action-sheet'
 import Swiper from '../../components/swiper'
 import Icon from '../../components/icon'
 import Scroll from '../../components/scroll'
+import BaseHandler from '../../common/basehandler'
 import './index.less'
 
 const mapStateToProps = ({newlist:{songs,banners}}) => ({songs,banners})
@@ -17,6 +18,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 @connect(mapStateToProps,mapDispatchToProps)
+@BaseHandler
 class Newlist extends Component{
 	constructor(props){
 		super(props)
@@ -55,7 +57,7 @@ class Newlist extends Component{
 		}
 	}
 	render(){
-		const {songs,isTop} = this.props
+		const {songs,isTop,onSongClick} = this.props
 		const actions = [{
 			name:'播放',
 			key:'play'
@@ -80,7 +82,7 @@ class Newlist extends Component{
 					)}
 					{this.renderBanner()}
 					<Songslist 
-						onClick={info => console.log(info)} 
+						onClick={onSongClick} 
 						songs={this.getSongs()} 
 						actions={actions}
 						actionClick={row => console.log(row)}

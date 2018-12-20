@@ -3,6 +3,7 @@ import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
 import SongsView from '../../../components/songs-view'
 import Scroll from '../../../components/scroll'
+import BaseHander from '../../../common/basehandler'
 
 const mapStateToProps = ({plist:{detail:{lists,banner,specialname,intro,loading,total,page}}}) => ({lists,banner,specialname,intro,loading,total,page})
 const mapDispatchToProps = dispatch => ({
@@ -27,6 +28,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 @connect(mapStateToProps,mapDispatchToProps)
+@BaseHander
 class PlistDetail extends Component{
 	componentDidMount = () => {
 		const {getDetailRequest,page,match:{params:{id}}} = this.props
@@ -46,11 +48,12 @@ class PlistDetail extends Component{
 		}
 	}
 	render(){
-		const {lists,specialname,banner,intro,loading} = this.props
+		const {lists,specialname,banner,intro,loading,onSongClick} = this.props
 		return(
 			<div className="plist-detail">
 				<Scroll loading={loading} onBottom={this.loadList}>
 					<SongsView
+						onSongClick={onSongClick}
 						banner={banner}
 						lists={lists}
 						title={specialname}

@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Silder from '../silder'
+import Audio from '../audio'
 import Icon from '../icon'
 import './index.less'
 
@@ -10,19 +11,20 @@ class Player extends Component {
 		classPrefixer:'player'
 	}
 	render (){
-		const {classPrefixer,className} = this.props
+		const {classPrefixer,className,music,name,lyrics,img,timeLen,author} = this.props
 		const classes = classNames(classPrefixer,className)
-		return (
-			<div className={classes}>
+		return music ? (
+			<div className={classes}>	
+				<Audio src={music} />
 				<div className={`${classPrefixer}-avatar`}>
-					<img src="http://imge.kugou.com/soft/collection/100/20181207/20181207094420396775.jpg" alt=""/>
+					<img src={img} alt=""/>
 				</div>
 				<div className={`${classPrefixer}-main`}>
 					<Silder />
 					<div className={`${classPrefixer}-info`}>
 						<div className={`${classPrefixer}-song`}>
-							<h5 className={`${classPrefixer}-song-name`}>Let You Go</h5>
-							<span className={`${classPrefixer}-song-desc`}>Ayo97</span>
+							<h5 className={`${classPrefixer}-song-name`}>{name}</h5>
+							<span className={`${classPrefixer}-song-desc`}>{author}</span>
 						</div>
 						<div className={`${classPrefixer}-actions`}>
 							<Icon type="play" />
@@ -31,7 +33,7 @@ class Player extends Component {
 					</div>
 				</div>
 			</div>
-		)
+		):null
 	}
 }
 export default Player

@@ -117,6 +117,16 @@ class Index {
 			handleError(ctx,err.message)
 		}
 	}
+	static async getSongDetail(ctx){
+		try{
+			const {hash} = ctx.query
+			const res = await request.get(`http://www.kugou.com/yy/index.php?r=play/getdata&hash=${hash}`,baseRequsetOption)
+			handleSuccess(ctx,JSON.parse(res))
+		}catch(err){
+			handleError(ctx,err.message)
+		}
+	}
+
 }
 
 

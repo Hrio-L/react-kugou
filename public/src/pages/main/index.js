@@ -8,7 +8,6 @@ import Player from '../../components/player'
 import Swiper from '../../components/swiper'
 import CacheComponent from '../../components/cache-component'
 import Header from '../../components/header'
-import './index.less'
 
 
 const mapStateToProps = ({menus}) => ({menus})
@@ -79,7 +78,7 @@ class App extends Component{
 	render(){
 		const {location} = this.props
 		return(
-			<div className="app">
+			<div className="main">
 				<Header 
 					fixed={true}
 					logo={(
@@ -97,7 +96,6 @@ class App extends Component{
 				<Swiper  timeout={300} onChange={this.onChange} defaultSelected={location.pathname}>
 					{this.renderContent()}
 				</Swiper>
-				<Player />
 			</div>
 		)
 	}

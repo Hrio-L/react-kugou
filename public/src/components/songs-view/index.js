@@ -33,7 +33,7 @@ class SongsView extends Component{
 	}
 
 	render(){
-		const {banner,title,footText,className,classPrefixer,lists,collapse} = this.props
+		const {banner,title,footText,className,classPrefixer,lists,collapse,onSongClick} = this.props
 		const classes = classNames(`${classPrefixer}-view`,className)
 		const actions = [{
 			name:'播放',
@@ -97,7 +97,7 @@ class SongsView extends Component{
 					</Collapse>
 				):null}
 				<Songslist 
-					onClick={info => console.log(info)} 
+					onClick={onSongClick} 
 					songs={this.getSongs()} 
 					actions={actions}
 					actionClick={row => console.log(row)}
@@ -109,6 +109,7 @@ class SongsView extends Component{
 }
 
 SongsView.propTypes = {
+	onSongClick:PropTypes.func,
 	lists:PropTypes.array.isRequired,
 	title:PropTypes.string,
 	footText:PropTypes.string,

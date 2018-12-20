@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import Icon from '../../../components/icon'
 import SongsView from '../../../components/songs-view'
 import Scroll from '../../../components/scroll'
+import BaseHandler from '../../../common/basehandler'
 
 const mapStateToProps = ({singerClasslist:{singer:{songs,singerName,banner,intro,page,loading,total}}}) => ({songs,singerName,banner,intro,page,loading,total})
 const mapDispatchToProps = dispatch => ({
@@ -27,6 +28,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 @connect(mapStateToProps,mapDispatchToProps)
+@BaseHandler
 class Songs extends Component{
 	componentDidMount = () => {
 		const {match:{params:{id}},getSongsRequest,page} = this.props
@@ -46,11 +48,12 @@ class Songs extends Component{
 		}
 	}
 	render(){
-		const {songs,singerName,banner,intro,loading} = this.props
+		const {songs,singerName,banner,intro,loading,onSongClick} = this.props
 		return (
 			<div className="songs">
 				<Scroll loading={loading} onBottom={this.loadList}>
 					<SongsView
+						onSongClick={onSongClick}
 						lists={songs}
 						title={singerName}
 						banner={banner}

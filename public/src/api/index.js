@@ -91,6 +91,14 @@ class Api{
 			console.error(err.message)
 		}
 	}
+	static async getSongDetail(hash){
+		try{
+			const xhr = await axios.get(`/song?hash=${hash}`)
+			return handle(xhr)
+		}catch(err){
+			console.error(err.message)
+		}
+	}
 }
 
 export default Api

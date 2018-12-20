@@ -3,6 +3,7 @@ import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
 import SongsView from '../../../components/songs-view'
 import Scroll from '../../../components/scroll'
+import BaseHandler from '../../../common/basehandler'
 
 const mapStateToProps = ({toplist:{rank:{loading,page,lists,banner,rankname,time,total}}}) => ({loading,page,lists,banner,rankname,time,total})
 const mapDispatchToProps = dispatch => ({
@@ -27,6 +28,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 @connect(mapStateToProps,mapDispatchToProps)
+@BaseHandler
 class Rank extends Component{
 	componentDidMount = () => {
 		const {page,lists,getListRequest,match:{params:{id}}} = this.props
@@ -46,11 +48,12 @@ class Rank extends Component{
 		}
 	}
 	render(){
-		const {lists,rankname,time,banner,loading} = this.props
+		const {lists,rankname,time,banner,loading,onSongClick} = this.props
 		return(
 			<div className="rank">
 				<Scroll loading={loading} onBottom={this.loadList}>
 					<SongsView
+						onSongClick={onSongClick}
 						banner={banner}
 						lists={lists}
 						title={rankname}

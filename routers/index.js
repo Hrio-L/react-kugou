@@ -15,6 +15,7 @@ router
 	.get('/singer-songs',controller.getSingerSongsList)
 	.get('/hot-search',controller.getHotSearch)
 	.get('/search',controller.search)
+	.get('/song',controller.getSongDetail)
 
 
 module.exports = router

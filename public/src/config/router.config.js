@@ -29,8 +29,8 @@ const SingerSongsList = Loadable({
 	loader:() => import ('../pages/singer-classlist/songs'),
 	loading:() => (<ToastLoading />)
 })
-const App = Loadable({
-	loader:() => import ('../pages/app'),
+const Main = Loadable({
+	loader:() => import ('../pages/main'),
 	loading:() => (<ToastLoading  />)
 })
 
@@ -46,7 +46,7 @@ export default [{
 	exact:true
 },{
 	path:'/basic/',
-	component:App,
+	component:Main,
 	strict:true,
 	routes:[{
 		path:'/basic/newlist',

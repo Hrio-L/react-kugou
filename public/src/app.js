@@ -18,7 +18,9 @@ sagaMiddleware.run(rootSaga)
 
 render(
 	<Provider store={store}>
-		<Authorized routes={routerConfig} />
+		<div className="app">
+			<Authorized routes={routerConfig} />
+		</div>
 	</Provider>,
 	document.querySelector('.root')
 )
