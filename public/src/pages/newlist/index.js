@@ -50,7 +50,7 @@ class Newlist extends Component{
 			return (
 				<Swiper defaultSelected={`${banners[0].id}`} dot={true} autoplay={true}>
 					{banners.map((d,i) => (
-						<img onClick={() => {location.href=d.extra.tourl}} key={d.id} src={d.imgurl} alt={d.title}/>
+						<img onClick={() => {window.open(d.extra.tourl)}} key={d.id} src={d.imgurl} alt={d.title}/>
 					))}
 				</Swiper>
 			)
@@ -70,9 +70,6 @@ class Newlist extends Component{
 		},{
 			name:'下载',
 			key:'download'
-		},{
-			name:'删除',
-			key:'delete'
 		}]
 		return(
 			<div className="newlist">

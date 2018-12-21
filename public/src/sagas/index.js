@@ -31,7 +31,8 @@ const getSongDetail = function* (){
 					img,
 					lyrics,
 					author,
-					music
+					music,
+					id:action.hash
 				})
 			}
 		}catch(err){

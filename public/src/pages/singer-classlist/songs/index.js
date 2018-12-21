@@ -51,7 +51,7 @@ class Songs extends Component{
 		const {songs,singerName,banner,intro,loading,onSongClick} = this.props
 		return (
 			<div className="songs">
-				<Scroll loading={loading} onBottom={this.loadList}>
+				<Scroll style={{paddingBottom:70}} loading={loading} onBottom={this.loadList}>
 					<SongsView
 						onSongClick={onSongClick}
 						lists={songs}

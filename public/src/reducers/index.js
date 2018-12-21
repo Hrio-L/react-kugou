@@ -11,13 +11,15 @@ const UPDATE_SONG_DETAIL = 'UPDATE_SONG_DETAIL'
 const initialState = {
 	title:'Music',
 	playing:{
+		id:'',
 		author:'',
 		music:'',
 		name:'Hello Kugou',
 		timelength:0,
 		img:'',
 		lists:[],
-		lyrics:''
+		lyrics:'',
+		error:false
 	}
 }
 

@@ -80,7 +80,7 @@ class Singers extends Component{
 				{!singerLists.length && (
 					<Icon style={{display:'block',margin:'55px auto',fontSize:22,color:'silver'}} type="loading" />
 				)}
-				<Scroll loading={loading} onBottom={this.loadList}>
+				<Scroll style={{paddingBottom:70}} loading={loading} onBottom={this.loadList}>
 					<Header 
 						fixed={true}
 						logo={(

@@ -29,6 +29,14 @@ class Silder extends Component{
 		window.addEventListener('resize',this.initSilder,false)
 		document.addEventListener('keydown',this.handleKeyDown,false)
 	}
+	componentWillReceiveProps = nextProps => {
+		const {used} = nextProps
+		if(used !== this.state.used){
+			this.setState({
+				used
+			})
+		}
+	}
 	componentDidMount = () => {
 		this.initSilder()
 	}
@@ -80,7 +88,9 @@ class Silder extends Component{
 		this.setUsed(used)
 	}
 	handleTouchStart = ev => {
+		const {onClick} = this.props
 		this.handleTouch(ev,ev.target)
+		onClick && onClick()
 	}
 	handleTouchMove = ev => {
 		this.handleTouch(ev,ev.target)
@@ -90,6 +100,8 @@ class Silder extends Component{
 		this.handleChange(used)
 	}
 	dotTouchStart = ev => {
+		const {onClick} = this.props
+		onClick && onClick()
 		ev.stopPropagation()
 	}
 	dotTouchMove = ev => {
@@ -151,7 +163,8 @@ Silder.propTypes = {
 	onChange:PropTypes.func,
 	className:PropTypes.string,
 	dotWidth:PropTypes.number,
-	style:PropTypes.object
+	style:PropTypes.object,
+	onClick:PropTypes.func
 }
 
 export default Silder

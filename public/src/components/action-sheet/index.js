@@ -7,12 +7,12 @@ import './index.less'
 
 
 export const AactinContent = props => {
-	const {onCancel,classPrefixer,actions,info,onClick} = props
+	const {onCancel,classPrefixer,actions,info} = props
 
 	const renderItem = lists => {
 		return lists.map((d,i) => {
 			const events = {
-				onClick:onClick.bind(null,d)
+				onClick:d.onClick
 			}
 			if(typeof d === 'object'){
 				if(d.$$typeof){
@@ -73,23 +73,11 @@ class ActionSheet extends Component {
 				onCancel:Mask.close,
 				classPrefixer,
 				actions,
-				info,
-				onClick:this.handleClick
+				info
 			}
 		})
 	}
 
-	handleClick = (row,ev) => {
-		const {onClick} = this.props
-		ev.stopPropagation()
-		if(onClick){
-			onClick(row)
-		}
-	}
-	handleCancel = ev => {
-		ev.stopPropagation()
-		this.startScroll()
-	}
 
 	render(){
 		const {children,classPrefixer,className} = this.props

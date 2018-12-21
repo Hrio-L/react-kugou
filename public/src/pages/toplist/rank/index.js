@@ -51,7 +51,7 @@ class Rank extends Component{
 		const {lists,rankname,time,banner,loading,onSongClick} = this.props
 		return(
 			<div className="rank">
-				<Scroll loading={loading} onBottom={this.loadList}>
+				<Scroll style={{paddingBottom:70}} loading={loading} onBottom={this.loadList}>
 					<SongsView
 						onSongClick={onSongClick}
 						banner={banner}

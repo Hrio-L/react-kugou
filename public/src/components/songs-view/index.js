@@ -47,9 +47,6 @@ class SongsView extends Component{
 		},{
 			name:'下载',
 			key:'download'
-		},{
-			name:'删除',
-			key:'delete'
 		}]
 		return (
 			<div className={classes}>
@@ -86,7 +83,7 @@ class SongsView extends Component{
 							logo={(
 								<span>更新时间：{footText}</span>
 							)}
-							style={{position:'absolute',bottom:0,top:'none'}}
+							style={{position:'absolute',bottom:0,top:'none',zIndex:0}}
 						 	className="banner-foot"
 						 />
 					)}
@@ -100,7 +97,6 @@ class SongsView extends Component{
 					onClick={onSongClick} 
 					songs={this.getSongs()} 
 					actions={actions}
-					actionClick={row => console.log(row)}
 					actionComponent={ActionSheet} 
 				/>
 			</div>

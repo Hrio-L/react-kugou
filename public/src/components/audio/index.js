@@ -7,30 +7,52 @@ class Audio extends Component{
 		classPrefixer:'audio'
 	}
 	componentDidMount = () => {
-		this.refs.audio.play()
+		const {audio} = this.refs
+		const {getAudioRef} = this.props
+		audio.play()
+		getAudioRef(audio)
 	}
-	onPlay(ev){
-		console.log('play')
+	onPlay = ev => {
+		const {onPlay} = this.props
+		const {audio} = this.props
+		onPlay && onPlay()
 	}
-	onTimeUpdate(ev){
-		console.log('playing')
+	onTimeUpdate = ev => {
+		const {onTimeUpdate} = this.props
+		onTimeUpdate && onTimeUpdate()
 	}
-	onPause(ev){
-		console.log('stop')
+	onProgress = () => {
+		const {onProgress} = this.props
+		onProgress && onProgress()
 	}
-	onError(ev){
-		console.log('error')
+	onWaiting = () => {
+		const {onWaiting} = this.props
+		onWaiting && onWaiting()
 	}
-
+	onPause = ev => {
+		const {onPause} = this.props
+		onPause && onPause()
+	}
+	onError = ev => {
+		const {onError} = this.props
+		onError && onError(ev)
+	}
+	onEnded = ev => {
+		const {onEnded} = this.props
+		onEnded && onEnded()
+	}
 	render(){
 		const {classPrefixer,className,src} = this.props
 		const classes = classNames(classPrefixer,className)
-		const {onPlay,onTimeUpdate,onPause,onError} = this
+		const {onPlay,onTimeUpdate,onPause,onError,onProgress,onEnded,onWaiting} = this
 		const events = {
 			onPlay,
 			onTimeUpdate,
 			onPause,
-			onError
+			onError,
+			onProgress,
+			onEnded,
+			onWaiting
 		}
 		return(
 			<audio {...events} autoPlay ref="audio" src={src} className={classes}></audio>
@@ -39,7 +61,14 @@ class Audio extends Component{
 }
 
 Audio.propTyeps = {
-	src:PropTypes.string.isRequired
+	src:PropTypes.string.isRequired,
+	onPause:PropTypes.func,
+	onPlay:PropTypes.func,
+	onTimeUpdate:PropTypes.func,
+	onError:PropTypes.func,
+	onEnded:PropTypes.func,
+	onProgress:PropTypes.func,
+	getAudioRef:PropTypes.func
 }
 
 export default Audio

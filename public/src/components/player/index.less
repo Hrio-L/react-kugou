@@ -9,7 +9,8 @@
     background: white;
     box-shadow: 0 -1.5px 15px 0 #d4c7fb;
     height: 65px;
-
+    z-index: 100;
+    margin-top: 15px;
     &-avatar {
         width: 60px;
         height: 60px;
@@ -22,6 +23,9 @@
             top: -15px;
             width: 100%;
             height: 100%;
+            &.active{
+                animation: rotate 15s infinite linear;
+            }
         }
     }
 
@@ -30,7 +34,7 @@
     }
 
     &-info {
-        padding-top: 10px;
+        margin-top: 15px;
         display: flex;
         justify-content: space-between;
         height: 100%;
@@ -59,5 +63,11 @@
             color: rgba(24, 144, 255, .5);
             margin: 0 5px;
         }
+    }
+    &-loading{
+        position:absolute;
+        font-size: 14px;
+        top: -30%;
+        color:blue;
     }
 }

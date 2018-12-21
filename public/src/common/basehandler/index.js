@@ -11,11 +11,13 @@ const BaseHandler = Comp => {
 		}
 	})
 
-	@connect(()=>({}),mapDispatchToProps)
+	@connect(({rootState:{playing}})=>({playing}),mapDispatchToProps)
 	class NewComponent extends Component{
 		onSongClick = info => {
-			const {getSongDetail} = this.props
-			getSongDetail(info.id)
+			const {getSongDetail,playing:{id}} = this.props
+			if(id !== info.id){
+				getSongDetail(info.id)
+			}
 		}
 		render(){
 			const {getSongDetail,...rest} = this.props

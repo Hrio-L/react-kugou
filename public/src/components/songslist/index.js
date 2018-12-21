@@ -22,7 +22,7 @@ const Songslist = props => {
 					Action
 						? 
 							<div className="actions">
-								<Action onClick={props.actionClick} info={d} actions={props.actions} >
+								<Action info={d} actions={props.actions} >
 									<Icon type="ellipsis" />
 								</Action>
 							</div>
@@ -55,8 +55,7 @@ Songslist.propTypes = {
 		PropTypes.func,
 		PropTypes.node
 	]),
-	onClick:PropTypes.func,
-	actionClick:PropTypes.func
+	onClick:PropTypes.func
 }
 
 

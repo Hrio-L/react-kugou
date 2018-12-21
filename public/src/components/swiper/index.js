@@ -56,6 +56,8 @@ class Swiper extends Component {
 	}
 	handleUnMount = () => {
 		clearInterval(this.timer)
+		clearTimeout(this.translateTimer)
+		clearTimeout(this.transitionTimer)
 		window.removeEventListener('resize',this.resetWidth,false)
 	}
 	initSwiper = props => {
@@ -101,7 +103,7 @@ class Swiper extends Component {
 
 				if(newIndex <= count){
 					if(newIndex == count){
-						setTimeout(() => {
+						this.translateTimer = setTimeout(() => {
 							newIndex = 1
 							newTranslate = this.getTranslate(newIndex)
 							newSelected = this.getSelected(newIndex)
@@ -281,7 +283,7 @@ class Swiper extends Component {
 							}
 						}else{
 							if(index == 0){
-								setTimeout(() => {
+								this.transitionTimer = Timeout(() => {
 									this.setState({
 										translate:this.getTranslate(children.length),
 										transition:''

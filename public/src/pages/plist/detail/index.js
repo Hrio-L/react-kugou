@@ -51,7 +51,7 @@ class PlistDetail extends Component{
 		const {lists,specialname,banner,intro,loading,onSongClick} = this.props
 		return(
 			<div className="plist-detail">
-				<Scroll loading={loading} onBottom={this.loadList}>
+				<Scroll style={{paddingBottom:70}} loading={loading} onBottom={this.loadList}>
 					<SongsView
 						onSongClick={onSongClick}
 						banner={banner}

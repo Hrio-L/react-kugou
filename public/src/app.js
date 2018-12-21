@@ -7,6 +7,7 @@ import rootReducer from './reducers/index.js'
 import rootSaga from './sagas/index.js'
 import Authorized from './components/authorized'
 import routerConfig from './config/router.config.js'
+import PlayerContainer from './pages/player-container'
 import 'normalize.css'
 import './base.less'
 
@@ -19,6 +20,7 @@ sagaMiddleware.run(rootSaga)
 render(
 	<Provider store={store}>
 		<div className="app">
+			<PlayerContainer />
 			<Authorized routes={routerConfig} />
 		</div>
 	</Provider>,
