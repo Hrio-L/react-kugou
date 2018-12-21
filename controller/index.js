@@ -27,10 +27,6 @@ const baseRequsetOption = {
 }
 
 class Index {
-	static async index (ctx){
-		ctx.type = 'html'
-		ctx.body = '<h1>KUGOU API</h1>'
-	} 
 	static  async getNewlist (ctx){
 		try{
 			const res = await request.get('http://m.kugou.com/?json=true',baseRequsetOption)

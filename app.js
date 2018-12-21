@@ -8,9 +8,13 @@ const routers = require('./routers')
 const app = new Koa()
 const router = new Router()
 
-app.use(koaStatic(path.join(__dirname,'public','build')))
 app.use(bodyParser())
 app.use(routers.routes(),routers.allowedMethods())
+app.use(koaStatic(path.join(__dirname,'public','build')))
+app.use(async ctx => {
+	ctx.status = 404
+	ctx.body = '404'
+})
 
 const port = 8001
 

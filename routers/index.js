@@ -4,7 +4,6 @@ const axios = require('axios')
 const router = new Router()
 
 router
-	.get('/',controller.index)
 	.get('/newlist',controller.getNewlist)
 	.get('/toplist',controller.getToplist)
 	.get('/rank',controller.getRankList)
