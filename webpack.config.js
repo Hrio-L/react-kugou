@@ -4,18 +4,21 @@ const pxtorem = require('postcss-pxtorem')
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const OpenBrowserPlugin = require('open-browser-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+
 const publicPath = '/'
 
-module.exports = options => {
-    const dev = options && options.mode === 'production'
-    const mode = dev ? 'production' : 'development'
+module.exports = (env,options) => {
+    const prod = options && options.mode === 'production'
+    const mode = prod ? 'production' : 'development'
     const port = 8080
     console.log(mode)
     return ({
         mode,
         entry: {
-            app: ['babel-polyfill', path.join(__dirname, 'public', 'src', 'app.js')],
-            vendors: []
+            app: ['babel-polyfill', path.join(__dirname, 'public', 'src', 'app.js')]
         },
         output: {
             path: path.join(__dirname, 'public', 'build'),
@@ -30,12 +33,16 @@ module.exports = options => {
                 }]
             }, {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: [ 'style-loader', 'css-loader']
             }, {
                 test: /\.less$/,
-                use: ['style-loader', 'css-loader', 'less-loader',{
-                    loader:'postcss-loader',
-                    options:{
+                use: [
+                    prod ? MiniCssExtractPlugin.loader : 'style-loader', 
+                    'css-loader', 
+                    'less-loader',
+                    {
+                        loader:'postcss-loader',
+                        options:{
                         ident:'postcss',
                         plugins:[
                             autoprefixer({
@@ -65,6 +72,14 @@ module.exports = options => {
             }
         },
         optimization: {
+            minimizer:[
+                new UglifyJsPlugin({
+                    cache:true,
+                    parallel:true,
+                    sourceMap:true
+                }),
+                new OptimizeCssAssetsPlugin({})
+            ],
             splitChunks: {
                 chunks: 'all'
             },
@@ -78,6 +93,10 @@ module.exports = options => {
             new HtmlWebpackPlugin({
                 template: path.join(__dirname, 'public', 'src', 'template', 'index.html'),
                 title: "Practice"
+            }),
+            new MiniCssExtractPlugin({
+                filename:'[name].css',
+                chunkFilename:'[id].css'
             })
         ]
     })
