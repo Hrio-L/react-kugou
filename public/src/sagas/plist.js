@@ -10,16 +10,20 @@ const getList = function* (){
 				const {plist:{list:{info,total},pagesize}} = result
 				yield put({
 					type:'UPDATE_PLIST_LIST',
-					lists:info,
-					page:action.page + 1,
-					total
+					data:{
+						lists:info,
+						page:action.page + 1,
+						total
+					}
 				})
 			}
 		}catch(err){
 			yield put({
 				type:'UPDATE_PLIST_LIST',
-				lists:[],
-				page:action.page
+				data:{
+					lists:[],
+					page:action.page
+				}
 			})
 			console.error(err.message)
 		}
@@ -35,19 +39,23 @@ const getDetail = function* (){
 				const {list:{list:{total,info}},info:{list:{specialname,imgurl,intro}}} = result
 				yield put({
 					type:'UPDATE_PLIST_DETAIL_LIST',
-					lists:info,
-					total,
-					specialname,
-					intro,
-					banner:imgurl.replace(/{size}/g,400),
-					page:action.page + 1
+					data:{
+						lists:info,
+						total,
+						specialname,
+						intro,
+						banner:imgurl.replace(/{size}/g,400),
+						page:action.page + 1
+					}
 				})
 			}
 		}catch(err){
 			yield put({
 				type:'UPDATE_PLIST_DETAIL_LIST',
-				lists:[],
-				page:action.page
+				data:{
+					lists:[],
+					page:action.page
+				}
 			})
 			console.error(err.message)
 		}

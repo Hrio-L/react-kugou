@@ -5,61 +5,53 @@ import {NavLink} from 'react-router-dom'
 import Icon from '../../components/icon'
 import Player from '../../components/player'
 import Authorized from '../../components/authorized'
+import Input from '../../components/input'
 import './index.less'
 
-const mapStateToProps = ({search:{hotLists}}) => ({hotLists})
-const mapDispatchToProps = dispatch => ({
-	getHotList:() => {
-		dispatch({
-			type:'GET_HOT_SEARCH_LIST'
-		})
-	},
-	searchRequest:keyword => {
-		dispatch({
-			type:'SEARCH_REQUEST',
-			keyword
-		})
-	}
-})
 
-@connect(mapStateToProps,mapDispatchToProps)
 class Search extends Component{
 	state = {
-		keyword:''
+		keyword:'',
+		placeholder:'歌手/歌名/拼音'
 	}
-	componentDidMount = () => {
-		const {hotLists,getHotList} = this.props
-		if(!hotLists.length){
-			getHotList()
+	shouldComponentUpdate = (nextProps,nextState) => {
+		if(nextState.keyword !== this.state.keyword){
+			return false
 		}
-	}
-	valueChange = ev => {
-		this.setState({
-			keyword:ev.target.value
-		})
+		return true
 	}
 	handleBack = () => {
 		const {history} = this.props
-		history.go(-1)
+		history.push('/')
 	}
 	handleSearch = () => {
-		const {searchRequest} = this.props
+		const {history} = this.props
 		const {keyword} = this.state
 		if(keyword){
-			searchRequest(keyword)
+			history.push(`/search/${keyword}`)
 		}
 	}
+	inputChange = value => {
+		this.setState({
+			keyword:value
+		})
+	}
+	placeholderChange = value => {
+		this.setState({
+			placeholder:value
+		})
+	}
 	render(){
-		const {keyword} = this.state
-		const {routes,hotLists} = this.props
+		const {routes} = this.props
+		const {keyword,placeholder} = this.state
 		return (
 			<div className="search">
 				<header className="search-head">
 					<Icon onClick={this.handleBack} type="arrow-left" />
-					<input placeholder="搜索你喜欢的歌曲" className="search-input" onChange={this.valueChange} value={keyword} type="text"/>
+					<Input placeholder={placeholder} className="search-input" value={keyword} circle={true} onChange={this.inputChange} />
 					<span onClick={this.handleSearch} className="search-btn">搜索</span>
 				</header>
-				<Authorized  routes={routes} />
+				<Authorized placeholder={placeholder} placeholderChange={this.placeholderChange} routes={routes} />
 				<Player />
 			</div>
 		)

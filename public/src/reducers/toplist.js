@@ -24,7 +24,7 @@ const toplist = (state = initialState,action) => {
 		case INIT_RANK_LIST:
 			return {...state,rank:{...initialState.rank}}
 		case UPDATE_RANK_LIST:
-			const {lists:rankLists,...rankRest} = action
+			const {lists:rankLists,...rankRest} = action.data
 			return {...state,rank:{loading:false,lists:[...state.rank.lists,...rankLists],...rankRest}}
 		default:
 			return state

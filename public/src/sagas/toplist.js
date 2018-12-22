@@ -27,19 +27,23 @@ const getRankList = function* (){
 				const {songs:{list,total},info:{imgurl,rankname,update_frequency:time}} = result
 				yield put({
 					type:'UPDATE_RANK_LIST',
-					rankname,
-					total,
-					time,
-					page:action.page + 1,
-					lists:list,
-					banner:imgurl.replace(/{size}/g,640)
+					data:{
+						rankname,
+						total,
+						time,
+						page:action.page + 1,
+						lists:list,
+						banner:imgurl.replace(/{size}/g,640)
+					}
 				})
 			}
 		}catch(err){
 			yield put({
 				type:'UPDATE_RANK_LIST',
-				page:action.page,
-				lists:[]
+				data:{
+					page:action.page,
+					lists:[]
+				}
 			})
 			console.error(err)
 		}

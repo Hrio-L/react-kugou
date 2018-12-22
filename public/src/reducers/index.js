@@ -26,7 +26,7 @@ const initialState = {
 const rootState = (state = initialState,action) => {
 	switch(action.type){
 		case UPDATE_SONG_DETAIL:
-			return {...state,playing:{...state.playing,...action}}
+			return {...state,playing:{...state.playing,...action.data}}
 		default :
 			return {...state}
 	}

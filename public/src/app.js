@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import {render} from 'react-dom'
 import {createStore,applyMiddleware} from 'redux'
 import createSagaMiddleware from 'redux-saga'
+import {HashRouter as Router} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import rootReducer from './reducers/index.js'
 import rootSaga from './sagas/index.js'
@@ -19,10 +20,12 @@ sagaMiddleware.run(rootSaga)
 
 render(
 	<Provider store={store}>
-		<div className="app">
-			<PlayerContainer />
-			<Authorized routes={routerConfig} />
-		</div>
+		<Router>
+			<div className="app">
+				<PlayerContainer />
+				<Authorized routes={routerConfig} />
+			</div>
+		</Router>
 	</Provider>,
 	document.querySelector('.root')
 )

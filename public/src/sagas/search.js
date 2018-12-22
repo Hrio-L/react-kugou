@@ -21,18 +21,35 @@ const getHots = function* (){
 
 const search = function* (){
 	while(true){
-		try{
 			const action = yield take('SEARCH_REQUEST')
-			const result = yield call(Api.search,action.keyword)
+		try{
+			const result = yield call(Api.search,action.keyword,action.page)
 			if(result){
-				console.log(result)
+				const {data:{info,total}} = result
+				yield put({
+					type:'UPDATE_SEARCH_RESULT',
+					data:{
+						lists:info,
+						total,
+						page:action.page
+					}
+				})
 				yield put({
 					type:'ADD_HISTORY_ITEM',
-					id:Math.random().toString(36).substr(2),
 					keyword:action.keyword
 				})
 			}
 		}catch(err){
+			yield put({
+				type:'UPDATE_SEARCH_RESULT',
+				data:{
+					page:action.page
+				}
+			})
+			yield put({
+				type:'ADD_HISTORY_ITEM',
+				keyword:action.keyword
+			})
 			console.error(err.message)
 		}
 	}

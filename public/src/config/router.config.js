@@ -3,11 +3,13 @@ import Loadable from 'react-loadable'
 import ToastLoading from '../components/toast/loading'
 import Icon from '../components/icon'
 import SearchHistory from '../pages/search/history'
+import SearchResult from '../pages/search/result'
 import Newlist from '../pages/newlist'
 import Toplist from '../pages/toplist'
 import Plist from '../pages/plist'
 import SingerClasslist from '../pages/singer-classlist'
-import Collapse from '../components/collapse'
+
+import Input from '../components/input'
 
 const Search = Loadable({
 	loader:() => import ('../pages/search'),
@@ -35,8 +37,7 @@ const Main = Loadable({
 })
 
 const Test = () => (
-	<div>
-		
+	<div className="test">
 	</div>
 )
 
@@ -68,6 +69,9 @@ export default [{
 		path:'/search',
 		exact:true,
 		component:SearchHistory
+	},{
+		path:'/search/:keyword',
+		component:SearchResult
 	}]
 },{
 	path:'/rank/:id',

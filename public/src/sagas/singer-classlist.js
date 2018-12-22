@@ -28,17 +28,21 @@ const getSingerList = function* (){
 				const {classname,singers:{list:{info,total}}} = result
 				yield put({
 					type:'UPDATE_SINGER_LIST',
-					lists:info,
-					classname,
-					page:action.page + 1,
-					total
+					data:{
+						lists:info,
+						classname,
+						page:action.page + 1,
+						total
+					}
 				})
 			}
 		}catch(err){
 			yield put({
 				type:'UPDATE_SINGER_LIST',
-				lists:[],
-				page:action.page
+				data:{
+					lists:[],
+					page:action.page
+				}
 			})
 			console.error(err.message)
 		}
@@ -53,19 +57,23 @@ const getSongsList = function* (){
 				const {info:{singername:singerName,imgurl,intro},songs:{list,total}} = result
 				yield put({
 					type:'UPDATE_SINGER_SONGS',
-					lists:list,
-					total,
-					intro,
-					banner:imgurl.replace(/{size}/g,200),
-					singerName,
-					page:action.page + 1
+					data:{
+						lists:list,
+						total,
+						intro,
+						banner:imgurl.replace(/{size}/g,200),
+						singerName,
+						page:action.page + 1
+					}
 				})
 			}
 		}catch(err){
 			yield put({
 				type:'UPDATE_SINGER_SONGS',
-				lists:[],
-				page:action.page
+				data:{
+					lists:[],
+					page:action.page
+				}
 			})
 			console.error(err.message)
 		}

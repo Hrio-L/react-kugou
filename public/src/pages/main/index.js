@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
-import {NavLink,Redirect,Route} from 'react-router-dom'
+import {HashRouter as Router,NavLink,Redirect,Route} from 'react-router-dom'
 import Icon from '../../components/icon'
 import Authorized from '../../components/authorized'
 import Menu from '../../components/menu'
@@ -31,10 +31,6 @@ class App extends Component{
 	componentDidMount = () => {
 		const {location} = this.props
 		this.selectedChange(location.pathname)
-	}
-	componentWillReceiveProps = nextProps => {
-		const {location:{pathname}} = nextProps
-		this.selectedChange(pathname)
 	}
 	selectedChange = path => {
 		const {menus:{selected},menuChange} = this.props
@@ -93,8 +89,8 @@ class App extends Component{
 				<Menu fixed={true}  style={{top:'3.125rem'}}>
 					{this.renderMenu()}
 				</Menu>
-				<Swiper  timeout={300} onChange={this.onChange} defaultSelected={location.pathname}>
-					{this.renderContent()}
+				<Swiper timeout={200} overflowScale={.25} onChange={this.onChange} defaultSelected={location.pathname}>
+						{this.renderContent()}
 				</Swiper>
 			</div>
 		)

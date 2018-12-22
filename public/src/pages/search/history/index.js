@@ -1,14 +1,19 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
-import Tag from '../../components/tag'
-import Icon from '../../components/icon'
+import Tag from '../../../components/tag'
+import Icon from '../../../components/icon'
 
 const mapStateToProps = ({search:{hotLists,historyLists}}) => ({hotLists,historyLists})
 const mapDispatchToProps = dispatch => ({
-	removeHistoryItem:id => {
+	getHotList:() => {
+		dispatch({
+			type:'GET_HOT_SEARCH_LIST'
+		})
+	},
+	removeHistoryItem:keyword => {
 		dispatch({
 			type:'REMOVE_HISTORY_ITEM',
-			id
+			keyword
 		})
 	},
 	emptyHistory: () => {
@@ -20,10 +25,22 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps,mapDispatchToProps)
 class SearchHistory extends Component{
+	componentDidMount = () => {
+		const {hotLists,getHotList} = this.props
+		if(!hotLists.length){
+			getHotList()
+		}
+	}
+	toSearchResult = keyword => {
+		const {history} = this.props
+		if(keyword){
+			history.push(`/search/${keyword}`)
+		}
+	}
 	renderHotList = () => {
 		const {hotLists} = this.props
 		return hotLists.map((d,i) => (
-			<Tag active={d.jumpurl?true:false} key={i}>
+			<Tag onClick={this.toSearchResult.bind(this,d.keyword)} active={d.jumpurl?true:false} key={i}>
 				{d.keyword}
 			</Tag>
 		))
@@ -33,8 +50,8 @@ class SearchHistory extends Component{
 		return historyLists.map((d,i) => (
 			<li key={i} className="search-history-item">
 				<Icon type="clock" />
-				<span>{d.keyword}</span>
-				<Icon onClick={removeHistoryItem.bind(this,d.id)} type="close" />
+				<span>{d}</span>
+				<Icon onClick={removeHistoryItem.bind(this,d)} type="close" />
 			</li>
 		))
 	}

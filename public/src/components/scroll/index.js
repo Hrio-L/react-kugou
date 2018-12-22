@@ -29,6 +29,7 @@ class Scroll extends Component{
 			if(nextProps.isTop){
 				this.timer = setTimeout(() => {
 					scroll.scrollTo(0,0)
+					window.scrollTo(0,0)
 				},timeout)
 			}
 		}

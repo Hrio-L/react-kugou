@@ -26,13 +26,15 @@ const getSongDetail = function* (){
 				const {data:{song_name:name,timelength,img,lyrics,play_url:music,author_name:author}} = result
 				yield put({
 					type:'UPDATE_SONG_DETAIL',
-					name,
-					timelength,
-					img,
-					lyrics,
-					author,
-					music,
-					id:action.hash
+					data:{
+						name,
+						timelength,
+						img,
+						lyrics,
+						author,
+						music,
+						id:action.hash
+					}
 				})
 			}
 		}catch(err){

@@ -73,7 +73,7 @@ class Newlist extends Component{
 		}]
 		return(
 			<div className="newlist">
-				<Scroll isTop={isTop} timeout={300} style={{paddingTop:91,paddingBottom:70}}>
+				<Scroll isTop={isTop} timeout={300} overflowScale={.25} style={{paddingTop:91,paddingBottom:70}}>
 					{!songs.length && (
 						<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
 					)}

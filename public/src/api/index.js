@@ -83,9 +83,9 @@ class Api{
 			console.error(err.message)
 		}
 	}
-	static async search(keyword){
+	static async search(keyword,page){
 		try{
-			const xhr = await axios.get(`/search?keyword=${keyword}`)
+			const xhr = await axios.get(`/search?keyword=${keyword}&page=${page}`)
 			return handle(xhr)
 		}catch(err){
 			console.error(err.message)

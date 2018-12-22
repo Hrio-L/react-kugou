@@ -30,10 +30,10 @@ const plist = (state = initialState,action) => {
 		case INIT_PLIST_DETAIL:
 			return {...state,detail:{...initialState.detail}}
 		case UPDATE_PLIST_DETAIL_LIST:
-			const {lists:detailLists,...detailRest} = action
+			const {lists:detailLists,...detailRest} = action.data
 			return {...state,detail: {lists:[...state.detail.lists,...detailLists],...detailRest,loading:false}}
 		case UPDATE_PLIST_LIST:
-			const {lists:plistLists,...plistRest} = action
+			const {lists:plistLists,...plistRest} = action.data
 			return {...state,lists:[...state.lists,...plistLists],...plistRest,loading:false}
 		default:
 			return state

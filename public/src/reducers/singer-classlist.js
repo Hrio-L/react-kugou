@@ -34,12 +34,12 @@ const singerClasslist = (state = initialState,action) => {
 		case INIT_SINGER_LIST:
 			return {...initialState,singer:state.singer,lists:state.lists}
 		case UPDATE_SINGER_LIST:
-			const {lists:singerLists,...singerListRest} = action
+			const {lists:singerLists,...singerListRest} = action.data
 			return {...state,singerLists:[...state.singerLists,...singerLists],...singerListRest,loading:false}
 		case INIT_SINGER:
 			return {...state,singer:{...initialState.singer}}
 		case UPDATE_SINGER_SONGS:
-			const {lists:songs,...singerRest} = action
+			const {lists:songs,...singerRest} = action.data
 			return{...state,singer:{songs:[...state.singer.songs,...songs],...singerRest,loading:false}}
 		default:
 			return state

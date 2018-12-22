@@ -106,8 +106,8 @@ class Index {
 	}
 	static async search(ctx){
 		try{
-			const {keyword} = ctx.query
-			const res = await request.get(`http://mobilecdn.kugou.com/api/v3/search/song?format=json&keyword=${encodeURIComponent(keyword)}`,baseRequsetOption)
+			const {keyword,page} = ctx.query
+			const res = await request.get(`http://mobilecdn.kugou.com/api/v3/search/song?format=json&page=${page}&keyword=${encodeURIComponent(keyword)}`,baseRequsetOption)
 			handleSuccess(ctx,JSON.parse(res))
 		}catch(err){
 			handleError(ctx,err.message)

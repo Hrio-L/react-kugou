@@ -117,7 +117,7 @@ class Swiper extends Component {
 						},timeout)
 					}else{
 						newSelected = this.getSelected(newIndex)
-							onChange(newSelected)
+						onChange(newSelected)
 					}
 					newTranslate = this.getTranslate(newIndex)
 				}
@@ -233,8 +233,15 @@ class Swiper extends Component {
 			direction:newDirection
 		})
 	}
-	onTouchEnd = ev => {
-		const {timeout,children,autoplay,overflowScale,onChange} = this.props
+	emitChange = (newSelected) => {
+		const {onChange,timeout} = this.props
+		clearTimeout(this.changeTimer)
+		this.changeTimer = setTimeout(() => {
+			onChange(newSelected)
+		},timeout)
+	}
+	onTouchEnd =  ev => {
+		const {timeout,children,autoplay,overflowScale} = this.props
 		const {translate,swiperWidth,move,horizontalDirection,selected,loop,direction} = this.state
 		const translateScale = translate / swiperWidth
 		const moveScale = parseFloat(this.sliceFloat(translateScale))
@@ -259,11 +266,11 @@ class Swiper extends Component {
 						}else{
 							newSelected = this.getSelected(1)
 						}
-						onChange(newSelected)
+						this.emitChange(newSelected)
 					}else{
 						newTranslate = this.getTranslate(-Math.ceil(translateScale))
 						if(moveScale < 0.01){
-							onChange(newSelected)
+							this.emitChange(newSelected)
 						}
 					}
 				break
@@ -291,11 +298,11 @@ class Swiper extends Component {
 								},timeout)
 							}
 						}
-						onChange(newSelected)
+						this.emitChange(newSelected)
 					}else{
 						newTranslate = this.getTranslate(-Math.floor(translateScale))
 						if(moveScale < 0.01){
-							onChange(newSelected)
+							this.emitChange(newSelected)
 						}
 					}
 				break
@@ -322,10 +329,18 @@ class Swiper extends Component {
 		return children[index - 1] && children[index - 1].key
 	}
 	stopScroll = () => {
+		document.querySelectorAll('.scroll').forEach(d => {
+			d.style.overflowY = 'hidden'
+		})
+		document.body.style.overflowY = 'hidden'
 		document.documentElement.style.overflowY = 'hidden'
 	}
 	startScroll = () => {
+		document.body.style.overflowY = 'scroll'
 		document.documentElement.style.overflowY = 'scroll'
+		document.querySelectorAll('.scroll').forEach(d => {
+			d.style.overflowY = 'scroll'
+		})
 	}
 	renderItem = () => {
 		const {children} = this.props
