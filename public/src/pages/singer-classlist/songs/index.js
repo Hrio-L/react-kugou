@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import Icon from '../../../components/icon'
 import SongsView from '../../../components/songs-view'
 import Scroll from '../../../components/scroll'
@@ -27,6 +28,7 @@ const mapDispatchToProps = dispatch => ({
 	}
 })
 
+@immutableRenderDecorator
 @connect(mapStateToProps,mapDispatchToProps)
 @BaseHandler
 class Songs extends Component{

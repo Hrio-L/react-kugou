@@ -1,9 +1,9 @@
-import React,{Component,Children} from 'react'
+import React,{PureComponent,Children} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import './index.less'
 
-class Swiper extends Component {
+class Swiper extends PureComponent {
 	static defaultProps = {
 		classPrefixer:'swiper',
 		loop:false,
@@ -58,6 +58,7 @@ class Swiper extends Component {
 		clearInterval(this.timer)
 		clearTimeout(this.translateTimer)
 		clearTimeout(this.transitionTimer)
+		clearTimeout(this.changeTimer)
 		window.removeEventListener('resize',this.resetWidth,false)
 	}
 	initSwiper = props => {
@@ -188,6 +189,7 @@ class Swiper extends Component {
 			prevTranslate:clientX - newTranslate,
 			touch:true
 		})
+		clearTimeout(this.changeTimer)
 	}
 	onTouchMove = ev => {
 		ev.stopPropagation()

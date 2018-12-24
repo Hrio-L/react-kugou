@@ -7,14 +7,18 @@ const CHANGE_RESULT_LOADING = 'CHANGE_RESULT_LOADING'
 const INIT_RESULT = 'INIT_RESULT'
 
 const getHistoryLists = () => {
-	const list = localStorage.getItem('historyLists') 
+	const list = localStorage.getItem('historySearchLists') 
 	const historyList = list ? JSON.parse(list) : []
 	return historyList
 }
 
-const setAndGetHistoryList = newList => {
-	const newHistoryLists = Array.from(new Set(newList));
-	localStorage.setItem('historyLists',JSON.stringify(newHistoryLists))
+const setAndGetHistoryList = (historyList,item) => {
+	let newHistoryLists = historyList	
+	if(item){
+		const filterHistoryList = historyList.filter(d => d !== item)
+		newHistoryLists = [...filterHistoryList,item]
+	}
+	localStorage.setItem('historySearchLists',JSON.stringify(newHistoryLists))
 	return newHistoryLists
 }
 
@@ -34,8 +38,7 @@ const initialState = {
 const search = (state = initialState,action) => {
 	switch(action.type){
 		case ADD_HISTORY_ITEM:
-			const addHistoryList = [...state.historyLists,action.keyword]
-			return {...state,historyLists:setAndGetHistoryList(addHistoryList)}
+			return {...state,historyLists:setAndGetHistoryList(state.historyLists,action.keyword)}
 		case REMOVE_HISTORY_ITEM:
 			const filterHistoryList = state.historyLists.filter(d => d !== action.keyword)
 			return {...state,historyLists:setAndGetHistoryList(filterHistoryList)}

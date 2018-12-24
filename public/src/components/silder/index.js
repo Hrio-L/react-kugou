@@ -1,9 +1,9 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import './index.less'
 
-class Silder extends Component{
+class Silder extends PureComponent{
 	static defaultProps = {
 		classPrefixer:'silder',
 		used:0,
@@ -23,8 +23,9 @@ class Silder extends Component{
 			used:props.used,
 			startX:0,
 			silderWidth:0,
+			silderHeight:0,
 			minUsed:0,
-			maxUsed:100
+			maxUsed:100,
 		}
 		window.addEventListener('resize',this.initSilder,false)
 		document.addEventListener('keydown',this.handleKeyDown,false)
@@ -46,9 +47,10 @@ class Silder extends Component{
 	}
 	initSilder = () => {
 		const {silder} = this.refs
-		const {offsetWidth:silderWidth} = silder
+		const {offsetWidth:silderWidth,offsetHeight:silderHeight} = silder
 		this.setState({
-			silderWidth
+			silderWidth,
+			silderHeight
 		})
 	}
 	handleChange = used => {
@@ -88,6 +90,7 @@ class Silder extends Component{
 		this.setUsed(used)
 	}
 	handleTouchStart = ev => {
+		ev.stopPropagation()
 		const {onClick} = this.props
 		this.handleTouch(ev,ev.target)
 		onClick && onClick()
@@ -139,8 +142,8 @@ class Silder extends Component{
 	}
 
 	render(){
-		const {used} = this.state
-		const {style,className,classPrefixer,dotSize} = this.props
+		const {used,silderHeight} = this.state
+		const {className,classPrefixer,dotSize,style} = this.props
 		const events = {
 			onTouchStart:this.handleTouchStart,
 			onTouchMove:this.handleTouchMove,
@@ -150,7 +153,7 @@ class Silder extends Component{
 		return(
 			<div  {...events}  style={style} ref="silder" className={classes}>
 				<span style={{width:`${used}%`}} className={`${classPrefixer}-used`}>
-					<span onTouchStart={this.dotTouchStart} onTouchMove={this.dotTouchMove} style={{width:dotSize,height:dotSize,top:(style.height - dotSize) /2}} className={`${classPrefixer}-dot`}></span>
+					<span onTouchStart={this.dotTouchStart} onTouchMove={this.dotTouchMove} style={{width:dotSize,height:dotSize,top:(silderHeight - dotSize) /2}} className={`${classPrefixer}-dot`}></span>
 				</span>
 			</div>
 		)

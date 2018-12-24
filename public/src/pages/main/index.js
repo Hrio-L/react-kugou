@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import {HashRouter as Router,NavLink,Redirect,Route} from 'react-router-dom'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import Icon from '../../components/icon'
 import Authorized from '../../components/authorized'
 import Menu from '../../components/menu'
@@ -20,6 +21,7 @@ const mapDispatchToProps = dispatch => ({
 	}
 })
 
+@immutableRenderDecorator
 @connect(mapStateToProps,mapDispatchToProps)
 class App extends Component{
 	constructor(props){
@@ -82,7 +84,7 @@ class App extends Component{
 					)} 
 					extra={(
 						<NavLink to="/search">
-							<Icon style={{fontSize:18}} type="search" />
+							<Icon style={{fontSize:18,color:'white'}} type="search" />
 						</NavLink>
 						)}
 				/>

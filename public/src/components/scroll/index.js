@@ -1,10 +1,10 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Icon from '../icon'
 import './index.less'
 
-class Scroll extends Component{
+class Scroll extends PureComponent{
 	static defaultProps = {
 		classPrefixer:'scroll',
 		isTop:false,

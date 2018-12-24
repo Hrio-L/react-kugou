@@ -1,9 +1,9 @@
-import React,{Component,Children} from 'react'
+import React,{PureComponent,Children} from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import './index.less'
 
-class Menu extends Component{
+class Menu extends PureComponent{
 	static defaultProps = {
 		classPrefixer:'menu',
 		defaultSelected:''

@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import SongsView from '../../../components/songs-view'
 import Scroll from '../../../components/scroll'
 import BaseHander from '../../../common/basehandler'
@@ -27,6 +28,7 @@ const mapDispatchToProps = dispatch => ({
 	}
 })
 
+@immutableRenderDecorator
 @connect(mapStateToProps,mapDispatchToProps)
 @BaseHander
 class PlistDetail extends Component{

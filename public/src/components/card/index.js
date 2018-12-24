@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Icon from '../icon'
 import classNames from 'classnames'
 import './index.less'
 
-class Card extends Component{
+class Card extends PureComponent{
 	static defaultProps = {
 		classPrefixer:'card'
 	}

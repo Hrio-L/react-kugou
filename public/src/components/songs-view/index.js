@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import {NavLink,withRouter} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
@@ -9,7 +9,7 @@ import ActionSheet from '../action-sheet'
 import Collapse from '../collapse'
 import './index.less'
 
-class SongsView extends Component{
+class SongsView extends PureComponent{
 	static defaultProps = {
 		classPrefixer:'songs'
 	}

@@ -1,9 +1,9 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import './index.less'
 
-class Header extends Component{
+class Header extends PureComponent{
 	static defaultProps = {
 		classPrefixer:'header',
 		fixed:false

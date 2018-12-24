@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import './index.less'
@@ -25,8 +25,10 @@ const ArrowUp = createComponent('arrow-up')
 const Clock = createComponent('clock')
 const Close = createComponent('close')
 const HeadPhone = createComponent('headphone')
+const PlayMenu = createComponent('play-menu')
+const Retweet = createComponent('retweet')
 
-class Icon extends Component {
+class Icon extends PureComponent {
 	static defaultProps = {
 		classPrefixer:'icon'
 	}
@@ -47,6 +49,8 @@ class Icon extends Component {
 			'clock':(<Clock {...props} />),
 			'close':(<Close {...props} />),
 			'headphone':(<HeadPhone {...props} />),
+			'retweet':(<Retweet {...props} />),
+			'play-menu':(<PlayMenu {...props} />)
 		}
 	}
 	render(){
@@ -57,7 +61,8 @@ class Icon extends Component {
 Icon.propTypes = {
 	type:PropTypes.string.isRequired,
 	className:PropTypes.string,
-	style:PropTypes.object
+	style:PropTypes.object,
+	onClick:PropTypes.func
 }
 
 export default Icon

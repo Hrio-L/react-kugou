@@ -1,8 +1,8 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-class Audio extends Component{
+class Audio extends PureComponent{
 	static defaultProps = {
 		classPrefixer:'audio'
 	}
@@ -10,7 +10,7 @@ class Audio extends Component{
 		const {audio} = this.refs
 		const {getAudioRef} = this.props
 		audio.play()
-		getAudioRef(audio)
+		getAudioRef && getAudioRef(audio)
 	}
 	onPlay = ev => {
 		const {onPlay} = this.props
@@ -19,7 +19,7 @@ class Audio extends Component{
 	}
 	onTimeUpdate = ev => {
 		const {onTimeUpdate} = this.props
-		onTimeUpdate && onTimeUpdate()
+		onTimeUpdate && onTimeUpdate(ev.target)
 	}
 	onProgress = () => {
 		const {onProgress} = this.props

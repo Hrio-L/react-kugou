@@ -1,10 +1,10 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Icon from '../icon'
 import './index.less'
 
-class Input extends Component{
+class Input extends PureComponent{
 	static defaultProps = {
 		classPrefixer:'input',
 		placeholder:'',

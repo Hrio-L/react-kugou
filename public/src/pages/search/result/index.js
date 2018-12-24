@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import Scroll from '../../../components/scroll'
 import Songlist from '../../../components/songslist'
 import Icon from '../../../components/icon'
@@ -28,6 +29,7 @@ const mapDispatchToProps = dispatch => ({
 	}
 })
 
+@immutableRenderDecorator
 @connect(mapStateToProps,mapDispatchToProps)
 @BaseHanlder
 class Result extends Component{

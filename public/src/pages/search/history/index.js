@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import {connect} from 'react-redux'
 import Tag from '../../../components/tag'
 import Icon from '../../../components/icon'
@@ -23,6 +24,7 @@ const mapDispatchToProps = dispatch => ({
 	}
 })
 
+@immutableRenderDecorator
 @connect(mapStateToProps,mapDispatchToProps)
 class SearchHistory extends Component{
 	componentDidMount = () => {
@@ -45,13 +47,18 @@ class SearchHistory extends Component{
 			</Tag>
 		))
 	}
+	handleRemove = (keyword,ev) => {
+		ev.stopPropagation()
+		const {removeHistoryItem} = this.props
+		removeHistoryItem(keyword)
+	}
 	renderHistoryList = () => {
-		const {historyLists,removeHistoryItem} = this.props
+		const {historyLists} = this.props
 		return historyLists.map((d,i) => (
-			<li key={i} className="search-history-item">
+			<li onClick={this.toSearchResult.bind(this,d)} key={d} className="search-history-item">
 				<Icon type="clock" />
 				<span>{d}</span>
-				<Icon onClick={removeHistoryItem.bind(this,d)} type="close" />
+				<Icon onClick={this.handleRemove.bind(this,d)} type="close" />
 			</li>
 		))
 	}

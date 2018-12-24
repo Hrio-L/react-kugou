@@ -1,10 +1,10 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import Icon from '../icon'
 import './index.less'
 
-class Collapse extends Component{
+class Collapse extends PureComponent{
 	static defaultProps = {
 		classPrefixer:'collapse',
 		open:false

@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import Card from '../../components/card'
 import Icon from '../../components/icon'
 import Scroll from '../../components/scroll'
@@ -23,6 +24,7 @@ const mapDispatchToProps = dispatch => ({
 	}
 })
 
+@immutableRenderDecorator
 @connect(mapStateToProps,mapDispatchToProps)
 class Plist extends Component{
 	componentDidMount = () => {

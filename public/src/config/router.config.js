@@ -9,35 +9,39 @@ import Toplist from '../pages/toplist'
 import Plist from '../pages/plist'
 import SingerClasslist from '../pages/singer-classlist'
 
-import Input from '../components/input'
+import Lyrics from '../components/lyrics'
+import MySongs from '../components/my-songs'
 
 const Search = Loadable({
 	loader:() => import ('../pages/search'),
-	loading:() => (<ToastLoading />)
+	loading:() => (<ToastLoading iconStyle={{color:'white'}} />)
 })
 const Rank = Loadable({
 	loader:() => import ('../pages/toplist/rank'),
-	loading:() => (<ToastLoading />)
+	loading:() => (<ToastLoading iconStyle={{color:'white'}} />)
 })
 const PlistDetail = Loadable({
 	loader:() => import ('../pages/plist/detail'),
-	loading:() => (<ToastLoading />)
+	loading:() => (<ToastLoading iconStyle={{color:'white'}} />)
 })
 const SingerList = Loadable({
 	loader:() => import ('../pages/singer-classlist/singers'),
-	loading:() => (<ToastLoading />)
+	loading:() => (<ToastLoading iconStyle={{color:'white'}} />)
 })
 const SingerSongsList = Loadable({
 	loader:() => import ('../pages/singer-classlist/songs'),
-	loading:() => (<ToastLoading />)
+	loading:() => (<ToastLoading iconStyle={{color:'white'}} />)
 })
 const Main = Loadable({
 	loader:() => import ('../pages/main'),
-	loading:() => (<ToastLoading  />)
+	loading:() => (<ToastLoading iconStyle={{color:'white'}}  />)
 })
+
+	
 
 const Test = () => (
 	<div className="test">
+		<MySongs />
 	</div>
 )
 

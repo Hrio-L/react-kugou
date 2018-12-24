@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import {withRouter} from 'react-router-dom'
 import Card from '../../components/card'
 import Icon from '../../components/icon'
@@ -14,6 +15,8 @@ const mapDispatchToProps = dispatch => ({
 		})
 	}
 })
+
+@immutableRenderDecorator
 @connect(mapStateToProps,mapDispatchToProps)
 class Toplist extends Component{
 	componentDidMount = () => {

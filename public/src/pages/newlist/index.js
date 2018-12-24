@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import Songslist from '../../components/songslist'
 import ActionSheet from '../../components/action-sheet'
 import Swiper from '../../components/swiper'
@@ -17,6 +18,7 @@ const mapDispatchToProps = dispatch => ({
 	}
 })
 
+@immutableRenderDecorator
 @connect(mapStateToProps,mapDispatchToProps)
 @BaseHandler
 class Newlist extends Component{

@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import classNames from 'classnames'
 import {connect} from 'react-redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import {NavLink} from 'react-router-dom'
 import Icon from '../../components/icon'
 import Player from '../../components/player'
@@ -9,6 +10,7 @@ import Input from '../../components/input'
 import './index.less'
 
 
+@immutableRenderDecorator
 class Search extends Component{
 	state = {
 		keyword:'',
@@ -22,7 +24,7 @@ class Search extends Component{
 	}
 	handleBack = () => {
 		const {history} = this.props
-		history.push('/')
+		history.go(-1)
 	}
 	handleSearch = () => {
 		const {history} = this.props

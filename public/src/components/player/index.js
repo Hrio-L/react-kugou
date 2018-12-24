@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Silder from '../silder'
@@ -6,126 +6,51 @@ import Audio from '../audio'
 import Icon from '../icon'
 import './index.less'
 
-class Player extends Component {
+class Player extends PureComponent {
 	static defaultProps = {
 		classPrefixer:'player'
 	}
-	componentWillReceiveProps = nextProps => {
-		const {music,error} = nextProps
-		const {audio} = this.state
-		if(music !== this.props){
-			if(audio){
-				audio.currentTime = 0
-			}
-			this.setState({
-				audioUsed:0,
-				audioState:'play',
-				loading:true
-			})
-		}
-	}
-	state = {
-		audio:null,
-		audioState:'pause',
-		audioUsed:0,
-		loading:false,
-		silderActive:false
-	}
-	getAudioRef = ref => {
-		this.setState({
-			audio:ref
-		})
-	}
 	audioToggle = ev => {
 		ev.stopPropagation()
-		const {audioState} = this.state
-		if(audioState === 'pause'){
-			this.audioPlay()
-		}else{
-			this.audioPause()
-		}
-	}
-	audioPause = () => {
-		const {audio} = this.state
-		if(!audio.paused){
-			audio.pause()
-		}
-		this.setState({
-			loading:false,
-			audioState:'pause'
-		})
-	}
-	audioPlay = () => {
-		const {audio} = this.state
-		const {music} = this.props
-		if(audio.paused){
-			audio.play()
-		}
-		this.setState({
-			audioState:'play',
-			loading:false
-		})
-	}
-	audioEned = () => {
-		this.setState({
-			audioState:'pause',
-			audioUsed:0,
-			loading:false
-		})
-	}
-	audioError = (err) => {
-		this.setState({
-			audioState:'pause',
-			loading:false
-		})
-	}
-	onAudioPlay = () => {
-		this.audioPlay()
+		this.props.onAudioToggle && this.props.onAudioToggle()
 	}
 
-	onTimeUpdate = () => {
-		const {timelength} = this.props
-		const {audio,loading,audioState,silderActive} = this.state
-		if(!audio.paused){
-			const curTime = parseFloat(audio.currentTime.toFixed(2))
-			const totalTime = parseFloat((timelength/1000).toFixed(2))
-			const audioUsed = parseFloat((curTime/totalTime*100).toFixed(2))
-			if(!silderActive){
-				this.setState({
-					audioUsed,
-					loading:false
-				})
-			}
-		}
+	onAudioEned = () => {
+		this.props.onAudioEnded && this.props.onAudioEnded()
+	}
+	audioError = (err) => {
+		this.props.onAudioError && this.props.onAudioError()
+	}
+	onAudioPlay = () => {
+		this.props.onAudioPlay && this.props.onAudioPlay()
+	}
+	onTimeUpdate = target => {
+		this.props.onTimeUpdate && this.props.onTimeUpdate(target)
 	}
 	onAudioWaiting = () => {
-		this.setState({
-			loading:true
-		})
+		this.props.onAudioWaiting && this.props.onAudioWaiting()
 	}
 	onAudioChange = used => {
-		const {audio} = this.state
-		const {timelength} = this.props
-		const totalTime = parseFloat((timelength/1000).toFixed(2))
-		const time = parseFloat((used / 100 * totalTime).toFixed(2))
-		audio.currentTime = time
-		if(audio.paused){
-			audio.play()
-		}
-		this.setState({
-			audioUsed:used,
-			silderActive:false
-		})
+		this.props.onAudioChange && this.props.onAudioChange(used)
 	}
 	onSilderClick = () => {
-		this.setState({
-			silderActive:true
-		})
+		this.props.onSilderClick && this.props.onSilderClick()
+	}
+	
+	onPlayerClick = (ev) => {
+		ev.stopPropagation()
+		const {onClick} = this.props
+		onClick && onClick()
+	}
+	onNextClick = ev => {
+		ev.stopPropagation()
+		const {onNextClick} = this.props
+		onNextClick && onNextClick()
+
 	}
 	render (){
-		const {classPrefixer,className,music,name,img,author} = this.props
+		const {classPrefixer,className,music,name,img,author,getRef,audioState,audioUsed,loading} = this.props
 		const classes = classNames(classPrefixer,className)
-		const {audioState,audioUsed,loading} = this.state
 		const imgClass = classNames({
 			active:audioState === 'play' && !loading
 		})
@@ -139,13 +64,13 @@ class Player extends Component {
 					onTimeUpdate={this.onTimeUpdate}
 					onWaiting={this.onAudioWaiting}
 					onPlay={this.onAudioPlay}
-					getAudioRef={this.getAudioRef}
+					getAudioRef={getRef}
 					onPause={this.onPause}
-					onEnded={this.audioEned}
+					onEnded={this.onAudioEned}
 					onError={this.audioError}
 					src={music}
 				 />
-				<div className={`${classPrefixer}-avatar`}>
+				<div onClick={this.onPlayerClick} className={`${classPrefixer}-avatar`}>
 					{img && (
 						<img className={imgClass} src={img} alt="image"/>
 					)}
@@ -153,13 +78,13 @@ class Player extends Component {
 				<div className={`${classPrefixer}-main`}>
 					<Silder onClick={this.onSilderClick} onChange={this.onAudioChange} used={audioUsed} />
 					<div className={`${classPrefixer}-info`}>
-						<div className={`${classPrefixer}-song`}>
+						<div onClick={this.onPlayerClick} className={`${classPrefixer}-song`}>
 							<h5 className={`${classPrefixer}-song-name`}>{name}</h5>
 							<span className={`${classPrefixer}-song-desc`}>{author}</span>
 						</div>
 						<div className={`${classPrefixer}-actions`}>
 							<Icon onClick={this.audioToggle} type={audioState === 'play' ? 'pause' : 'play'} />
-							<Icon type="next" />
+							<Icon onClick={this.onNextClick} type="next" />
 						</div>
 					</div>
 				</div>
@@ -174,7 +99,17 @@ Player.propTypes = {
 	name:PropTypes.string,
 	author:PropTypes.string,
 	img:PropTypes.string,
-	timelength:PropTypes.number
+	timelength:PropTypes.number,
+	loading:PropTypes.bool,
+	onClick:PropTypes.func,
+	onTimeUpdate:PropTypes.func,
+	getRef:PropTypes.func,
+	onNextClick:PropTypes.func,
+	onSilderClick:PropTypes.func,
+	onAudioToggle:PropTypes.func,
+	onAudioWaiting:PropTypes.func,
+	onAudioChange:PropTypes.func,
+	onAudioEnded:PropTypes.func
 }
 
 export default Player

@@ -36,6 +36,14 @@ const getSongDetail = function* (){
 						id:action.hash
 					}
 				})
+				yield put({
+					type:'UPDATE_PLAYING_LIST',
+					item:{
+						id:action.hash,
+						author,
+						name
+					}
+				})
 			}
 		}catch(err){
 			console.error(err.mesage)
