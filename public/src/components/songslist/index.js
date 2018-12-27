@@ -10,9 +10,9 @@ const Songslist = props => {
 			props.onClick(row)
 		}
 	}
-	const renderItem = lists => {
+	const renderItem = list => {
 		const Action = props.actionComponent
-		return lists.map((d,i) => (
+		return list.map((d,i) => (
 			<li onClick={handleClick.bind(null,d)} key={i} className="songs-item">
 				<div className="detail">
 					<h5 className="songs-name">{d.name}</h5>
@@ -22,7 +22,7 @@ const Songslist = props => {
 					Action
 						? 
 							<div className="actions">
-								<Action info={d} actions={props.actions} >
+								<Action info={{name:d.name,desc:d.author,id:d.id}} actions={props.actions} >
 									<Icon type="ellipsis" />
 								</Action>
 							</div>
