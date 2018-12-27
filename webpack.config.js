@@ -57,7 +57,13 @@ module.exports = (env,options) => {
                         ]
                     }
                 }]
-            }]
+            },{
+            test: /\.(png|jpg|gif)$/,
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+            },
+          },]
         },
         devServer: {
             port,

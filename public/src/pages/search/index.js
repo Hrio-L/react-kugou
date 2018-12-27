@@ -50,7 +50,7 @@ class Search extends Component{
 			<div className="search">
 				<header className="search-head">
 					<Icon onClick={this.handleBack} type="arrow-left" />
-					<Input placeholder={placeholder} className="search-input" value={keyword} circle={true} onChange={this.inputChange} />
+					<Input autoFocus={true} placeholder={placeholder} className="search-input" value={keyword} circle={true} onChange={this.inputChange} />
 					<span onClick={this.handleSearch} className="search-btn">搜索</span>
 				</header>
 				<Authorized placeholder={placeholder} placeholderChange={this.placeholderChange} routes={routes} />

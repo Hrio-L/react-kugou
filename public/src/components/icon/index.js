@@ -27,6 +27,12 @@ const Close = createComponent('close')
 const HeadPhone = createComponent('headphone')
 const PlayMenu = createComponent('play-menu')
 const Retweet = createComponent('retweet')
+const RetweetBlack = createComponent('retweet-black')
+const Random = createComponent('random')
+const RandomBlack = createComponent('random-black')
+const Sort = createComponent('sort')
+const SortBlack = createComponent('sort-black')
+const Trash = createComponent('trash')
 
 class Icon extends PureComponent {
 	static defaultProps = {
@@ -50,6 +56,12 @@ class Icon extends PureComponent {
 			'close':(<Close {...props} />),
 			'headphone':(<HeadPhone {...props} />),
 			'retweet':(<Retweet {...props} />),
+			'retweet-black':(<RetweetBlack {...props} />),
+			'random':(<Random {...props} />),
+			'random-black':(<RandomBlack {...props} />),
+			'sort':(<Sort {...props} />),
+			'sort-black':(<SortBlack {...props} />),
+			'trash':(<Trash {...props} />),
 			'play-menu':(<PlayMenu {...props} />)
 		}
 	}

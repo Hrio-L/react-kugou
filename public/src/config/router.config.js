@@ -10,7 +10,6 @@ import Plist from '../pages/plist'
 import SingerClasslist from '../pages/singer-classlist'
 
 import Lyrics from '../components/lyrics'
-import MySongs from '../components/my-songs'
 
 const Search = Loadable({
 	loader:() => import ('../pages/search'),
@@ -41,7 +40,6 @@ const Main = Loadable({
 
 const Test = () => (
 	<div className="test">
-		<MySongs />
 	</div>
 )
 
@@ -88,7 +86,7 @@ export default [{
 	component:SingerList,
 },{
 	path:'/singer/:id',
-	component:SingerSongsList,
+	component:SingerSongsList
 },{
 	path:'/test',
 	component:Test

@@ -14,13 +14,23 @@ import './index.less'
 
 const mapStateToProps = ({rootState:{playing}}) => ({playing})
 const mapDispatchToProps = dispatch => ({
-	removeItem:id => {
+	removeItem:payload => {
 		dispatch({
 			type:'REMOVE_PLAYING_ITEM',
-			id
+			payload
+		})
+	},
+	updateMethod :payload => {
+		dispatch({
+			type:'UPDATE_PLAYING_METHOD',
+			payload
+		})
+	},
+	initList:() => {
+		dispatch({
+			type:'INIG_PLAYING_LIST'
 		})
 	}
-
 })
 
 @immutableRenderDecorator
@@ -33,7 +43,8 @@ class PlayerContainer extends Component{
 		loading:false,
 		audioState:'pause',
 		silderActive:false,
-		myListVisible:false
+		myListVisible:false,
+		methods:['sort','loop','random']
 	}
 	componentWillReceiveProps = nextProps => {
 		const {playing:{music}} = nextProps
@@ -165,6 +176,46 @@ class PlayerContainer extends Component{
 			myListVisible:true
 		})
 	}
+	hideMyLists = () => {
+		this.setState({
+			myListVisible:false
+		})
+	}
+	getPlayIconType = () => {
+		const {playing:{playMethod}} = this.props
+		switch(playMethod){
+			case 'sort':
+				return 'sort'
+			break
+			case 'random':
+				return 'random'
+			break
+			case 'loop':
+				return 'retweet'
+			break
+		}
+	}
+	changeMothod = (ev) => {
+		ev.stopPropagation()
+		const {updateMethod,playing:{playMethod}} = this.props
+		const {methods} = this.state
+		methods.forEach((d,i) => {
+			if(d === playMethod){
+				if(i < methods.length-1){
+					updateMethod(methods[i+1])
+				}else{
+					updateMethod(methods[0])
+				}
+			}
+		})
+	}
+	removeList = ev => {
+		ev.stopPropagation()
+		const {initList,playing:{list}} = this.props
+		if(list.length){
+			initList()
+		}
+	}
 	render(){
 		const {playing,onSongClick,location:{search},removeItem} = this.props
 		const {audioUsed,loading,audioState,myListVisible} = this.state
@@ -175,6 +226,10 @@ class PlayerContainer extends Component{
 		const listVisible = classNames({
 			'my-songs-mask':true,
 			'my-songs-mask-active':myListVisible
+		})
+		const singerCoverVisible = classNames({
+			'singer-cover':true,
+			'singer-cover-active':audioState === 'play' && !loading
 		})
 		const actions = [{name:'123',key:'124'}]
 		return (
@@ -192,6 +247,7 @@ class PlayerContainer extends Component{
 					onSilderClick={this.onSilderClick}
 					onAudioChange={this.onAudioChange}
 					onAudioWaiting={this.onAudioWaiting}
+					onAudioEnded={this.onAudioEnded}
 					{...playing}
 				/>
 				<div className={visbileClass}>
@@ -212,7 +268,7 @@ class PlayerContainer extends Component{
 								]
 							}
 						/>
-						<div className="singer-cover">
+						<div className={singerCoverVisible}>
 							<img src={playing.img} alt=""/>
 						</div>
 						<div className="player-actions">
@@ -220,18 +276,21 @@ class PlayerContainer extends Component{
 								<Silder onChange={this.onAudioChange} onClick={this.onSilderClick} used={audioUsed} style={{background:'silver'}} />
 							</div>
 							<div className="player-icons">
+								<Icon style={{fontSize:10}} onClick={this.changeMothod} type={`${this.getPlayIconType()}`} />
 								<Icon onClick={this.onPrevClick} type="prev" />
 								<Icon onClick={this.onAudioToggle} type={audioState === 'play' ? 'pause' : 'play'} />
 								<Icon onClick={this.onNextClick} type="next" />
 								<Icon onClick={this.showMyLists} type="play-menu" />
 							</div>
 						</div>
-						<MaskComponent className={listVisible} onClick={() => {console.log(123)}}>
+						<MaskComponent className={listVisible} onClick={this.hideMyLists}>
 							<MySongs 
-								songs={playing.lists}
+								songs={playing.list}
 								removeItem={removeItem}
 								style={{height:'60%'}}
 								onClick={onSongClick} 
+								logo={<Icon onClick={this.changeMothod} type={`${this.getPlayIconType()}-black`} />}
+								extra={<Icon onClick={this.removeList} style={{fontSize:8,color:'silver'}} type="trash" />}
 							/>
 						</MaskComponent>
 					</div>

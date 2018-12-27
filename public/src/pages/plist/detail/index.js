@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
@@ -6,13 +6,18 @@ import SongsView from '../../../components/songs-view'
 import Scroll from '../../../components/scroll'
 import BaseHander from '../../../common/basehandler'
 
-const mapStateToProps = ({plist:{detail:{lists,banner,specialname,intro,loading,total,page}}}) => ({lists,banner,specialname,intro,loading,total,page})
+const mapStateToProps = ({plist:{detail:{list,banner,specialname,intro,loading,total,page}}}) => ({list,banner,specialname,intro,loading,total,page})
 const mapDispatchToProps = dispatch => ({
-	getDetailRequest:(id,page) => {
+	getDetail:payload => {
 		dispatch({
 			type:'GET_PLIST_DETAIL_REQUEST',
-			id,
-			page
+			payload
+		})
+	},
+	loadDetail:payload => {
+		dispatch({
+			type:'LOAD_PLIST_DETAIL_REQUEST',
+			payload
 		})
 	},
 	initDetail:() => {
@@ -20,10 +25,10 @@ const mapDispatchToProps = dispatch => ({
 			type:'INIT_PLIST_DETAIL'
 		})
 	},
-	showLoading:() => {
+	showLoading:payload => {
 		dispatch({
 			type:'CHANGE_PLIST_DETAIL_LOADING_STATE',
-			loading:true
+			payload
 		})
 	}
 })
@@ -31,33 +36,41 @@ const mapDispatchToProps = dispatch => ({
 @immutableRenderDecorator
 @connect(mapStateToProps,mapDispatchToProps)
 @BaseHander
-class PlistDetail extends Component{
+class PlistDetail extends PureComponent{
 	componentDidMount = () => {
-		const {getDetailRequest,page,match:{params:{id}}} = this.props
+		const {page,getDetail,list,match:{params:{id}}} = this.props
 		if(id){
-			getDetailRequest(id,page)
+			getDetail({
+				plistid:id,
+				page
+			})
 		}
 	}
 	componentWillUnmount = () => {
-		const {initDetail} = this.props
-		initDetail()
+		const {initDetail,list} = this.props
+		if(list.length){
+			this.props.initDetail()
+		}
 	}
 	loadList = () => {
-		const {page,total,lists,showLoading,getDetailRequest,match:{params:{id}}} = this.props
-		if(total > lists.length){
-			showLoading()
-			getDetailRequest(id,page)
+		const {page,total,list,showLoading,loadDetail,match:{params:{id}}} = this.props
+		if(total > list.length){
+			showLoading(true)
+			loadDetail({
+				plistid:id,
+				page:page+1
+			})
 		}
 	}
 	render(){
-		const {lists,specialname,banner,intro,loading,onSongClick} = this.props
+		const {list,specialname,banner,intro,loading,onSongClick} = this.props
 		return(
 			<div className="plist-detail">
 				<Scroll style={{paddingBottom:70}} loading={loading} onBottom={this.loadList}>
 					<SongsView
 						onSongClick={onSongClick}
 						banner={banner}
-						lists={lists}
+						list={list}
 						title={specialname}
 						collapse={{
 							header:specialname,

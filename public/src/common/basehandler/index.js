@@ -3,10 +3,10 @@ import {connect} from 'react-redux'
 
 const BaseHandler = Comp => {
 	const mapDispatchToProps = dispatch => ({
-		getSongDetail:hash => {
+		getSongDetail:payload => {
 			dispatch({
 				type:'GET_SONG_DETAIL_REQUEST',
-				hash
+				payload
 			})
 		}
 	})
@@ -16,7 +16,9 @@ const BaseHandler = Comp => {
 		onSongClick = info => {
 			const {getSongDetail,playing:{id}} = this.props
 			if(id !== info.id){
-				getSongDetail(info.id)
+				getSongDetail({
+					hash:info.id
+				})
 			}
 		}
 		render(){

@@ -1,4 +1,5 @@
 const axios = require('axios')
+const qs = require('querystring')
 
 const handle = xhr => {
 	const {data,errcode,msg} = xhr.data
@@ -27,25 +28,25 @@ class Api{
 			console.error(err.message)
 		}
 	}
-	static async getRankList(id,page){
+	static async getRankList(params){
 		try{
-			const xhr = await axios.get(`/rank?rankid=${id}&page=${page}`)
+			const xhr = await axios.get(`/rank?${qs.stringify(params)}`)
 			return handle(xhr)
 		}catch(err){
 			console.error(err.message)
 		}
 	}
-	static async getPlist(page){
+	static async getPlist(params){
 		try{
-			const xhr = await axios.get(`/plist?page=${page}`)
+			const xhr = await axios.get(`/plist?${qs.stringify(params)}`)
 			return handle(xhr)
 		}catch(err){
 			console.error(err.message)
 		}
 	}
-	static async getPlistDetail(id,page){
+	static async getPlistDetail(params){
 		try{
-			const xhr = await axios.get(`/plist-detail?plistid=${id}&page=${page}`)
+			const xhr = await axios.get(`/plist-detail?${qs.stringify(params)}`)
 			return handle(xhr)
 		}catch(err){
 			console.error(err.message)
@@ -59,17 +60,17 @@ class Api{
 			console.error(err.message)
 		}
 	}
-	static async getSingerList(id,page){
+	static async getSingerList(params){
 		try{
-			const xhr = await axios.get(`/singer-list?classid=${id}&page=${page}`)
+			const xhr = await axios.get(`/singer-list?${qs.stringify(params)}`)
 			return handle(xhr)
 		}catch(err){
 			console.error(err.message)
 		}
 	}
-	static async getSingerSongsList(id,page){
+	static async getSingerSongsList(params){
 		try{
-			const xhr = await axios.get(`/singer-songs?singerid=${id}&page=${page}`)
+			const xhr = await axios.get(`/singer-songs?${qs.stringify(params)}`)
 			return handle(xhr)
 		}catch(err){
 			console.error(err.message)
@@ -83,17 +84,17 @@ class Api{
 			console.error(err.message)
 		}
 	}
-	static async search(keyword,page){
+	static async search(params){
 		try{
-			const xhr = await axios.get(`/search?keyword=${keyword}&page=${page}`)
+			const xhr = await axios.get(`/search?${qs.stringify(params)}`)
 			return handle(xhr)
 		}catch(err){
 			console.error(err.message)
 		}
 	}
-	static async getSongDetail(hash){
+	static async getSongDetail(params){
 		try{
-			const xhr = await axios.get(`/song?hash=${hash}`)
+			const xhr = await axios.get(`/song?${qs.stringify(params)}`)
 			return handle(xhr)
 		}catch(err){
 			console.error(err.message)

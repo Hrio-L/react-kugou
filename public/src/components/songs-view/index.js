@@ -14,8 +14,8 @@ class SongsView extends PureComponent{
 		classPrefixer:'songs'
 	}
 	getSongs = () => {
-		const {lists} = this.props
-		return lists.map((d,i) => {
+		const {list} = this.props
+		return list.map((d,i) => {
 			const info = d.filename.trim().split(' - ')
 			const author =info[0]
 			const name = info[1]
@@ -33,7 +33,7 @@ class SongsView extends PureComponent{
 	}
 
 	render(){
-		const {banner,title,footText,className,classPrefixer,lists,collapse,onSongClick} = this.props
+		const {banner,title,footText,className,classPrefixer,list,collapse,onSongClick} = this.props
 		const classes = classNames(`${classPrefixer}-view`,className)
 		const actions = [{
 			name:'播放',
@@ -50,7 +50,7 @@ class SongsView extends PureComponent{
 		}]
 		return (
 			<div className={classes}>
-				{!lists.length && (
+				{!list.length && (
 					<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
 				)}
 				<Header 
@@ -60,7 +60,7 @@ class SongsView extends PureComponent{
 					)} 
 					extra={(
 						<NavLink to="/search">
-							<Icon style={{fontSize:18}} type="search" />
+							<Icon style={{fontSize:18,color:'white'}} type="search" />
 						</NavLink>
 						)}
 				/>
@@ -88,7 +88,7 @@ class SongsView extends PureComponent{
 						 />
 					)}
 				</div>
-				{(lists.length  && collapse) ? (
+				{(list.length  && collapse) ? (
 					<Collapse header={collapse.header}>
 						{collapse.content}
 					</Collapse>
@@ -106,7 +106,7 @@ class SongsView extends PureComponent{
 
 SongsView.propTypes = {
 	onSongClick:PropTypes.func,
-	lists:PropTypes.array.isRequired,
+	list:PropTypes.array.isRequired,
 	title:PropTypes.string,
 	footText:PropTypes.string,
 	banner:PropTypes.string,

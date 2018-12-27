@@ -9,17 +9,22 @@ import BaseHanlder from '../../../common/basehandler'
 
 const mapStateToProps = ({search:{result}}) => ({result})
 const mapDispatchToProps = dispatch => ({
-	searchRequest:(keyword,page) => {
+	search:payload => {
 		dispatch({
 			type:'SEARCH_REQUEST',
-			keyword,
-			page
+			payload
 		})
 	},
-	showLoading:() => {
+	loadResult:payload => {
+		dispatch({
+			type:'LOAD_RESULT_REQUEST',
+			payload
+		})
+	},
+	showLoading:payload => {
 		dispatch({
 			type:'CHANGE_RESULT_LOADING',
-			loading:true
+			payload
 		})
 	},
 	initResult :() => {
@@ -34,38 +39,46 @@ const mapDispatchToProps = dispatch => ({
 @BaseHanlder
 class Result extends Component{
 	componentDidMount = () => {
-		const {match:{params:{keyword}},placeholderChange,searchRequest,placeholder} = this.props
+		const {match:{params:{keyword}},placeholderChange,search,placeholder} = this.props
 		if(keyword){
 			if(placeholder !== keyword){
 				placeholderChange(keyword)
-				searchRequest(keyword,1)
+				search({
+					page:1,
+					keyword
+				})
 			}
 		}
 	}
 
 	componentWillUnmount = () => {
-		const {initResult,placeholderChange} = this.props
-		initResult()
+		const {initResult,result:{list}} = this.props
+		if(list.length){
+			initResult()
+		}
 	}
 	loadList = () => {
-		const {result:{page,total,lists},match:{params:{keyword}},searchRequest,showLoading} = this.props
-		if(total > lists.length){
-			showLoading()
-			searchRequest(keyword,page + 1)
+		const {result:{page,total,list},match:{params:{keyword}},loadResult,showLoading} = this.props
+		if(total > list.length){
+			showLoading(true)
+			loadResult({
+				keyword,
+				page:page + 1
+			})
 		}
 	}
 	getLists = () => {
-		const {result:{lists}} = this.props
-		return lists.map((d,i) => ({
+		const {result:{list}} = this.props
+		return list.map((d,i) => ({
 			name:d.songname,
 			id:d.hash,
 			author:d.singername
 		}))
 	}
 	renderLoading = () => {
-		const {result:{complate,lists}} = this.props
+		const {result:{complate,list}} = this.props
 		if(complate){
-			if(!lists.length){
+			if(!list.length){
 				return (
 					<div className="search-empty">
 						<img src="http://m.kugou.com/v3/static/images/index/search_empty.png" alt=""/>
@@ -80,7 +93,7 @@ class Result extends Component{
 		}
 	}
 	render(){
-		const {result:{lists,loading},onSongClick,complate} = this.props
+		const {result:{list,loading},onSongClick,complate} = this.props
 		const actions = [{
 			name:'播放',
 			key:'play'

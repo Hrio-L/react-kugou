@@ -32,13 +32,13 @@ class Input extends PureComponent{
 		return typeof this.props.value !== 'undifined' 
 	}
 	render(){
-		const {classPrefixer,className,style,circle,icon,iconStyle,placeholder} = this.props
+		const {classPrefixer,className,style,circle,icon,iconStyle,placeholder,autoFocus} = this.props
 		const classes = classNames(classPrefixer,className)
 		const {value} = this.state
 		return(
 			<div style={{borderRadius:circle&&20,...style}} className={classes}>
 				{icon && <Icon style={iconStyle} type={icon} />}
-				<input value={value} onChange={this.handleChange} placeholder={placeholder} type="text"/>
+				<input autoFocus={autoFocus} value={value} onChange={this.handleChange} placeholder={placeholder} type="text"/>
 			</div>
 		)
 	}
@@ -52,7 +52,8 @@ Input.propTypes = {
 	iconStyle:PropTypes.object,
 	circle:PropTypes.bool,
 	onChange:PropTypes.func,
-	value:PropTypes.string
+	value:PropTypes.string,
+	autoFocus:PropTypes.bool
 }
 
 export default Input

@@ -16,9 +16,7 @@ class MySongs extends PureComponent{
 	handleClick = (row,ev) => {
 		const {onClick} = this.props
 		ev.stopPropagation()
-		console.log(row)
-		onClick && onClick(row.id)
-
+		onClick && onClick(row)
 	}
 	renderItem = () => {
 		const {songs,clsassPrefixer} = this.props
@@ -32,13 +30,13 @@ class MySongs extends PureComponent{
 		))
 	}
 	render(){
-		const {clsassPrefixer,className,songs,style} = this.props
+		const {clsassPrefixer,className,songs,style,logo,extra} = this.props
 		const classes = classNames(clsassPrefixer,className)
 		return (
 			<div onClick={ev=>ev.stopPropagation()} style={style} className={classes}>
 				<div className={`${clsassPrefixer}-header`}>
-					<Icon type="arrow-left" />
-					<Icon type="arrow-right" />
+					{logo && logo}
+					{extra && extra}
 				</div>
 				<ul className={`${clsassPrefixer}-lists`}>
 					{this.renderItem()}

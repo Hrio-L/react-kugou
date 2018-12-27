@@ -7,7 +7,7 @@ import Icon from '../../components/icon'
 import Scroll from '../../components/scroll'
 import './index.less'
 
-const mapStateToProps = ({toplist:{lists}}) => ({lists})
+const mapStateToProps = ({toplist:{list}}) => ({list})
 const mapDispatchToProps = dispatch => ({
 	getListRequest:() => {
 		dispatch({
@@ -20,8 +20,8 @@ const mapDispatchToProps = dispatch => ({
 @connect(mapStateToProps,mapDispatchToProps)
 class Toplist extends Component{
 	componentDidMount = () => {
-		const {lists,getListRequest} = this.props
-		if(!lists.length){
+		const {list,getListRequest} = this.props
+		if(!list.length){
 			getListRequest()
 		}
 	}
@@ -30,8 +30,8 @@ class Toplist extends Component{
 		history.push('/rank/' + id)
 	}
 	renderCardItem = () => {
-		const {lists} = this.props
-		return lists.map((d,i) => {
+		const {list} = this.props
+		return list.map((d,i) => {
 			const {rankname:title,imgurl,rankid:id,update_frequency:desc} = d
 			return (
 				<Card 
@@ -49,11 +49,11 @@ class Toplist extends Component{
 		})
 	}
 	render(){
-		const {lists,isTop} = this.props
+		const {list,isTop} = this.props
 		return(
 			<div className="toplist">
 				<Scroll isTop={isTop} timeout={300} style={{paddingTop:91,paddingBottom:70}}>
-					{!lists.length && (
+					{!list.length && (
 						<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
 					)}
 					{this.renderCardItem()}

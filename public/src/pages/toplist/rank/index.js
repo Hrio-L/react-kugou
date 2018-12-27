@@ -6,13 +6,18 @@ import SongsView from '../../../components/songs-view'
 import Scroll from '../../../components/scroll'
 import BaseHandler from '../../../common/basehandler'
 
-const mapStateToProps = ({toplist:{rank:{loading,page,lists,banner,rankname,time,total}}}) => ({loading,page,lists,banner,rankname,time,total})
+const mapStateToProps = ({toplist:{rank:{loading,page,list,banner,rankname,time,total}}}) => ({loading,page,list,banner,rankname,time,total})
 const mapDispatchToProps = dispatch => ({
-	getListRequest:(id,page) => {
+	getList:payload => {
 		dispatch({
 			type:'GET_RANK_LIST_REQUEST',
-			id,
-			page
+			payload
+		})
+	},
+	loadRank:payload => {
+		dispatch({
+			type:'LOAD_RANK_LIST_REQUEST',
+			payload
 		})
 	},
 	initRank:() => {
@@ -20,10 +25,10 @@ const mapDispatchToProps = dispatch => ({
 			type:'INIT_RANK_LIST'
 		})
 	},
-	showLoading: () => {
+	showLoading: payload => {
 		dispatch({
 			type:'CHANGE_RANK_LOADING_STATE',
-			loading:true
+			payload
 		})
 	}
 })
@@ -33,9 +38,12 @@ const mapDispatchToProps = dispatch => ({
 @BaseHandler
 class Rank extends Component{
 	componentDidMount = () => {
-		const {page,lists,getListRequest,match:{params:{id}}} = this.props
-		if(id){
-			getListRequest(id,page)
+		const {page,list,getList,match:{params:{id}}} = this.props
+		if(id && !list.length){
+			getList({
+				rankid:id,
+				page
+			})
 		}
 	}
 	componentWillUnmount = () => {
@@ -43,21 +51,24 @@ class Rank extends Component{
 		initRank()
 	}
 	loadList = () => {
-		const {page,total,lists,getListRequest,showLoading,match:{params:{id}}} = this.props
-		if(total > lists.length){
-			showLoading()
-			getListRequest(id,page)
+		const {page,total,list,loadRank,showLoading,match:{params:{id}}} = this.props
+		if(total > list.length){
+			showLoading(true)
+			loadRank({
+				rankid:id,
+				page:page + 1
+			})
 		}
 	}
 	render(){
-		const {lists,rankname,time,banner,loading,onSongClick} = this.props
+		const {list,rankname,time,banner,loading,onSongClick} = this.props
 		return(
 			<div className="rank">
 				<Scroll style={{paddingBottom:70}} loading={loading} onBottom={this.loadList}>
 					<SongsView
 						onSongClick={onSongClick}
 						banner={banner}
-						lists={lists}
+						list={list}
 						title={rankname}
 						footText={time}
 					/>

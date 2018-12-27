@@ -8,18 +8,24 @@ import Scroll from '../../components/scroll'
 
 import './index.less'
 
-const mapStateToProps = ({plist:{lists,total,page,loading}}) => ({lists,total,page,loading})
+const mapStateToProps = ({plist:{list,total,page,loading}}) => ({list,total,page,loading})
 const mapDispatchToProps = dispatch => ({
-	getListRequest:page => {
+	getList:payload => {
 		dispatch({
 			type:'GET_PLIST_REQUEST' ,
-			page
+			payload
 		})
 	},
-	showLoading:() => {
+	loadList:payload => {
+		dispatch({
+			type:'LOAD_PLIST_REQUEST' ,
+			payload
+		})
+	},
+	showLoading:payload => {
 		dispatch({
 			type:'CHANGE_PLIST_LOADING_STATE',
-			loading:true
+			payload
 		})
 	}
 })
@@ -28,9 +34,11 @@ const mapDispatchToProps = dispatch => ({
 @connect(mapStateToProps,mapDispatchToProps)
 class Plist extends Component{
 	componentDidMount = () => {
-		const {lists,getListRequest,page} = this.props
-		if(!lists.length){
-			getListRequest(page)
+		const {list,getList} = this.props
+		if(!list.length){
+			getList({
+				page:1
+			})
 		}
 	}
 	componentWillUnmount  = () => {
@@ -40,8 +48,8 @@ class Plist extends Component{
 		history.push(`/plist/${id}`)
 	}
 	renderCardItem = () => {
-		const {lists} = this.props
-		return lists.map((d,i) => {
+		const {list} = this.props
+		return list.map((d,i) => {
 			const {specialname:title,playcount,imgurl,specialid:id} = d
 			return (
 				<Card
@@ -63,18 +71,20 @@ class Plist extends Component{
 		})
 	}
 	loadList = () => {
-		const {total,lists,page,getListRequest,showLoading} = this.props
-		if(total > lists.length){
-			showLoading()
-			getListRequest(page)
+		const {total,list,page,loadList,showLoading} = this.props
+		if(total > list.length){
+			showLoading(true)
+			loadList({
+				page:page + 1
+			})
 		}
 	}
 	render(){
-		const {lists,total,isTop,loading} = this.props
+		const {list,total,isTop,loading} = this.props
 		return(
 			<div className="plist">
 				<Scroll loading={loading} onBottom={this.loadList} isTop={isTop} timeout={300} style={{paddingTop:91,paddingBottom:70}}>
-					{!lists.length && (
+					{!list.length && (
 						<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
 					)}
 					{this.renderCardItem()}

@@ -1,15 +1,17 @@
-const INIT_SINGER_CLASSLIST = 'INIT_SINGER_CLASSLIST'
-const INIT_SINGER_LIST = 'INIT_SINGER_LIST'
+const SAVE_SINGER_CLASS = 'SAVE_SINGER_CLASS'
+const SAVE_SINGER_LIST = 'SAVE_SINGER_LIST'
 const UPDATE_SINGER_LIST = 'UPDATE_SINGER_LIST'
-const INIT_SINGER = 'INIT_SINGER'
-const UPDATE_SINGER_SONGS = 'UPDATE_SINGER_SONGS'
+const INIT_SINGER_LIST = 'INIT_SINGER_LIST'
+const SAVE_SONGS_LIST = 'SAVE_SONGS_LIST'
+const UPDATE_SONGS_LIST = 'UPDATE_SONGS_LIST'
 const CHANGE_SINGER_LIST_LOADING = 'CHANGE_SINGER_LIST_LOADING'
 const CHANGE_SINGER_LOADING = 'CHANGE_SINGER_LOADING'
+const INIT_SONGS_LIST = 'INIT_SONGS_LIST'
 
 const initialState = {
 	classname:'',
-	lists:[],
-	singerLists:[],
+	classList:[],
+	singerList:[],
 	page:1,
 	total:0,
 	loading:false,
@@ -17,7 +19,7 @@ const initialState = {
 		loading:false,
 		total:0,
 		page:1,
-		songs:[],
+		list:[],
 		banner:'',
 		singerName:''
 	}
@@ -25,22 +27,72 @@ const initialState = {
 
 const singerClasslist = (state = initialState,action) => {
 	switch(action.type){
-		case CHANGE_SINGER_LIST_LOADING:
-			return {...state,loading:action.loading}
-		case CHANGE_SINGER_LOADING:
-			return {...state,singer:{...state.singer,loading:action.loading}}
-		case INIT_SINGER_CLASSLIST:
-			return {...state,lists:[...action.data]}
-		case INIT_SINGER_LIST:
-			return {...initialState,singer:state.singer,lists:state.lists}
+		case SAVE_SINGER_CLASS:
+			return {
+				...state,
+				classList:action.payload
+			}
+		case SAVE_SINGER_LIST:
+			return {
+				...state,
+				singerList:action.payload.list,
+				classname:action.payload.classname,
+				total:action.payload.total
+			}
 		case UPDATE_SINGER_LIST:
-			const {lists:singerLists,...singerListRest} = action.data
-			return {...state,singerLists:[...state.singerLists,...singerLists],...singerListRest,loading:false}
-		case INIT_SINGER:
-			return {...state,singer:{...initialState.singer}}
-		case UPDATE_SINGER_SONGS:
-			const {lists:songs,...singerRest} = action.data
-			return{...state,singer:{songs:[...state.singer.songs,...songs],...singerRest,loading:false}}
+			const {list:singerList,...singerListRest} = action.payload
+			return {
+				...state,
+				singerList:[...state.singerList,...singerList],
+				...singerListRest,
+				loading:false
+			}
+		case INIT_SINGER_LIST:
+			return {
+				...state,
+				singerList:initialState.singerList,
+				classname:initialState.classname,
+				loading:false,
+			}
+		case SAVE_SONGS_LIST:
+			return {
+				...state,
+				singer:{
+					...state.singer,
+					total:action.payload.total,
+					list:action.payload.list,
+					banner:action.payload.banner,
+					singerName:action.payload.singerName
+				}
+			}
+		case UPDATE_SONGS_LIST:
+			const {list,...singerRest} = action.payload
+			return{
+				...state,
+				singer:{
+					list:[...state.singer.list,...list],
+					...singerRest,
+					loading:false
+				}
+			}
+		case INIT_SONGS_LIST:
+			return {
+				...state,
+				singer:initialState.singer
+			}
+		case CHANGE_SINGER_LIST_LOADING:
+			return {
+				...state,
+				loading:action.payload
+			}
+		case CHANGE_SINGER_LOADING:
+			return {
+				...state,
+				singer:{
+					...state.singer,
+					loading:action.payload
+				}
+			}
 		default:
 			return state
 	}

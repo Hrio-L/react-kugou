@@ -303,6 +303,54 @@
 	    border-right-width: 0;
 	}
 }
-.icon-retweet{
-	
+.icon-retweet,.icon-retweet-black{
+	display: inline-block;
+	width:2em;
+	height: 2em;
+	background-image:url(./assets/retweet.png);
+	background-size:cover;
+}
+.icon-retweet-black{
+	background-image:url(./assets/retweet_black.png);
+}
+
+.icon-random,.icon-random-black{
+	display: inline-block;
+	width:2em;
+	height: 2em;
+	background-image:url(./assets/random.png);
+	background-size:cover;
+}
+.icon-random-black{
+	background-image:url(./assets/random_black.png);
+}
+.icon-sort,.icon-sort-black{
+	display: inline-block;
+	width:2em;
+	height: 2em;
+	background-image:url(./assets/sort.png);
+	background-size:cover;
+}
+.icon-sort-black{
+	background-image:url(./assets/sort_black.png);
+}
+.icon-trash{
+	display: inline-block;
+    width: 2em;
+    height: 2em;
+    border-radius: 0 0 3Px 3Px;
+    border-top: none;
+    margin: .9em .6em .3em;
+    border:.2em solid currentColor;
+    border-top:0;
+    position:relative;
+	&:before{
+		content:'';
+		position:absolute;
+	    width: .8em;
+	    height: .2em;
+	    top: -.65em;
+	    left:.4em;
+	    box-shadow: inset 0 0 0 1em, -.8em .2em 0 0, -.6em .2em 0 0, 0 .2em 0 0, .6em .2em 0 0, .8em .2em 0 0;
+	}
 }

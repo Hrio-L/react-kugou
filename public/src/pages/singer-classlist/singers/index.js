@@ -9,13 +9,18 @@ import Scroll from '../../../components/scroll'
 import './index.less'
 
 
-const mapStateToProps = ({singerClasslist:{singerLists,classname,page,loading,total}}) => ({singerLists,classname,page,loading,total})
+const mapStateToProps = ({singerClasslist:{singerList,classname,page,loading,total}}) => ({singerList,classname,page,loading,total})
 const mapDispatchToProps = dispatch => ({
-	getListRequest:(id,page) => {
+	getList:payload => {
 		dispatch({
 			type:'GET_SINGER_LIST_REQUEST',
-			id,
-			page
+			payload
+		})
+	},
+	loadSinger:payload => {
+		dispatch({
+			type:'LOAD_SINGER_LIST_REQUEST',
+			payload
 		})
 	},
 	initSingerList:() => {
@@ -23,10 +28,10 @@ const mapDispatchToProps = dispatch => ({
 			type:'INIT_SINGER_LIST'
 		})
 	},
-	showLoading:() => {
+	showLoading:payload => {
 		dispatch({
 			type:'CHANGE_SINGER_LIST_LOADING',
-			loading:true
+			payload
 		})
 	}
 })
@@ -35,8 +40,13 @@ const mapDispatchToProps = dispatch => ({
 @connect(mapStateToProps,mapDispatchToProps)
 class Singers extends Component{
 	componentDidMount = () => {
-		const {getListRequest,page,match:{params:{id}}} = this.props
-		getListRequest(id,page)
+		const {getList,page,singerList,match:{params:{id}}} = this.props
+		if(id && !singerList.length){
+			getList({
+				classid:id,
+				page
+			})
+		}
 	}
 	componentWillUnmount = () => {
 		const {initSingerList} = this.props
@@ -47,8 +57,8 @@ class Singers extends Component{
 		history.push(`/singer/${id}`)
 	}
 	renderSingerList = () => {
-		const {singerLists} = this.props
-		return singerLists.map((d,i) => {
+		const {singerList} = this.props
+		return singerList.map((d,i) => {
 			const {singerid:id,singername:title,imgurl} = d
 			return (
 				<Card 
@@ -69,17 +79,20 @@ class Singers extends Component{
 		history.go(-1)
 	}
 	loadList = () => {
-		const {getListRequest,page,total,singerLists,showLoading,match:{params:{id}}} = this.props
-		if(total > singerLists.length){
-			showLoading()
-			getListRequest(id,page)
+		const {loadSinger,page,total,singerList,showLoading,match:{params:{id}}} = this.props
+		if(total > singerList.length){
+			showLoading(true)
+			loadSinger({
+				classid:id,
+				page:page + 1
+			})
 		}
 	}
 	render(){
-		const {singerLists,classname,loading} = this.props
+		const {singerList,classname,loading} = this.props
 		return(
 			<div className="singer-list">
-				{!singerLists.length && (
+				{!singerList.length && (
 					<Icon style={{display:'block',margin:'55px auto',fontSize:22,color:'silver'}} type="loading" />
 				)}
 				<Scroll style={{paddingBottom:70}} loading={loading} onBottom={this.loadList}>
@@ -90,7 +103,7 @@ class Singers extends Component{
 						)} 
 						extra={(
 							<NavLink to="/search">
-								<Icon style={{fontSize:18}} type="search" />
+								<Icon style={{fontSize:18,color:'white'}} type="search" />
 							</NavLink>
 							)}
 					/>

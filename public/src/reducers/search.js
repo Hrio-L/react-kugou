@@ -1,4 +1,5 @@
-const INIT_HOT_SEARCH_LIST = 'INIT_HOT_SEARCH_LIST'
+const SAVE_HOT_LIST = 'SAVE_HOT_LIST'
+const SAVE_SEARCH_RESULT = 'SAVE_SEARCH_RESULT'
 const ADD_HISTORY_ITEM = 'ADD_HISTORY_ITEM'
 const REMOVE_HISTORY_ITEM = 'REMOVE_HISTORY_ITEM'
 const REMOVE_HISTORY_LIST = 'REMOVE_HISTORY_LIST'
@@ -23,13 +24,13 @@ const setAndGetHistoryList = (historyList,item) => {
 }
 
 const initialState = {
-	hotLists:[],
-	historyLists: getHistoryLists(),
+	hotList:[],
+	historyList: getHistoryLists(),
 	result:{
 		loading:false,
 		page:1,
 		total:0,
-		lists:[],
+		list:[],
 		complate:false
 	}
 }
@@ -37,23 +38,63 @@ const initialState = {
 
 const search = (state = initialState,action) => {
 	switch(action.type){
+		case SAVE_HOT_LIST:
+			return {
+				...state,
+				hotList:action.payload
+			}
+		case SAVE_SEARCH_RESULT:
+			return {
+				...state,
+				result:{
+					...state.result,
+					list:action.payload.list,
+					total:action.payload.total,
+					complate:true
+				}
+			}
+		case UPDATE_SEARCH_RESULT:
+			const {list,...resultRest} = action.payload
+			return {
+				...state,
+				result:{
+					...state.result,
+					...resultRest,
+					list:[...state.result.list,...list],
+					loading:false,
+					complate:true
+				}
+			}
 		case ADD_HISTORY_ITEM:
-			return {...state,historyLists:setAndGetHistoryList(state.historyLists,action.keyword)}
+			return {
+				...state,
+				historyList:setAndGetHistoryList(state.historyList,action.payload)
+			}
 		case REMOVE_HISTORY_ITEM:
-			const filterHistoryList = state.historyLists.filter(d => d !== action.keyword)
-			return {...state,historyLists:setAndGetHistoryList(filterHistoryList)}
+			const filterHistoryList = state.historyList.filter(d => d !== action.payload)
+			return {
+				...state,
+				historyList:setAndGetHistoryList(filterHistoryList)
+			}
 		case REMOVE_HISTORY_LIST:
 			localStorage.clear()
-			return {...state,historyLists:[]}
-		case INIT_HOT_SEARCH_LIST:
-			return {...state,hotLists:action.data}
+			return {
+				...state,
+				historyList:[]
+			}
 		case CHANGE_RESULT_LOADING:
-			return {...state,result:{...state.result,loading:action.loading}}
-		case UPDATE_SEARCH_RESULT:
-			const {lists,...resultRest} = action.data
-			return {...state,result:{...state.result,...resultRest,lists:[...state.result.lists,...lists],loading:false,complate:true}}
+			return {
+				...state,
+				result:{
+					...state.result,
+					loading:action.payload
+				}
+			}
 		case INIT_RESULT:
-			return {...state,result:{...initialState.result}}
+			return {
+				...state,
+				result:initialState.result
+			}
 		default:
 			return state
 	}

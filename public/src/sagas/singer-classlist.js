@@ -9,8 +9,8 @@ const getClassList = function* (){
 			if(result){
 				const {list} = result
 				yield put({
-					type:'INIT_SINGER_CLASSLIST',
-					data:list
+					type:'SAVE_SINGER_CLASS',
+					payload:list
 				})
 			}
 		}catch(err){
@@ -23,15 +23,42 @@ const getSingerList = function* (){
 	while(true){
 		const action = yield take('GET_SINGER_LIST_REQUEST')
 		try{
-			const result = yield call(Api.getSingerList,action.id,action.page)
+			const result = yield call(Api.getSingerList,action.payload)
+			if(result){
+				const {classname,singers:{list:{info,total}}} = result
+				yield put({
+					type:'SAVE_SINGER_LIST',
+					payload:{
+						list:info,
+						classname,
+						total
+					}
+				})
+			}
+		}catch(err){
+			yield put({
+				type:'SAVE_SINGER_LIST',
+				payload:{
+					list:[]
+				}
+			})
+			console.error(err.message)
+		}
+	}
+}
+const loadSingerList = function* (){
+	while(true){
+		const action = yield take('LOAD_SINGER_LIST_REQUEST')
+		try{
+			const result = yield call(Api.getSingerList,action.payload)
 			if(result){
 				const {classname,singers:{list:{info,total}}} = result
 				yield put({
 					type:'UPDATE_SINGER_LIST',
-					data:{
-						lists:info,
+					payload:{
+						list:info,
 						classname,
-						page:action.page + 1,
+						page:action.payload.page ,
 						total
 					}
 				})
@@ -39,9 +66,8 @@ const getSingerList = function* (){
 		}catch(err){
 			yield put({
 				type:'UPDATE_SINGER_LIST',
-				data:{
-					lists:[],
-					page:action.page
+				payload:{
+					list:[]
 				}
 			})
 			console.error(err.message)
@@ -52,27 +78,55 @@ const getSongsList = function* (){
 	while(true){
 		const action = yield take('GET_SINGER_SONGS_LIST_REQUEST')
 		try{
-			const result = yield call(Api.getSingerSongsList,action.id,action.page)
+			const result = yield call(Api.getSingerSongsList,action.payload)
 			if(result){
 				const {info:{singername:singerName,imgurl,intro},songs:{list,total}} = result
 				yield put({
-					type:'UPDATE_SINGER_SONGS',
-					data:{
-						lists:list,
+					type:'SAVE_SONGS_LIST',
+					payload:{
+						list,
 						total,
 						intro,
 						banner:imgurl.replace(/{size}/g,200),
-						singerName,
-						page:action.page + 1
+						singerName
 					}
 				})
 			}
 		}catch(err){
 			yield put({
-				type:'UPDATE_SINGER_SONGS',
-				data:{
-					lists:[],
-					page:action.page
+				type:'SAVE_SONGS_LIST',
+				payload:{
+					list:[]
+				}
+			})
+			console.error(err.message)
+		}
+	}
+}
+const loadSongsList = function* (){
+	while(true){
+		const action = yield take('LOAD_SONGS_LIST_REQUEST')
+		try{
+			const result = yield call(Api.getSingerSongsList,action.payload)
+			if(result){
+				const {info:{singername:singerName,imgurl,intro},songs:{list,total}} = result
+				yield put({
+					type:'UPDATE_SONGS_LIST',
+					payload:{
+						list:list,
+						total,
+						intro,
+						banner:imgurl.replace(/{size}/g,200),
+						singerName,
+						page:action.payload.page
+					}
+				})
+			}
+		}catch(err){
+			yield put({
+				type:'UPDATE_SONGS_LIST',
+				payload:{
+					list:[]
 				}
 			})
 			console.error(err.message)
@@ -83,5 +137,7 @@ const getSongsList = function* (){
 export default function* singerClasslistAction(){
 	yield fork(getClassList)
 	yield fork(getSingerList)
+	yield fork(loadSingerList)
 	yield fork(getSongsList)
+	yield fork(loadSongsList)
 }

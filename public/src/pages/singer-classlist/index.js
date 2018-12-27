@@ -7,7 +7,7 @@ import Scroll from '../../components/scroll'
 
 import './index.less'
 
-const mapStateToProps = ({singerClasslist:{lists}}) => ({lists})
+const mapStateToProps = ({singerClasslist:{classList}}) => ({classList})
 const mapDispatchToProps = dispatch => ({
 	getListRequest:() => {
 		dispatch({
@@ -20,8 +20,8 @@ const mapDispatchToProps = dispatch => ({
 @connect(mapStateToProps,mapDispatchToProps)
 class Singerlist extends Component{
 	componentDidMount = () => {
-		const {lists,getListRequest} = this.props
-		if(!lists.length){
+		const {classList,getListRequest} = this.props
+		if(!classList.length){
 			getListRequest()
 		}
 	}
@@ -30,17 +30,17 @@ class Singerlist extends Component{
 		history.push(`/singerclass/${info.classid}`)
 	}
 	renderItem = interval => {
-		const {lists} = this.props
-		if(!lists.length){
+		const {classList} = this.props
+		if(!classList.length){
 			return null
 		}
-		const first = lists[0]
+		const first = classList[0]
 		const result = []
 		let center = []
-		for(let i = 1;i<lists.length;i++){
+		for(let i = 1;i<classList.length;i++){
 			center.push((
-				<li onClick={this.handleClick.bind(this,lists[i])} key={i} className="singer-item">
-					{lists[i].classname}
+				<li onClick={this.handleClick.bind(this,classList[i])} key={i} className="singer-item">
+					{classList[i].classname}
 					<Icon type="arrow-right" />
 				</li>
 			))
@@ -62,17 +62,17 @@ class Singerlist extends Component{
 					{d}
 				</ul>
 			)),
-			<ul key={lists.length} className="singer-group">
+			<ul key={classList.length} className="singer-group">
 				{center}
 			</ul>
 		]
 	}
 	render(){
-		const {lists,isTop} = this.props
+		const {classList,isTop} = this.props
 		return(
 			<div className="singerlist">
 				<Scroll isTop={isTop} timeout={300} style={{paddingTop:91,paddingBottom:70}}>
-					{!lists.length && (
+					{!classList.length && (
 						<Icon style={{display:'block',margin:'10px auto',fontSize:22,color:'silver'}} type="loading" />
 					)}
 					{this.renderItem(3)}

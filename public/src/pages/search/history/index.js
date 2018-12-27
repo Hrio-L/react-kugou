@@ -4,17 +4,17 @@ import {connect} from 'react-redux'
 import Tag from '../../../components/tag'
 import Icon from '../../../components/icon'
 
-const mapStateToProps = ({search:{hotLists,historyLists}}) => ({hotLists,historyLists})
+const mapStateToProps = ({search:{hotList,historyList}}) => ({hotList,historyList})
 const mapDispatchToProps = dispatch => ({
 	getHotList:() => {
 		dispatch({
 			type:'GET_HOT_SEARCH_LIST'
 		})
 	},
-	removeHistoryItem:keyword => {
+	removeHistoryItem:payload => {
 		dispatch({
 			type:'REMOVE_HISTORY_ITEM',
-			keyword
+			payload
 		})
 	},
 	emptyHistory: () => {
@@ -28,8 +28,8 @@ const mapDispatchToProps = dispatch => ({
 @connect(mapStateToProps,mapDispatchToProps)
 class SearchHistory extends Component{
 	componentDidMount = () => {
-		const {hotLists,getHotList} = this.props
-		if(!hotLists.length){
+		const {hotList,getHotList} = this.props
+		if(!hotList.length){
 			getHotList()
 		}
 	}
@@ -40,8 +40,8 @@ class SearchHistory extends Component{
 		}
 	}
 	renderHotList = () => {
-		const {hotLists} = this.props
-		return hotLists.map((d,i) => (
+		const {hotList} = this.props
+		return hotList.map((d,i) => (
 			<Tag onClick={this.toSearchResult.bind(this,d.keyword)} active={d.jumpurl?true:false} key={i}>
 				{d.keyword}
 			</Tag>
@@ -53,8 +53,8 @@ class SearchHistory extends Component{
 		removeHistoryItem(keyword)
 	}
 	renderHistoryList = () => {
-		const {historyLists} = this.props
-		return historyLists.map((d,i) => (
+		const {historyList} = this.props
+		return historyList.map((d,i) => (
 			<li onClick={this.toSearchResult.bind(this,d)} key={d} className="search-history-item">
 				<Icon type="clock" />
 				<span>{d}</span>
@@ -63,7 +63,7 @@ class SearchHistory extends Component{
 		))
 	}
 	render(){
-		const {historyLists,emptyHistory} = this.props
+		const {historyList,emptyHistory} = this.props
 		return(
 			<div className="search-history">
 				<div className="search-hot">
@@ -74,7 +74,7 @@ class SearchHistory extends Component{
 					<ul className="search-history-wrap">
 						{this.renderHistoryList()}
 					</ul>
-					{historyLists.length? <h5 onClick={emptyHistory} className="active">清空搜索记录</h5> : <h5>暂无搜索记录</h5>}
+					{historyList.length? <h5 onClick={emptyHistory} className="active">清空搜索记录</h5> : <h5>暂无搜索记录</h5>}
 				</div>
 			</div>
 		)

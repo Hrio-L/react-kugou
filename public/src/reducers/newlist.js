@@ -1,5 +1,5 @@
-const INIT_NEWLIST_SONGS = 'INIT_NEWLIST_SONGS'
-const INIT_BANNER = 'INIT_BANNER'
+const SAVE_NEWLIST = 'SAVE_NEWLIST'
+const SAVE_BANNER = 'SAVE_BANNER'
 
 const initialState = {
 	banners:[],
@@ -8,10 +8,16 @@ const initialState = {
 
 const newlist = (state = initialState,action) => {
 	switch(action.type){
-		case INIT_BANNER:
-			return {...state,banners:action.banners}
-		case INIT_NEWLIST_SONGS:
-			return {...state,songs: [...action.songs]}
+		case SAVE_BANNER:
+			return {
+				...state,
+				banners:action.payload
+			}
+		case SAVE_NEWLIST:
+			return {
+				...state,
+				songs:action.payload
+			}
 		default:
 			return state
 	}

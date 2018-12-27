@@ -9,8 +9,8 @@ const getHots = function* (){
 			if(result){
 				const {data:{info}} = result
 				yield put({
-					type:'INIT_HOT_SEARCH_LIST',
-					data:info
+					type:'SAVE_HOT_LIST',
+					payload:info
 				})
 			}
 		}catch(err){
@@ -23,39 +23,65 @@ const search = function* (){
 	while(true){
 			const action = yield take('SEARCH_REQUEST')
 		try{
-			const result = yield call(Api.search,action.keyword,action.page)
+			const result = yield call(Api.search,action.payload)
 			if(result){
 				const {data:{info,total}} = result
 				yield put({
-					type:'UPDATE_SEARCH_RESULT',
-					data:{
-						lists:info,
-						total,
-						page:action.page
+					type:'SAVE_SEARCH_RESULT',
+					payload:{
+						list:info,
+						total
 					}
 				})
 				yield put({
 					type:'ADD_HISTORY_ITEM',
-					keyword:action.keyword
+					payload:action.keyword
 				})
 			}
 		}catch(err){
 			yield put({
-				type:'UPDATE_SEARCH_RESULT',
-				data:{
-					page:action.page
+				type:'SAVE_SEARCH_RESULT',
+				payload:{
+					list:[]
 				}
-			})
-			yield put({
-				type:'ADD_HISTORY_ITEM',
-				keyword:action.keyword
 			})
 			console.error(err.message)
 		}
 	}
 }
-
+const loadResult = function* (){
+	while(true){
+			const action = yield take('LOAD_RESULT_REQUEST')
+		try{
+			const result = yield call(Api.search,action.payload)
+			if(result){
+				const {data:{info,total}} = result
+				yield put({
+					type:'UPDATE_SEARCH_RESULT',
+					payload:{
+						list:info,
+						total,
+						page:action.payload.page
+					}
+				})
+				yield put({
+					type:'ADD_HISTORY_ITEM',
+					payload:action.keyword
+				})
+			}
+		}catch(err){
+			yield put({
+				type:'UPDATE_SEARCH_RESULT',
+				payload:{
+					list:[]
+				}
+			})
+			console.error(err.message)
+		}
+	}
+}
 export default function* searchAction(){
 	yield fork(getHots)
 	yield fork(search)
+	yield fork(loadResult)
 }

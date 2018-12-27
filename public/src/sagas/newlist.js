@@ -8,12 +8,12 @@ const getList = function* (){
 			const result = yield call(Api.getNewlist)
 			if(result){
 				yield put({
-					type:'INIT_BANNER',
-					banners:result.banner
+					type:'SAVE_BANNER',
+					payload:result.banner
 				})
 				yield put({
-					type:'INIT_NEWLIST_SONGS',
-					songs:result.data
+					type:'SAVE_NEWLIST',
+					payload:result.data
 				})
 			}
 		}catch(err){

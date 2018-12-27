@@ -6,24 +6,29 @@ import SongsView from '../../../components/songs-view'
 import Scroll from '../../../components/scroll'
 import BaseHandler from '../../../common/basehandler'
 
-const mapStateToProps = ({singerClasslist:{singer:{songs,singerName,banner,intro,page,loading,total}}}) => ({songs,singerName,banner,intro,page,loading,total})
+const mapStateToProps = ({singerClasslist:{singer:{list,singerName,banner,intro,page,loading,total}}}) => ({list,singerName,banner,intro,page,loading,total})
 const mapDispatchToProps = dispatch => ({
-	getSongsRequest:(id,page) => {
+	getSongsList:payload => {
 		dispatch({
 			type:'GET_SINGER_SONGS_LIST_REQUEST',
-			id,
-			page
+			payload
+		})
+	},
+	loadSongsList:payload => {
+		dispatch({
+			type:'LOAD_SONGS_LIST_REQUEST',
+			payload
 		})
 	},
 	initSinger:() => {
 		dispatch({
-			type:'INIT_SINGER'
+			type:'INIT_SONGS_LIST'
 		})
 	},
-	showLoading:() => {
+	showLoading:payload => {
 		dispatch({
 			type:'CHANGE_SINGER_LOADING',
-			loading:true
+			payload
 		})
 	}
 })
@@ -33,30 +38,38 @@ const mapDispatchToProps = dispatch => ({
 @BaseHandler
 class Songs extends Component{
 	componentDidMount = () => {
-		const {match:{params:{id}},getSongsRequest,page} = this.props
-		if(id){
-			getSongsRequest(id,page)
+		const {match:{params:{id}},getSongsList,page,list} = this.props
+		if(id && !list.length){
+			getSongsList({
+				singerid:id,
+				page
+			})
 		}
 	}
 	componentWillUnmount = () => {
-		const {initSinger} = this.props
-		initSinger()
+		const {initSinger,list} = this.props
+		if(list.length){
+			initSinger()
+		}
 	}
 	loadList = () => {
-		const {match:{params:{id}},getSongsRequest,page,total,songs,showLoading} = this.props
-		if(total > songs.length){
-			showLoading()
-			getSongsRequest(id,page)
+		const {match:{params:{id}},loadSongsList,page,total,list,showLoading} = this.props
+		if(total > list.length){
+			showLoading(true)
+			loadSongsList({
+				singerid:id,
+				page:page + 1
+			})
 		}
 	}
 	render(){
-		const {songs,singerName,banner,intro,loading,onSongClick} = this.props
+		const {list,singerName,banner,intro,loading,onSongClick} = this.props
 		return (
 			<div className="songs">
 				<Scroll style={{paddingBottom:70}} loading={loading} onBottom={this.loadList}>
 					<SongsView
 						onSongClick={onSongClick}
-						lists={songs}
+						list={list}
 						title={singerName}
 						banner={banner}
 						collapse={{
