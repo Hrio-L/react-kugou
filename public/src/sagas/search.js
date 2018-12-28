@@ -1,5 +1,6 @@
 import {put,take,call,fork} from 'redux-saga/effects'
 import Api from '../api'
+import {handleError} from '../common/basehandler'
 
 const getHots = function* (){
 	while(true){
@@ -14,7 +15,7 @@ const getHots = function* (){
 				})
 			}
 		}catch(err){
-			console.error(err.message)
+			handleError(err)
 		}
 	}
 }
@@ -45,7 +46,7 @@ const search = function* (){
 					list:[]
 				}
 			})
-			console.error(err.message)
+			handleError(err)
 		}
 	}
 }
@@ -76,7 +77,7 @@ const loadResult = function* (){
 					list:[]
 				}
 			})
-			console.error(err.message)
+			handleError(err)
 		}
 	}
 }

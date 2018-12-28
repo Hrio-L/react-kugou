@@ -22,7 +22,7 @@ const Songslist = props => {
 					Action
 						? 
 							<div className="actions">
-								<Action info={{name:d.name,desc:d.author,id:d.id}} actions={props.actions} >
+								<Action onClick={props.actionClick} info={{name:d.name,desc:d.author,id:d.id}} actions={props.actions} >
 									<Icon type="ellipsis" />
 								</Action>
 							</div>
@@ -51,6 +51,7 @@ Songslist.propTypes = {
 			author:PropTypes.string.isRequired
 		})
 	).isRequired,
+
 	actionComponent:PropTypes.oneOfType([
 		PropTypes.func,
 		PropTypes.node

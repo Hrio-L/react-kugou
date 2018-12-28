@@ -14,7 +14,11 @@ export const AactinContent = props => {
 	const renderItem = lists => {
 		return lists.map((d,i) => {
 			const events = {
-				onClick:d.onClick
+				onClick:ev => {
+					ev.stopPropagation()
+					d.onClick && d.onClick(info,Mask.close)
+
+				}
 			}
 			if(typeof d === 'object'){
 				if(d.$$typeof){
@@ -131,6 +135,7 @@ ActionSheet.propTypes = {
 		PropTypes.node,
 		PropTypes.element
 	]),
+	onClick:PropTypes.func,
 	extra:PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.node,

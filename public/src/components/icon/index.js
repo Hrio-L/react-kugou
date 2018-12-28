@@ -30,8 +30,8 @@ const Retweet = createComponent('retweet')
 const RetweetBlack = createComponent('retweet-black')
 const Random = createComponent('random')
 const RandomBlack = createComponent('random-black')
-const Sort = createComponent('sort')
-const SortBlack = createComponent('sort-black')
+const LoopOne = createComponent('loop-one')
+const LoopOneBlack = createComponent('loop-one-black')
 const Trash = createComponent('trash')
 
 class Icon extends PureComponent {
@@ -59,8 +59,8 @@ class Icon extends PureComponent {
 			'retweet-black':(<RetweetBlack {...props} />),
 			'random':(<Random {...props} />),
 			'random-black':(<RandomBlack {...props} />),
-			'sort':(<Sort {...props} />),
-			'sort-black':(<SortBlack {...props} />),
+			'loop-one':(<LoopOne {...props} />),
+			'loop-one-black':(<LoopOneBlack {...props} />),
 			'trash':(<Trash {...props} />),
 			'play-menu':(<PlayMenu {...props} />)
 		}

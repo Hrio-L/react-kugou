@@ -5,7 +5,7 @@ import Scroll from '../../../components/scroll'
 import Songlist from '../../../components/songslist'
 import Icon from '../../../components/icon'
 import ActionSheet from '../../../components/action-sheet'
-import BaseHanlder from '../../../common/basehandler'
+import BaseHanlder,{toast} from '../../../common/basehandler'
 
 const mapStateToProps = ({search:{result}}) => ({result})
 const mapDispatchToProps = dispatch => ({
@@ -93,19 +93,39 @@ class Result extends Component{
 		}
 	}
 	render(){
-		const {result:{list,loading},onSongClick,complate} = this.props
+		const {result:{list,loading},onSongClick,complate,addPlayingList,onDownload} = this.props
 		const actions = [{
 			name:'播放',
-			key:'play'
+			key:'play',
+			onClick:(row,close) => {
+				onSongClick(row)
+				close()
+			}
 		},{
 			name:'添加到歌单',
-			key:'add'
+			key:'add',
+			onClick:(row,close) => {
+				addPlayingList({
+					id:row.id,
+					author:row.desc,
+					name:row.name
+				})
+				toast.show('添加成功')
+				close()
+			}
 		},{
 			name:'分享',
-			key:'share'
+			key:'share',
+			onClick:(row,close) => {
+				toast.show('该功能暂时没开通')
+			}
 		},{
 			name:'下载',
-			key:'download'
+			key:'download',
+			onClick:(row,close) => {
+				onDownload(row.id)
+				close()
+			}
 		}]
 		return(
 			<div className="search-result">

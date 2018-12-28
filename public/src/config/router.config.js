@@ -13,27 +13,27 @@ import Lyrics from '../components/lyrics'
 
 const Search = Loadable({
 	loader:() => import ('../pages/search'),
-	loading:() => (<ToastLoading iconStyle={{color:'white'}} />)
+	loading:() => (<ToastLoading style={{color:'white'}} />)
 })
 const Rank = Loadable({
 	loader:() => import ('../pages/toplist/rank'),
-	loading:() => (<ToastLoading iconStyle={{color:'white'}} />)
+	loading:() => (<ToastLoading style={{color:'white'}} />)
 })
 const PlistDetail = Loadable({
 	loader:() => import ('../pages/plist/detail'),
-	loading:() => (<ToastLoading iconStyle={{color:'white'}} />)
+	loading:() => (<ToastLoading style={{color:'white'}} />)
 })
 const SingerList = Loadable({
 	loader:() => import ('../pages/singer-classlist/singers'),
-	loading:() => (<ToastLoading iconStyle={{color:'white'}} />)
+	loading:() => (<ToastLoading style={{color:'white'}} />)
 })
 const SingerSongsList = Loadable({
 	loader:() => import ('../pages/singer-classlist/songs'),
-	loading:() => (<ToastLoading iconStyle={{color:'white'}} />)
+	loading:() => (<ToastLoading style={{color:'white'}} />)
 })
 const Main = Loadable({
 	loader:() => import ('../pages/main'),
-	loading:() => (<ToastLoading iconStyle={{color:'white'}}  />)
+	loading:() => (<ToastLoading style={{color:'white'}}  />)
 })
 
 	

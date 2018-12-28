@@ -1,5 +1,6 @@
-const axios = require('axios')
-const qs = require('querystring')
+import axios from 'axios'
+import  qs from 'querystring'
+import Toast from '../components/toast'
 
 const handle = xhr => {
 	const {data,errcode,msg} = xhr.data
@@ -7,6 +8,11 @@ const handle = xhr => {
 		return data
 	}else{
 		console.error(msg)
+		Toast.show({
+			message:'网络异常',
+			style:{color:'white'},
+			duration:1
+		})
 		return null
 	}
 }
@@ -96,6 +102,16 @@ class Api{
 		try{
 			const xhr = await axios.get(`/song?${qs.stringify(params)}`)
 			return handle(xhr)
+		}catch(err){
+			console.error(err.message)
+		}
+	}
+	static async downloadMusic(params){
+		try{
+			const elementA = document.createElement('a')
+			elementA.download = `${params.filename}.mp3`
+			elementA.href = `/download?${qs.stringify(params)}`
+			elementA.click()
 		}catch(err){
 			console.error(err.message)
 		}

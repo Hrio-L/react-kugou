@@ -1,5 +1,6 @@
 import {take,put,call,fork} from 'redux-saga/effects'
 import Api from '../api'
+import {handleError} from '../common/basehandler'
 
 const getList = function* (){
 	while(true){
@@ -17,7 +18,7 @@ const getList = function* (){
 				})
 			}
 		}catch(err){
-			console.error(err)
+			handleError(err)
 		}
 	}
 }

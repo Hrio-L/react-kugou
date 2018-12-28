@@ -4,7 +4,7 @@ import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import Icon from '../../../components/icon'
 import SongsView from '../../../components/songs-view'
 import Scroll from '../../../components/scroll'
-import BaseHandler from '../../../common/basehandler'
+import BaseHandler,{toast} from '../../../common/basehandler'
 
 const mapStateToProps = ({singerClasslist:{singer:{list,singerName,banner,intro,page,loading,total}}}) => ({list,singerName,banner,intro,page,loading,total})
 const mapDispatchToProps = dispatch => ({
@@ -63,11 +63,45 @@ class Songs extends Component{
 		}
 	}
 	render(){
-		const {list,singerName,banner,intro,loading,onSongClick} = this.props
+		const {list,singerName,banner,intro,loading,onSongClick,addPlayingList,onDownload} = this.props
+		const actions = [{
+			name:'播放',
+			key:'play',
+			onClick:(row,close) => {
+				onSongClick(row)
+				close()
+			}
+		},{
+			name:'添加到歌单',
+			key:'add',
+			onClick:(row,close) => {
+				addPlayingList({
+					id:row.id,
+					author:row.desc,
+					name:row.name
+				})
+				toast.show('添加成功')
+				close()
+			}
+		},{
+			name:'分享',
+			key:'share',
+			onClick:(row,close) => {
+				toast.show('该功能暂时没开通')
+			}
+		},{
+			name:'下载',
+			key:'download',
+			onClick:(row,close) => {
+				onDownload(row.id)
+				close()
+			}
+		}]
 		return (
 			<div className="songs">
 				<Scroll style={{paddingBottom:70}} loading={loading} onBottom={this.loadList}>
 					<SongsView
+						actions={actions}
 						onSongClick={onSongClick}
 						list={list}
 						title={singerName}

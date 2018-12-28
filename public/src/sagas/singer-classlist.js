@@ -1,5 +1,7 @@
 import {put,call,take,fork} from 'redux-saga/effects'
 import Api from '../api'
+import {handleError} from '../common/basehandler'
+
 
 const getClassList = function* (){
 	while(true){
@@ -14,7 +16,7 @@ const getClassList = function* (){
 				})
 			}
 		}catch(err){
-			console.error(err.message)
+			handleError(err)
 		}
 	}
 }
@@ -42,7 +44,7 @@ const getSingerList = function* (){
 					list:[]
 				}
 			})
-			console.error(err.message)
+			handleError(err)
 		}
 	}
 }
@@ -70,7 +72,7 @@ const loadSingerList = function* (){
 					list:[]
 				}
 			})
-			console.error(err.message)
+			handleError(err)
 		}
 	}
 }
@@ -99,7 +101,7 @@ const getSongsList = function* (){
 					list:[]
 				}
 			})
-			console.error(err.message)
+			handleError(err)
 		}
 	}
 }
@@ -129,7 +131,7 @@ const loadSongsList = function* (){
 					list:[]
 				}
 			})
-			console.error(err.message)
+			handleError(err)
 		}
 	}
 }

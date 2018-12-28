@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import {Route} from 'react-router-dom'
 import {connect} from 'react-redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import BaseHandler from '../../common/basehandler'
+import BaseHandler,{toast} from '../../common/basehandler'
 import Header from '../../components/header'
 import Silder from '../../components/silder'
 import Icon from '../../components/icon'
@@ -44,22 +44,9 @@ class PlayerContainer extends Component{
 		audioState:'pause',
 		silderActive:false,
 		myListVisible:false,
-		methods:['sort','loop','random']
+		methods:['loop-one','loop','random']
 	}
-	componentWillReceiveProps = nextProps => {
-		const {playing:{music}} = nextProps
-		const {audio} = this.state
-		if(music !== this.props.playing.music){
-			if(audio){
-				audio.currentTime = 0
-			}
-			this.setState({
-				audioUsed:0,
-				audioState:'play',
-				loading:true
-			})
-		}
-	}
+	
 	getRef = ref => {
 		this.setState({
 			audio:ref
@@ -88,9 +75,25 @@ class PlayerContainer extends Component{
 	}
 	onAudioPlay = () => {
 		const {audio} = this.state
-		const {music} = this.props
+		const {playing:{lastMusic,list},onSongClick,playMethod} = this.props
 		if(!audio){
-			return
+			if(lastMusic){
+				return onSongClick({
+					id:lastMusic
+				})
+			}else{
+				if(list.length){
+					switch(playMethod){
+						case 'loop':
+						case 'loop-one':
+							return onSongClick(list[0].id)
+						case 'random':
+							return onSongClick(list[Math.floor(Math.random() * list.length - 1)])
+					}
+				}else{
+					return toast.show('你怕是第一次来哦,去首页看看把')
+				}
+			}
 		}
 		if(audio.paused){
 			audio.play()
@@ -101,11 +104,42 @@ class PlayerContainer extends Component{
 		})
 	}
 	onAudioEnded = () => {
+		const {playing:{list,playMethod,id},onSongClick} = this.props
+		const {audio} = this.state
+		let currentIndex = 0
 		this.setState({
-			audioState:'pause',
 			audioUsed:0,
 			loading:false
 		})
+
+		list.forEach((d,i) => {
+			if(d.id === id){
+				currentIndex = i
+			}
+		})
+		if(!list.length){
+			if(audio.paused){
+				audio.play()
+			}
+			return onSongClick({id},true)
+		}
+		if(currentIndex === 0 && list.length === 1){
+			return onSongClick(list[0],true)
+		}
+		switch(playMethod){
+			case 'loop':
+				if(currentIndex === list.length - 1){
+					return onSongClick(list[0],true)
+				}else{
+					return onSongClick(list[currentIndex + 1])
+				}
+			case 'loop-one':
+				return onSongClick({
+					id
+				},true)
+			case 'random':
+				return onSongClick(list[Math.floor(Math.random() * list.length - 1)],true)
+		}
 	}
 	onAudioChange = used => {
 		const {audio} = this.state
@@ -184,8 +218,8 @@ class PlayerContainer extends Component{
 	getPlayIconType = () => {
 		const {playing:{playMethod}} = this.props
 		switch(playMethod){
-			case 'sort':
-				return 'sort'
+			case 'loop-one':
+				return 'loop-one'
 			break
 			case 'random':
 				return 'random'

@@ -33,21 +33,8 @@ class SongsView extends PureComponent{
 	}
 
 	render(){
-		const {banner,title,footText,className,classPrefixer,list,collapse,onSongClick} = this.props
+		const {banner,title,footText,className,classPrefixer,list,collapse,onSongClick,actions} = this.props
 		const classes = classNames(`${classPrefixer}-view`,className)
-		const actions = [{
-			name:'播放',
-			key:'play'
-		},{
-			name:'添加到歌单',
-			key:'add'
-		},{
-			name:'分享',
-			key:'share'
-		},{
-			name:'下载',
-			key:'download'
-		}]
 		return (
 			<div className={classes}>
 				{!list.length && (
@@ -122,7 +109,8 @@ SongsView.propTypes = {
 			PropTypes.node,
 			PropTypes.element
 		])
-	})
+	}),
+	actions:PropTypes.array
 }
 
 export default withRouter(SongsView)

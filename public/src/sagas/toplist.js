@@ -1,5 +1,6 @@
 import {put,call,take,fork} from 'redux-saga/effects'
 import Api from '../api'
+import {handleError} from '../common/basehandler'
 
 const getTopList = function* (){
 	while(true){
@@ -14,7 +15,7 @@ const getTopList = function* (){
 				})
 			}
 		}catch(err){
-			console.error(err)
+			handleError(err)
 		}
 	}
 }
@@ -43,7 +44,7 @@ const getRankList = function* (){
 					list:[]
 				}
 			})
-			console.error(err)
+			handleError(err)
 		}
 	}
 }
@@ -73,7 +74,7 @@ const loadRankList = function* (){
 					list:[]
 				}
 			})
-			console.error(err)
+			handleError(err)
 		}
 	}
 }

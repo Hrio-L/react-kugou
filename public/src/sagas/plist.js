@@ -1,5 +1,6 @@
 import {put,call,take,fork} from 'redux-saga/effects'
 import Api from '../api'
+import {handleError} from '../common/basehandler'
 
 
 const getList = function* (){
@@ -24,7 +25,7 @@ const getList = function* (){
 					list:[]
 				}
 			})
-			console.error(err.message)
+			handleError(err)
 		}
 	}
 }
@@ -51,7 +52,7 @@ const loadList = function* (){
 					list:[]
 				}
 			})
-			console.error(err.message)
+			handleError(err)
 		}
 	}
 }
@@ -80,7 +81,7 @@ const getDetail = function* (){
 					list:[]
 				}
 			})
-			console.error(err.message)
+			handleError(err)
 		}
 	}
 }
@@ -110,7 +111,7 @@ const loadDetail = function* (){
 					list:[]
 				}
 			})
-			console.error(err.message)
+			handleError(err)
 		}
 	}
 }

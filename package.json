@@ -41,6 +41,7 @@
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
+    "mime": "^2.4.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-immutable-render-mixin": "^0.9.7",

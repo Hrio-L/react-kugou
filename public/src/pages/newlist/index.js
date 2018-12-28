@@ -6,7 +6,7 @@ import ActionSheet from '../../components/action-sheet'
 import Swiper from '../../components/swiper'
 import Icon from '../../components/icon'
 import Scroll from '../../components/scroll'
-import BaseHandler from '../../common/basehandler'
+import BaseHandler,{toast} from '../../common/basehandler'
 import './index.less'
 
 const mapStateToProps = ({newlist:{songs,banners}}) => ({songs,banners})
@@ -59,19 +59,39 @@ class Newlist extends Component{
 		}
 	}
 	render(){
-		const {songs,isTop,onSongClick} = this.props
+		const {songs,isTop,onSongClick,addPlayingList,onDownload} = this.props
 		const actions = [{
 			name:'播放',
-			key:'play'
+			key:'play',
+			onClick:(row,close) => {
+				onSongClick(row)
+				close()
+			}
 		},{
 			name:'添加到歌单',
-			key:'add'
+			key:'add',
+			onClick:(row,close) => {
+				addPlayingList({
+					id:row.id,
+					author:row.desc,
+					name:row.name
+				})
+				toast.show('添加成功')
+				close()
+			}
 		},{
 			name:'分享',
-			key:'share'
+			key:'share',
+			onClick:(row,close) => {
+				toast.show('该功能暂时没开通')
+			}
 		},{
 			name:'下载',
-			key:'download'
+			key:'download',
+			onClick:(row,close) => {
+				onDownload(row.id)
+				close()
+			}
 		}]
 		return(
 			<div className="newlist">

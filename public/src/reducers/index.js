@@ -29,6 +29,7 @@ const setMyLists = (myLists,item) => {
 	return newMyLists
 }
 
+const lastMusic = localStorage.getItem('lastMusic') ? JSON.parse(localStorage.getItem('lastMusic')) : ''
 
 const initialState = {
 	title:'Music',
@@ -42,7 +43,8 @@ const initialState = {
 		list:getHistoryLists(),
 		lyrics:'',
 		error:false,
-		playMethod:'sort'
+		playMethod:'loop',
+		lastMusic:lastMusic
 	}
 }
 
@@ -66,6 +68,7 @@ const rootState = (state = initialState,action) => {
 				}
 			}
 		case UPDATE_PLAYING_LIST:
+			localStorage.setItem('lastMusic',JSON.stringify(action.payload.id))
 			return {
 				...state,
 				playing:{

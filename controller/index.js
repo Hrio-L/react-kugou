@@ -1,6 +1,9 @@
 const http = require('http')
 const https = require('https')
+const stream = require('stream');
+const path = require('path')
 const request = require('../util/request')
+const mime = require('mime')
 
 const handleError = (ctx,error) => {
 	console.log(error)
@@ -122,7 +125,20 @@ class Index {
 			handleError(ctx,err.message)
 		}
 	}
-
+	static async downloadFile(ctx){
+		try{
+			const {filepath,filename} = ctx.query
+			if(filepath){
+				const type = mime.getType(filepath)
+				const ext = path.extname(filepath)
+				ctx.response.attachment(`${filename || path.parse(filepath).base}${ext}`)
+				const result = await request.get(filepath)
+				ctx.body = result
+			}
+		}catch(err){
+			handleError(ctx,err.message)
+		}
+	}
 }
 
 

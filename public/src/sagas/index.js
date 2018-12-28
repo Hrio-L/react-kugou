@@ -5,6 +5,8 @@ import plistAction from './plist'
 import singerClasslistAction from './singer-classlist'
 import searchAction from './search'
 import Api from '../api'
+import {handleError,toast} from '../common/basehandler'
+
 
 const watch = function* (){
 	while(true){
@@ -12,7 +14,7 @@ const watch = function* (){
 			const action = yield take('*')
 			console.log(action)
 		}catch(err){
-			console.error(err.message)
+			handleError(err)
 		}
 	}
 }
@@ -50,14 +52,33 @@ const getSongDetail = function* (){
 				}
 			}
 		}catch(err){
-			console.error(err.mesage)
+			handleError(err)
 		}
 	}
 }
 
+const downloadMusic = function* (){
+	while(true){
+		try{
+			const action = yield take('DOWNLOAD_REQUEST')
+			toast.show('请稍等...')
+			const result = yield call(Api.getSongDetail,action.payload)
+			const {data:{play_url,song_name}} = result
+			if(play_url){
+				yield call(Api.downloadMusic,{
+					filename:song_name,
+					filepath:play_url
+				})
+			}
+		}catch(err){
+			handleError(err)
+		}
+	}
+}
 
 const indexAction = function* (){
 	yield fork(getSongDetail)
+	yield fork(downloadMusic)
 }
 
 
