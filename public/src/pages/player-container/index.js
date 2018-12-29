@@ -46,7 +46,29 @@ class PlayerContainer extends Component{
 		myListVisible:false,
 		methods:['loop-one','loop','random']
 	}
-	
+	componentWillReceiveProps = nextProps => {
+		const {replayMusic,playing:{replay,list,music}} = nextProps
+		const {audio} = this.state
+		if(music !== this.props.playing.music){
+			this.setState({
+				audioUsed:0
+			})
+		}
+		if(replay){
+			this.setState({
+				audioUsed:0,
+				myListVisible:false
+			})
+			audio.currentTime = 0
+			replayMusic(false)
+		}
+		if(this.props.playing.list.length === list.length){
+			this.setState({
+				myListVisible:false,
+				loading:false
+			})
+		}
+	}
 	getRef = ref => {
 		this.setState({
 			audio:ref
@@ -103,20 +125,24 @@ class PlayerContainer extends Component{
 			loading:false
 		})
 	}
-	onAudioEnded = () => {
-		const {playing:{list,playMethod,id},onSongClick} = this.props
-		const {audio} = this.state
+	getCurrentMusicIndex = () => {
+		const {playing:{list,id}} = this.props
 		let currentIndex = 0
-		this.setState({
-			audioUsed:0,
-			loading:false
-		})
-
 		list.forEach((d,i) => {
 			if(d.id === id){
 				currentIndex = i
 			}
 		})
+		return currentIndex
+	} 
+	onAudioEnded = () => {
+		const {playing:{list,playMethod,id},onSongClick} = this.props
+		const {audio} = this.state
+		this.setState({
+			audioUsed:0,
+			loading:false
+		})
+		const currentIndex = this.getCurrentMusicIndex()
 		if(!list.length){
 			if(audio.paused){
 				audio.play()
@@ -124,21 +150,31 @@ class PlayerContainer extends Component{
 			return onSongClick({id},true)
 		}
 		if(currentIndex === 0 && list.length === 1){
+			if(audio.paused){
+				audio.play()
+			}
 			return onSongClick(list[0],true)
 		}
 		switch(playMethod){
 			case 'loop':
 				if(currentIndex === list.length - 1){
+					if(audio.paused){
+						audio.play()
+					}
 					return onSongClick(list[0],true)
 				}else{
 					return onSongClick(list[currentIndex + 1])
 				}
 			case 'loop-one':
+				if(audio.paused){
+					audio.play()
+				}
 				return onSongClick({
 					id
 				},true)
 			case 'random':
-				return onSongClick(list[Math.floor(Math.random() * list.length - 1)],true)
+				const randomIndex = Math.floor(Math.random() * list.length)
+				return onSongClick(list[randomIndex],true)
 		}
 	}
 	onAudioChange = used => {
@@ -187,10 +223,40 @@ class PlayerContainer extends Component{
 		}
 	}
 	onPrevClick = () => {
-		console.log('prev')
+		const {playing:{list,playMethod},onSongClick} = this.props
+		const currentIndex = this.getCurrentMusicIndex()
+		if(list.length <= 1){
+			return toast.show('快去首页添加歌曲吧')
+		}
+		switch(playMethod){
+			case 'loop-one':
+			case 'loop':
+			case 'random':
+				if(currentIndex === 0){
+					return onSongClick(list[list.length-1],true)
+				}else{
+					return onSongClick(list[currentIndex - 1])
+				}
+		}
 	}
 	onNextClick = () => {
-		console.log('next')
+		const {playing:{list,playMethod},onSongClick} = this.props
+		const currentIndex = this.getCurrentMusicIndex()
+		if(list.length <= 1){
+			return toast.show('快去首页添加歌曲吧')
+		}
+		switch(playMethod){
+			case 'loop-one':
+			case 'loop':
+				if(currentIndex === list.length - 1){
+					return onSongClick(list[0],true)
+				}else{
+					return onSongClick(list[currentIndex + 1])
+				}
+			case 'random':
+				const randomIndex = Math.floor(Math.random() * list.length)
+				return onSongClick(list[randomIndex],true)
+		}
 	}
 	showCover = () => {
 		const {history,location:{search}} = this.props

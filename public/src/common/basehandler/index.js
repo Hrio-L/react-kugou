@@ -23,10 +23,11 @@ export const handleError = err => {
 
 const BaseHandler = Comp => {
 	const mapDispatchToProps = dispatch => ({
-		getSongDetail:payload => {
+		getSongDetail:(payload,callback) => {
 			dispatch({
 				type:'GET_SONG_DETAIL_REQUEST',
-				payload
+				payload,
+				callback
 			})
 		},
 		download:payload => {
@@ -40,17 +41,31 @@ const BaseHandler = Comp => {
 				type:'UPDATE_PLAYING_LIST',
 				payload
 			})
+		},
+		replayMusic:payload => {
+			dispatch({
+				type:'REPLAY_MUSIC',
+				payload
+			})
 		}
 	})
 
 	@connect(({rootState:{playing}})=>({playing}),mapDispatchToProps)
 	class NewComponent extends Component{
 		onSongClick = (info,pass) => {
-			const {getSongDetail,playing:{id}} = this.props
+			const {getSongDetail,replayMusic,playing:{id}} = this.props
 			if(id !== info.id || pass){
+				Toast.show({
+					message:'加载中...',
+					style:{color:'white'}
+				})
 				getSongDetail({
 					hash:info.id
+				},() => {
+					Toast.close()
 				})
+			}else{
+				replayMusic(true)
 			}
 		}
 		onDownload = hash => {
@@ -64,7 +79,7 @@ const BaseHandler = Comp => {
 		render(){
 			const {getSongDetail,addPlayingList,...rest} = this.props
 			return (
-				<Comp onSongClick={this.onSongClick} addPlayingList={addPlayingList} onDownload={this.onDownload} {...rest} />
+				<Comp onSongClick={this.onSongClick}  addPlayingList={addPlayingList} onDownload={this.onDownload} {...rest} />
 			)
 		}
 	}

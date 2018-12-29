@@ -39,6 +39,7 @@ const getSongDetail = function* (){
 							id:action.payload.hash
 						}
 					})
+					action.callback && action.callback()
 					yield put({
 						type:'UPDATE_PLAYING_LIST',
 						payload:{
@@ -85,7 +86,7 @@ const indexAction = function* (){
 
 export default function* rootSaga(){
 	yield all([
-		watch(),
+		// watch(),
 		indexAction(),
 		newlistAction(),
 		toplistAction(),

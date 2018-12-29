@@ -11,6 +11,7 @@ const UPDATE_PLAYING_LIST = 'UPDATE_PLAYING_LIST'
 const REMOVE_PLAYING_ITEM = 'REMOVE_PLAYING_ITEM'
 const UPDATE_PLAYING_METHOD = 'UPDATE_PLAYING_METHOD'
 const INIG_PLAYING_LIST = 'INIG_PLAYING_LIST'
+const REPLAY_MUSIC = 'REPLAY_MUSIC'
 
 const getHistoryLists = () => {
 	const list = localStorage.getItem('myLists') 
@@ -44,7 +45,8 @@ const initialState = {
 		lyrics:'',
 		error:false,
 		playMethod:'loop',
-		lastMusic:lastMusic
+		lastMusic:lastMusic,
+		replay:false
 	}
 }
 
@@ -99,6 +101,14 @@ const rootState = (state = initialState,action) => {
 				playing:{
 					...state.playing,
 					list:setMyLists([])
+				}
+			}
+		case REPLAY_MUSIC:
+			return {
+				...state,
+				playing:{
+					...state.playing,
+					replay:action.payload
 				}
 			}
 		default :
