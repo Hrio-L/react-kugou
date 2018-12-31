@@ -332,16 +332,14 @@ class Swiper extends PureComponent {
 	}
 	stopScroll = () => {
 		document.querySelectorAll('.scroll').forEach(d => {
-			d.style.overflowY = 'hidden'
+			d.style.overflow= 'hidden'
 		})
-		document.body.style.overflowY = 'hidden'
-		document.documentElement.style.overflowY = 'hidden'
+		document.documentElement.style.overflow = 'hidden'
 	}
 	startScroll = () => {
-		document.body.style.overflowY = 'scroll'
-		document.documentElement.style.overflowY = 'scroll'
+		document.documentElement.style.overflow = 'auto'
 		document.querySelectorAll('.scroll').forEach(d => {
-			d.style.overflowY = 'scroll'
+			d.style.overflow = 'auto'
 		})
 	}
 	renderItem = () => {

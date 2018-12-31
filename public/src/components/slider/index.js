@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import './index.less'
 
-class Silder extends PureComponent{
+class Slider extends PureComponent{
 	static defaultProps = {
-		classPrefixer:'silder',
+		classPrefixer:'slider',
 		used:0,
 		step:2,
 		style:{
@@ -22,12 +22,12 @@ class Silder extends PureComponent{
 		this.state = {
 			used:props.used,
 			startX:0,
-			silderWidth:0,
-			silderHeight:0,
+			sliderWidth:0,
+			sliderHeight:0,
 			minUsed:0,
 			maxUsed:100,
 		}
-		window.addEventListener('resize',this.initSilder,false)
+		window.addEventListener('resize',this.initSlider,false)
 		document.addEventListener('keydown',this.handleKeyDown,false)
 	}
 	componentWillReceiveProps = nextProps => {
@@ -39,18 +39,18 @@ class Silder extends PureComponent{
 		}
 	}
 	componentDidMount = () => {
-		this.initSilder()
+		this.initSlider()
 	}
 	componentWillUnmount = () => {
-		window.removeEventListener('resize',this.initSilder,false)
+		window.removeEventListener('resize',this.initSlider,false)
 		document.removeEventListener('keydown',this.handleKeyDown,false)
 	}
-	initSilder = () => {
-		const {silder} = this.refs
-		const {offsetWidth:silderWidth,offsetHeight:silderHeight} = silder
+	initSlider = () => {
+		const {slider} = this.refs
+		const {offsetWidth:sliderWidth,offsetHeight:sliderHeight} = slider
 		this.setState({
-			silderWidth,
-			silderHeight
+			sliderWidth,
+			sliderHeight
 		})
 	}
 	handleChange = used => {
@@ -83,10 +83,10 @@ class Silder extends PureComponent{
 	handleTouch = (ev,target) => {
 		const {touches} = ev
 		const {clientX} = touches[0]
-		const {silderWidth} = this.state
+		const {sliderWidth} = this.state
 		const rect = target.getBoundingClientRect()
 		const startX = clientX - rect.left
-		const used = parseFloat((startX / silderWidth * 100).toFixed(2))
+		const used = parseFloat((startX / sliderWidth * 100).toFixed(2))
 		this.setUsed(used)
 	}
 	handleTouchStart = ev => {
@@ -109,8 +109,8 @@ class Silder extends PureComponent{
 	}
 	dotTouchMove = ev => {
 		ev.stopPropagation()
-		const {silder} = this.refs
-		this.handleTouch(ev,silder)
+		const {slider} = this.refs
+		this.handleTouch(ev,slider)
 	}
 	handleKeyDown = ev => {
 		const {keyCode} = ev
@@ -142,7 +142,7 @@ class Silder extends PureComponent{
 	}
 
 	render(){
-		const {used,silderHeight} = this.state
+		const {used,sliderHeight} = this.state
 		const {className,classPrefixer,dotSize,style} = this.props
 		const events = {
 			onTouchStart:this.handleTouchStart,
@@ -151,16 +151,16 @@ class Silder extends PureComponent{
 		}
 		const classes = classNames(classPrefixer,className)
 		return(
-			<div  {...events}  style={style} ref="silder" className={classes}>
+			<div  {...events}  style={style} ref="slider" className={classes}>
 				<span style={{width:`${used}%`}} className={`${classPrefixer}-used`}>
-					<span onTouchStart={this.dotTouchStart} onTouchMove={this.dotTouchMove} style={{width:dotSize,height:dotSize,top:(silderHeight - dotSize) /2}} className={`${classPrefixer}-dot`}></span>
+					<span onTouchStart={this.dotTouchStart} onTouchMove={this.dotTouchMove} style={{width:dotSize,height:dotSize,top:(sliderHeight - dotSize) /2}} className={`${classPrefixer}-dot`}></span>
 				</span>
 			</div>
 		)
 	}
 }
 
-Silder.propTypes = {
+Slider.propTypes = {
 	used:PropTypes.number,
 	step:PropTypes.number,
 	onChange:PropTypes.func,
@@ -170,4 +170,4 @@ Silder.propTypes = {
 	onClick:PropTypes.func
 }
 
-export default Silder
+export default Slider

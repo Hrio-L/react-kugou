@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import BaseHandler,{toast} from '../../common/basehandler'
 import Header from '../../components/header'
-import Silder from '../../components/silder'
+import Slider from '../../components/slider'
 import Icon from '../../components/icon'
 import Player from '../../components/player'
 import {MaskComponent} from '../../components/mask'
@@ -135,6 +135,11 @@ class PlayerContainer extends Component{
 		})
 		return currentIndex
 	} 
+	onAudioPause = () => {
+		this.setState({
+			audioState:'pause'
+		})
+	}
 	onAudioEnded = () => {
 		const {playing:{list,playMethod,id},onSongClick} = this.props
 		const {audio} = this.state
@@ -202,7 +207,7 @@ class PlayerContainer extends Component{
 			loading:true
 		})
 	}
-	onSilderClick = () => {
+	onSliderClick = () => {
 		this.setState({
 			silderActive:true
 		})
@@ -344,7 +349,8 @@ class PlayerContainer extends Component{
 					loading={loading}
 					onAudioToggle={this.onAudioToggle}
 					onAudioPlay={this.onAudioPlay}
-					onSilderClick={this.onSilderClick}
+					onAudioPause={this.onAudioPause}
+					onSliderClick={this.onSliderClick}
 					onAudioChange={this.onAudioChange}
 					onAudioWaiting={this.onAudioWaiting}
 					onAudioEnded={this.onAudioEnded}
@@ -373,7 +379,7 @@ class PlayerContainer extends Component{
 						</div>
 						<div className="player-actions">
 							<div className="player-time">
-								<Silder onChange={this.onAudioChange} onClick={this.onSilderClick} used={audioUsed} style={{background:'silver'}} />
+								<Slider onChange={this.onAudioChange} onClick={this.onSliderClick} used={audioUsed} style={{background:'silver'}} />
 							</div>
 							<div className="player-icons">
 								<Icon style={{fontSize:10}} onClick={this.changeMothod} type={`${this.getPlayIconType()}`} />

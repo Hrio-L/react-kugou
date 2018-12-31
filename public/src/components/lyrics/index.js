@@ -80,7 +80,7 @@ class Lyrics extends PureComponent{
 		const classes = classNames(classPrefixer,className)
 		return (
 			<div className={classes}>
-				<ul>
+				<ul className={`${classPrefixer}-list`}>
 					{this.renderLyrics()}
 				</ul>
 			</div>

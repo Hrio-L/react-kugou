@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import Icon from '../icon'
 import classNames from 'classnames'
+import Icon from '../icon'
 import './index.less'
 
 class Card extends PureComponent{
@@ -19,7 +19,7 @@ class Card extends PureComponent{
 	    return (
 	        <div onClick={this.handleClick.bind(this,source)} className={classes}>
 				<div className={`${classPrefixer}-item`}>
-					{avatar && <img src={avatar} alt="" className="avatar"/>}
+					{avatar && <img  src={avatar} alt="" className="avatar"/>}
 					<div className="info">
 						<h5 className="title">{title}</h5>
 						{desc && (

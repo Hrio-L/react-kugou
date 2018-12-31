@@ -1,7 +1,7 @@
 import React,{PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Silder from '../silder'
+import Slider from '../slider'
 import Audio from '../audio'
 import Icon from '../icon'
 import './index.less'
@@ -24,6 +24,9 @@ class Player extends PureComponent {
 	onAudioPlay = () => {
 		this.props.onAudioPlay && this.props.onAudioPlay()
 	}
+	onAudioPause = () => {
+		this.props.onAudioPause && this.props.onAudioPause()
+	}
 	onTimeUpdate = target => {
 		this.props.onTimeUpdate && this.props.onTimeUpdate(target)
 	}
@@ -33,8 +36,8 @@ class Player extends PureComponent {
 	onAudioChange = used => {
 		this.props.onAudioChange && this.props.onAudioChange(used)
 	}
-	onSilderClick = () => {
-		this.props.onSilderClick && this.props.onSilderClick()
+	onSliderClick = () => {
+		this.props.onSliderClick && this.props.onSliderClick()
 	}
 	
 	onPlayerClick = (ev) => {
@@ -65,7 +68,7 @@ class Player extends PureComponent {
 					onWaiting={this.onAudioWaiting}
 					onPlay={this.onAudioPlay}
 					getAudioRef={getRef}
-					onPause={this.onPause}
+					onPause={this.onAudioPause}
 					onEnded={this.onAudioEned}
 					onError={this.audioError}
 					src={music}
@@ -76,7 +79,7 @@ class Player extends PureComponent {
 					)}
 				</div>
 				<div className={`${classPrefixer}-main`}>
-					<Silder onClick={this.onSilderClick} onChange={this.onAudioChange} used={audioUsed} />
+					<Slider onClick={this.onSliderClick} onChange={this.onAudioChange} used={audioUsed} />
 					<div className={`${classPrefixer}-info`}>
 						<div onClick={this.onPlayerClick} className={`${classPrefixer}-song`}>
 							<h5 className={`${classPrefixer}-song-name`}>{name}</h5>
@@ -105,7 +108,9 @@ Player.propTypes = {
 	onTimeUpdate:PropTypes.func,
 	getRef:PropTypes.func,
 	onNextClick:PropTypes.func,
-	onSilderClick:PropTypes.func,
+	onSliderClick:PropTypes.func,
+	onAudioPlay:PropTypes.func,
+	onAudioPause:PropTypes.func,
 	onAudioToggle:PropTypes.func,
 	onAudioWaiting:PropTypes.func,
 	onAudioChange:PropTypes.func,

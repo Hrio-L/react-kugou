@@ -40,6 +40,7 @@ const Main = Loadable({
 
 const Test = () => (
 	<div className="test">
+		<Lyrics />
 	</div>
 )
 
