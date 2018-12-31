@@ -62,7 +62,8 @@ const singerClasslist = (state = initialState,action) => {
 					total:action.payload.total,
 					list:action.payload.list,
 					banner:action.payload.banner,
-					singerName:action.payload.singerName
+					singerName:action.payload.singerName,
+					intro:action.payload.intro
 				}
 			}
 		case UPDATE_SONGS_LIST:
