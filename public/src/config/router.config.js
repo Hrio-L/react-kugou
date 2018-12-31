@@ -9,8 +9,6 @@ import Toplist from '../pages/toplist'
 import Plist from '../pages/plist'
 import SingerClasslist from '../pages/singer-classlist'
 
-import Lyrics from '../components/lyrics'
-
 const Search = Loadable({
 	loader:() => import ('../pages/search'),
 	loading:() => (<ToastLoading style={{color:'white'}} />)
@@ -36,13 +34,13 @@ const Main = Loadable({
 	loading:() => (<ToastLoading style={{color:'white'}}  />)
 })
 
-	
 
-const Test = () => (
-	<div className="test">
-		<Lyrics />
-	</div>
-)
+const Test = () => {
+	return (
+		<div className="test">
+		</div>
+	)
+}
 
 export default [{
 	path:'/',

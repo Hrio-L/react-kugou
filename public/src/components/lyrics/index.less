@@ -1,8 +1,19 @@
 .lyrics{
 	position: relative;
 	text-align: center;
-	overflow: auto;
+	overflow: hidden;
 	width: 100%;
 	&-list{
+		font-size: 14px;
+		transition: all .1s;
+		color:silver;
+		.current{
+			font-size: 16px;
+			color:white;
+		}
+	}
+	&-item{
+		height: 30px;
+		line-height: 30px;
 	}
 }

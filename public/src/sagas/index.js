@@ -86,7 +86,7 @@ const indexAction = function* (){
 
 export default function* rootSaga(){
 	yield all([
-		watch(),
+		// watch(),
 		indexAction(),
 		newlistAction(),
 		toplistAction(),

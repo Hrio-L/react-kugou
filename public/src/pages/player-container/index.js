@@ -10,6 +10,7 @@ import Icon from '../../components/icon'
 import Player from '../../components/player'
 import {MaskComponent} from '../../components/mask'
 import MySongs from '../../components/my-songs'
+import Lyrics from '../../components/lyrics'
 import './index.less'
 
 const mapStateToProps = ({rootState:{playing}}) => ({playing})
@@ -387,6 +388,7 @@ class PlayerContainer extends Component{
 						<div className={singerCoverVisible}>
 							<img src={playing.img} alt=""/>
 						</div>
+						<Lyrics lyrics={playing.lyrics} currentTime={Math.ceil(curTime)} />
 						<div className="player-actions">
 							<div className="player-time">
 								<span className="time-use">{this.timeFomat(Math.floor(curTime))}</span>
