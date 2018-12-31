@@ -50,6 +50,8 @@ class Lyrics extends PureComponent{
 [03:01.33]只不过我不舍得让你心酸
 `
 	}
+	state = {
+	}
 	translateTime = timeStr => {
 		const minute = parseFloat(timeStr.split(':')[0]) * 60
 		const second = parseFloat(timeStr.split(':')[1])

@@ -292,7 +292,7 @@ class Swiper extends PureComponent {
 							}
 						}else{
 							if(index == 0){
-								this.transitionTimer = Timeout(() => {
+								this.transitionTimer = setTimeout(() => {
 									this.setState({
 										translate:this.getTranslate(children.length),
 										transition:''

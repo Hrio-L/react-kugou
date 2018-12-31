@@ -42,6 +42,7 @@ class PlayerContainer extends Component{
 		audioUsed:0,
 		loading:false,
 		audioState:'pause',
+		curTime:0,
 		silderActive:false,
 		myListVisible:false,
 		methods:['loop-one','loop','random']
@@ -219,9 +220,11 @@ class PlayerContainer extends Component{
 			const curTime = parseFloat(target.currentTime.toFixed(2))
 			const totalTime = parseFloat((timelength/1000).toFixed(2))
 			const audioUsed = parseFloat((curTime/totalTime*100).toFixed(2))
+
 			if(!silderActive){
 				this.setState({
 					audioUsed,
+					curTime,
 					loading:false
 				})
 			}
@@ -321,9 +324,16 @@ class PlayerContainer extends Component{
 			initList()
 		}
 	}
+	timeFomat = second => {
+		const minute = Math.floor(second / 60)
+		const remain = second % 60
+		const finalyMinute =  minute < 10 ? `0${minute}` : minute
+		const finalySecond = remain.toString().length === 1 ? `0${remain}` : remain
+		return [finalyMinute,finalySecond].join(':')
+	}
 	render(){
 		const {playing,onSongClick,location:{search},removeItem} = this.props
-		const {audioUsed,loading,audioState,myListVisible} = this.state
+		const {audioUsed,loading,audioState,myListVisible,curTime} = this.state
 		const visbileClass = classNames({
 			'player-cover-wrap':true,
 			'player-cover-wrap-active':search === '?cover'
@@ -379,7 +389,9 @@ class PlayerContainer extends Component{
 						</div>
 						<div className="player-actions">
 							<div className="player-time">
+								<span className="time-use">{this.timeFomat(Math.floor(curTime))}</span>
 								<Slider onChange={this.onAudioChange} onClick={this.onSliderClick} used={audioUsed} style={{background:'silver'}} />
+								<span className="time-length">{this.timeFomat(Math.floor(playing.timelength / 1000))}</span>
 							</div>
 							<div className="player-icons">
 								<Icon style={{fontSize:10}} onClick={this.changeMothod} type={`${this.getPlayIconType()}`} />
