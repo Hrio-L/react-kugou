@@ -14,7 +14,8 @@ import './index.less'
 class Search extends Component{
 	state = {
 		keyword:'',
-		placeholder:'歌手/歌名/拼音'
+		placeholder:'歌手/歌名/拼音',
+		btnState:'search'
 	}
 	componentDidMount = () => {
 		window.addEventListener('keydown',this.onPress,false)
@@ -44,6 +45,9 @@ class Search extends Component{
 			history.push(`/search/${keyword}`)
 		}
 	}
+	handleFocus = () => {
+
+	}
 	handleCancel = () => {
 		this.props.history.push('/search')
 	}
@@ -64,14 +68,8 @@ class Search extends Component{
 			<div className="search">
 				<header className="search-head">
 					<Icon onClick={this.handleBack} type="arrow-left" />
-					<Input  placeholder={placeholder} className="search-input" value={keyword} circle={true} onChange={this.inputChange} />
-					{placeholder === '歌手/歌名/拼音'  ? (
-						<span onClick={this.handleSearch} className="search-btn">搜索</span>
-					) : (
-						<span onClick={this.handleCancel} className="search-btn">
-							取消
-						</span>
-					)}
+					<Input onFocus={this.handleFocus}  placeholder={placeholder} className="search-input" value={keyword} circle={true} onChange={this.inputChange} />
+					<span onClick={this.handleSearch} className="search-btn">搜索</span>
 				</header>
 				<Authorized placeholder={placeholder} placeholderChange={this.placeholderChange} routes={routes} />
 				<Player />

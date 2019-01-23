@@ -28,6 +28,10 @@ class Input extends PureComponent{
 		})
 		onChange && onChange(value)
 	}
+	handleFocus = () => {
+		const {onFocus} = this.props
+		onFocus && onFocus()
+	}
 	hasPropValue = () => {
 		return typeof this.props.value !== 'undifined' 
 	}
@@ -38,7 +42,7 @@ class Input extends PureComponent{
 		return(
 			<div style={{borderRadius:circle&&20,...style}} className={classes}>
 				{icon && <Icon style={iconStyle} type={icon} />}
-				<input autoFocus={autoFocus} value={value} onChange={this.handleChange} placeholder={placeholder} type="text"/>
+				<input onFocus={this.handleFocus} autoFocus={autoFocus} value={value} onChange={this.handleChange} placeholder={placeholder} type="text"/>
 			</div>
 		)
 	}
@@ -52,6 +56,7 @@ Input.propTypes = {
 	iconStyle:PropTypes.object,
 	circle:PropTypes.bool,
 	onChange:PropTypes.func,
+	onFocus:PropTypes.func,
 	value:PropTypes.string,
 	autoFocus:PropTypes.bool
 }
