@@ -36,7 +36,7 @@ const search = function* (){
 				})
 				yield put({
 					type:'ADD_HISTORY_ITEM',
-					payload:action.keyword
+					payload:action.payload.keyword
 				})
 			}
 		}catch(err){
