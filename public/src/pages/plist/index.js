@@ -60,7 +60,7 @@ class Plist extends Component{
 						title,
 						desc:(
 							<span>
-								<Icon type="headphone" style={{fontSize:5,color:'silver',marginRight:5}} />
+								<Icon style={{fontSize:3,color:'silver',marginRight:5}} type="headphone"/>
 								{playcount}
 							</span>
 						),
