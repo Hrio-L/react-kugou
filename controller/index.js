@@ -3,7 +3,6 @@ const https = require('https')
 const stream = require('stream');
 const path = require('path')
 const request = require('../util/request')
-const mime = require('mime')
 
 const handleError = (ctx,error) => {
 	console.log(error)
@@ -129,7 +128,6 @@ class Index {
 		try{
 			const {filepath,filename} = ctx.query
 			if(filepath){
-				const type = mime.getType(filepath)
 				const ext = path.extname(filepath)
 				ctx.response.attachment(`${filename || path.parse(filepath).base}${ext}`)
 				const result = await request.get(filepath)

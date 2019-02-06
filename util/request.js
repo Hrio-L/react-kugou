@@ -37,7 +37,7 @@ methods.forEach((d,i) => {
 			})
 			res.on('end',() => {
 				const result = Buffer.concat(buffer,size)
-				resolve(result.toString('utf8'))
+				resolve(result)
 			})
 		})
 		req.on('error',err => {
