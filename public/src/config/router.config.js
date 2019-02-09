@@ -37,7 +37,8 @@ const Main = Loadable({
 
 const Test = () => {
 	return (
-		<div className="test">
+		<div style={{padding:20}} className="test">
+			<Icon type="play-menu" />
 		</div>
 	)
 }

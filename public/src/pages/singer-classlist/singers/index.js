@@ -69,7 +69,7 @@ class Singers extends Component{
 						title,
 						avatar:imgurl.replace(/{size}/g,200)
 					}}
-					extra={(<Icon style={{color:'silver',padding:5,fontSize:8}} type="arrow-right" />)}
+					extra={(<Icon style={{color:'silver',margin:5,fontSize:18}} type="arrow-right" />)}
 				 />
 			)
 		})

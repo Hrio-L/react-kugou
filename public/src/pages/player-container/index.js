@@ -48,9 +48,9 @@ class PlayerContainer extends Component{
 		myListVisible:false,
 		methods:['loop-one','loop','random']
 	}
-	componentWillReceiveProps = nextProps => {
+	componentWillReceiveProps = (nextProps,nextState) => {
 		const {replayMusic,playing:{replay,list,music}} = nextProps
-		const {audio} = this.state
+		const {audio,audioState } = this.state
 		if(music !== this.props.playing.music){
 			this.setState({
 				audioUsed:0
@@ -64,7 +64,7 @@ class PlayerContainer extends Component{
 			audio.currentTime = 0
 			replayMusic(false)
 		}
-		if(this.props.playing.list.length === list.length){
+		if(this.props.playing.list.length === list.length && audioState === nextState.audioState){
 			this.setState({
 				myListVisible:false,
 				loading:false
@@ -347,7 +347,6 @@ class PlayerContainer extends Component{
 			'singer-cover':true,
 			'singer-cover-active':audioState === 'play' && !loading
 		})
-		const actions = [{name:'123',key:'124'}]
 		return (
 			<div className="player-container">
 				<Player
@@ -373,7 +372,7 @@ class PlayerContainer extends Component{
 						<Header
 							logo={
 								[
-									<Icon onClick={this.handleBack} key="icon" style={{fontSize:8}} type="arrow-left" />,
+									<Icon onClick={this.handleBack} key="icon" style={{fontSize:22,marginRight:10 }} type="arrow-left" />,
 									<div key="info" className="info">
 										<h5>
 											{playing.name}

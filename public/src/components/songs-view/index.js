@@ -55,7 +55,7 @@ class SongsView extends PureComponent{
 					{title && (
 						<Header
 							logo={(
-								<Icon onClick={this.handleBack} style={{fontSize:8}} type="arrow-left" />
+								<Icon onClick={this.handleBack} style={{fontSize:22}} type="arrow-left" />
 							)}
 							fixed={true}
 							style={{top:50}}

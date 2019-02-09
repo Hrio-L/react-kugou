@@ -156,19 +156,17 @@
 .icon-arrow-left,.icon-arrow-right,.icon-arrow-up,.icon-arrow-down{
 	vertical-align: middle;
 	display: inline-block;
-	width: 2.4em;
-	height: 2.4em;
 	color:currentColor;
 	position:relative;
+	height: .4em;
 	&:before,&:after{
-		position:absolute;
 		content:'';
+		position:absolute;
 		display: inline-block;
-		width:1.5em;
-		height: .2em;
+		width:.5em;
+		height: .15em;
 		background:currentColor;
-		left: 0;
-		top: .75em;
+		vertical-align: middle;
 	}
 }
 .icon-arrow-left{
@@ -177,7 +175,7 @@
 	}
 	&:after{
 		transform: rotate(45deg);
-		top: 1.7em;
+		top: .25em;
 	}
 }
 .icon-arrow-right{
@@ -186,7 +184,7 @@
 	}
 	&:after{
 		transform: rotate(-45deg);
-		top: 1.7em;
+		top: .25em;
 	}
 }
 .icon-arrow-down{
@@ -195,13 +193,13 @@
 	}
 	&:after{
 		transform: rotate(-45deg);
-		left: 39%;
+		left: .25em;
 	}
 }
 .icon-arrow-up{
 	&:before{
 		transform: rotate(45deg);
-		left: 39%;
+		left: .25em;
 	}
 	&:after{
 		transform: rotate(-45deg);
@@ -284,19 +282,19 @@
 	display: inline-block;
 	color: currentColor;
 	text-align: left;
-    width: 2em;
-    height: 1.6em;
-    border-width: .4em 0 .4em .8em;
+    width: 1.5em;
+    height: 1em;
+    border-width: .2em 0 .2em .6em;
     border-style: solid;
     border-color: transparent;
     box-shadow: 0 -.2em, 0 .2em, inset 0 .2em, inset 0 -.2em;
-    margin: .9em .7em;
+    margin: .45em .35em;
     position:relative;
 	&:before{
 		content:'';
 		position:absolute;
-	    left: -.8em;
-	    top:-.1em;
+	    left: -.6em;
+	    top:-.2em;
 	    border: .5em solid;
 	    border-top-color: transparent;
 	    border-bottom-color: transparent;
@@ -316,8 +314,8 @@
 
 .icon-random,.icon-random-black{
 	display: inline-block;
-	width:2em;
-	height: 2em;
+	width:1.8em;
+	height: 1.8em;
 	background-image:url(./assets/random.png);
 	background-size:cover;
 }
@@ -336,21 +334,21 @@
 }
 .icon-trash{
 	display: inline-block;
-    width: 2em;
-    height: 2em;
+    width: 1em;
+    height: 1em;
     border-radius: 0 0 3Px 3Px;
     border-top: none;
-    margin: .9em .6em .3em;
+    margin: .4.5em .3em .3em;
     border:.2em solid currentColor;
     border-top:0;
     position:relative;
 	&:before{
 		content:'';
 		position:absolute;
-	    width: .8em;
-	    height: .2em;
-	    top: -.65em;
-	    left:.4em;
-	    box-shadow: inset 0 0 0 1em, -.8em .2em 0 0, -.6em .2em 0 0, 0 .2em 0 0, .6em .2em 0 0, .8em .2em 0 0;
+	    width: .4em;
+	    height: .1em;
+	    top: -.3em;
+	    left:.1em;
+	    box-shadow: inset 0 0 0 .5em, -.4em .1em 0 0, -.3em .1em 0 0, 0 .1em 0 0, .3em .1em 0 0, .4em .1em 0 0;
 	}
 }

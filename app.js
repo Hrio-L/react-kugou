@@ -11,6 +11,7 @@ const router = new Router()
 app.use(bodyParser())
 app.use(routers.routes(),routers.allowedMethods())
 app.use(koaStatic(path.join(__dirname,'public','build')))
+
 app.use(async ctx => {
 	ctx.status = 404
 	ctx.body = '404'

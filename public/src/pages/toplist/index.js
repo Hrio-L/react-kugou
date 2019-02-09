@@ -43,7 +43,7 @@ class Toplist extends Component{
 						desc,
 						avatar:imgurl.replace(/{size}/g,640),
 					}}
-					extra={(<Icon style={{color:'silver',padding:5,fontSize:8}} type="arrow-right" />)}
+					extra={(<Icon style={{color:'silver',margin:5,fontSize:20}} type="arrow-right" />)}
 				 />
 			)
 		})
