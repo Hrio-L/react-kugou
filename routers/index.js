@@ -16,6 +16,9 @@ router
 	.get('/search',controller.search)
 	.get('/song',controller.getSongDetail)
 	.get('/download',controller.downloadFile)
+	.get('/.well-known/pki-validation/fileauth.txt',async ctx => {
+		ctx.body = '201902080000005ranunuutslp9bv22mjuxjltaucfi4nijeivfzjj3nad41labv'
+	})
 
 
 module.exports = router
