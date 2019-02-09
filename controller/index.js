@@ -30,6 +30,7 @@ const baseRequsetOption = {
 
 class Index {
 	static  async getNewlist (ctx){
+		console.log(ctx.protocol)
 		try{
 			const res = await request.get('http://m.kugou.com/?json=true',baseRequsetOption)
 			handleSuccess(ctx,JSON.parse(res))

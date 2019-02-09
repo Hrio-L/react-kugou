@@ -1,9 +1,9 @@
 {
   "scripts": {
-    "start": "npm run server",
-    "dev": "nodemon app.js & webpack-dev-server",
+    "start": "node app.js & webpack-dev-server",
     "build": "webpack --mode production -p --progress ",
-    "server": "node app.js"
+    "server":"node app.js",
+    "client":"webpack-dev-server"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
