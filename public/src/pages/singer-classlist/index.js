@@ -41,7 +41,7 @@ class Singerlist extends Component{
 			center.push((
 				<li onClick={this.handleClick.bind(this,classList[i])} key={i} className="singer-item">
 					{classList[i].classname}
-					<Icon type="arrow-right" />
+					<Icon type="arrow-right" style={{fontSize:18}} />
 				</li>
 			))
 			if(i % interval === 0){
@@ -54,7 +54,7 @@ class Singerlist extends Component{
 			<ul className="singer-group" key={0}>
 				<li onClick={this.handleClick.bind(this,first)} className="singer-item">
 					{first.classname}
-					<Icon type="arrow-right" />
+					<Icon type="arrow-right" style={{fontSize:18}} />
 				</li>
 			</ul>,
 			result.map((d,i) => (
