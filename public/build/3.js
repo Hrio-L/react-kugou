@@ -1,2 +1,330 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{473:function(e,t,a){},474:function(e,t,a){},475:function(e,t,a){"use strict";var n=a(10),i=a.n(n),o=a(11),c=a.n(o),r=a(12),l=a.n(r),s=a(13),p=a.n(s),u=a(14),f=a.n(u),d=a(1),m=a.n(d),y=a(4),h=a.n(y),g=a(0),v=a.n(g),b=a(476),E=a(472),k=a(2),w=a.n(k),O=a(19),C=a.n(O),T=a(16),S=a(93),x=a(149),N=a(94),P=(a(473),function(e){function a(e){var t;return i()(this,a),t=l()(this,p()(a).call(this,e)),h()(m()(m()(t)),"handleClick",function(){t.setState({visible:!t.state.visible})}),t.state={visible:e.open},t}return f()(a,e),c()(a,[{key:"render",value:function(){var e,t=this.state.visible,a=this.props,n=a.classPrefixer,o=a.className,r=a.header,i=a.children,c=C()((e={},h()(e,"".concat(n),!0),h()(e,"".concat(o),o),h()(e,"".concat(n,"-active"),t),e)),l=t?"arrow-up":"arrow-down";return v.a.createElement("div",{className:c},v.a.createElement("div",{className:"".concat(n,"-head")},r,v.a.createElement(T.a,{onClick:this.handleClick,type:l})),v.a.createElement("div",{className:"".concat(n,"-content")},i))}}]),a}(g.PureComponent));h()(P,"defaultProps",{classPrefixer:"collapse",open:!1}),P.propTypes={className:w.a.string,header:w.a.oneOfType([w.a.string,w.a.node,w.a.element]).isRequired,children:w.a.oneOfType([w.a.string,w.a.node,w.a.element]),open:w.a.bool};var j=P,D=(a(474),function(e){function r(){var e,t;i()(this,r);for(var a=arguments.length,n=new Array(a),o=0;o<a;o++)n[o]=arguments[o];return t=l()(this,(e=p()(r)).call.apply(e,[this].concat(n))),h()(m()(m()(t)),"getSongs",function(){return t.props.list.map(function(e,t){var a=e.filename.trim().split(" - "),n=a[0];return{name:a[1],author:n,id:e.hash}})}),h()(m()(m()(t)),"handleBack",function(){t.props.history.go(-1)}),t}return f()(r,e),c()(r,[{key:"render",value:function(){var e=this.props,t=e.banner,a=e.title,n=e.footText,o=e.className,r=e.classPrefixer,i=e.list,c=e.collapse,l=e.onSongClick,s=e.actions,p=C()("".concat(r,"-view"),o);return v.a.createElement("div",{className:p},!i.length&&v.a.createElement(T.a,{style:{display:"block",margin:"10px auto",fontSize:22,color:"silver"},type:"loading"}),v.a.createElement(x.a,{fixed:!0,logo:v.a.createElement("img",{src:"http://m.kugou.com/v3/static/images/index/logo.png",alt:"logo"}),extra:v.a.createElement(b.a,{to:"/search"},v.a.createElement(T.a,{style:{fontSize:18,color:"white"},type:"search"}))}),v.a.createElement("div",{className:"".concat(r,"-banner")},a&&v.a.createElement(x.a,{logo:v.a.createElement(T.a,{onClick:this.handleBack,style:{fontSize:22},type:"arrow-left"}),fixed:!0,style:{top:50},className:"banner-head"},v.a.createElement("span",null,a)),t&&v.a.createElement("img",{src:t,alt:"banner"}),n&&v.a.createElement(x.a,{logo:v.a.createElement("span",null,"更新时间：",n),style:{position:"absolute",bottom:0,top:"none",zIndex:0},className:"banner-foot"})),i.length&&c?v.a.createElement(j,{header:c.header},c.content):null,v.a.createElement(S.a,{onClick:l,songs:this.getSongs(),actions:s,actionComponent:N.a}))}}]),r}(g.PureComponent));h()(D,"defaultProps",{classPrefixer:"songs"}),D.propTypes={onSongClick:w.a.func,list:w.a.array.isRequired,title:w.a.string,footText:w.a.string,banner:w.a.string,className:w.a.string,collapse:w.a.shape({header:w.a.oneOfType([w.a.string,w.a.node,w.a.element]),content:w.a.oneOfType([w.a.string,w.a.node,w.a.element])}),actions:w.a.array};t.a=Object(E.a)(D)},476:function(e,t,a){"use strict";var n=a(0),m=a.n(n),o=a(2),r=a.n(o),y=a(201),i=a(32),c=a.n(i),l=a(80),s=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var a=arguments[t];for(var n in a)Object.prototype.hasOwnProperty.call(a,n)&&(e[n]=a[n])}return e};function p(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}var u=function(o){function r(){var e,i;!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,r);for(var t=arguments.length,a=Array(t),n=0;n<t;n++)a[n]=arguments[n];return(e=i=p(this,o.call.apply(o,[this].concat(a)))).handleClick=function(e){if(i.props.onClick&&i.props.onClick(e),!(e.defaultPrevented||0!==e.button||i.props.target||((r=e).metaKey||r.altKey||r.ctrlKey||r.shiftKey))){e.preventDefault();var t=i.context.router.history,a=i.props,n=a.replace,o=a.to;n?t.replace(o):t.push(o)}var r},p(i,e)}return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}(r,o),r.prototype.render=function(){var e=this.props,t=(e.replace,e.to),a=e.innerRef,n=function(e,t){var a={};for(var n in e)0<=t.indexOf(n)||Object.prototype.hasOwnProperty.call(e,n)&&(a[n]=e[n]);return a}(e,["replace","to","innerRef"]);c()(this.context.router,"You should not use <Link> outside a <Router>"),c()(void 0!==t,'You must specify the "to" property');var o=this.context.router.history,r="string"==typeof t?Object(l.b)(t,null,null,o.location):t,i=o.createHref(r);return m.a.createElement("a",s({},n,{onClick:this.handleClick,href:i,ref:a}))},r}(m.a.Component);u.propTypes={onClick:r.a.func,target:r.a.string,replace:r.a.bool,to:r.a.oneOfType([r.a.string,r.a.object]).isRequired,innerRef:r.a.oneOfType([r.a.string,r.a.func])},u.defaultProps={replace:!1},u.contextTypes={router:r.a.shape({history:r.a.shape({push:r.a.func.isRequired,replace:r.a.func.isRequired,createHref:r.a.func.isRequired}).isRequired}).isRequired};var h=u,g=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var a=arguments[t];for(var n in a)Object.prototype.hasOwnProperty.call(a,n)&&(e[n]=a[n])}return e},v="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};var f=function(e){var o=e.to,t=e.exact,a=e.strict,n=e.location,r=e.activeClassName,i=e.className,c=e.activeStyle,l=e.style,s=e.isActive,p=e["aria-current"],u=function(e,t){var a={};for(var n in e)0<=t.indexOf(n)||Object.prototype.hasOwnProperty.call(e,n)&&(a[n]=e[n]);return a}(e,["to","exact","strict","location","activeClassName","className","activeStyle","style","isActive","aria-current"]),f="object"===(void 0===o?"undefined":v(o))?o.pathname:o,d=f&&f.replace(/([.+*?=^!:${}()[\]|/\\])/g,"\\$1");return m.a.createElement(y.a,{path:d,exact:t,strict:a,location:n,children:function(e){var t=e.location,a=e.match,n=!!(s?s(a,t):a);return m.a.createElement(h,g({to:o,className:n?[i,r].filter(function(e){return e}).join(" "):i,style:n?g({},l,c):l,"aria-current":n&&p||null},u))}})};f.propTypes={to:h.propTypes.to,exact:r.a.bool,strict:r.a.bool,location:r.a.object,activeClassName:r.a.string,className:r.a.string,activeStyle:r.a.object,style:r.a.object,isActive:r.a.func,"aria-current":r.a.oneOf(["page","step","location","date","time","true"])},f.defaultProps={activeClassName:"active","aria-current":"page"};t.a=f},482:function(e,t,a){"use strict";a.r(t);var n,o,r=a(10),i=a.n(r),c=a(11),l=a.n(c),s=a(12),p=a.n(s),u=a(13),f=a.n(u),d=a(14),m=a.n(d),y=a(1),h=a.n(y),g=a(4),v=a.n(g),b=a(0),E=a.n(b),k=a(29),w=a(36),O=a(475),C=a(57),T=a(17),S=(n=Object(k.b)(function(e){var t=e.plist.detail;return{list:t.list,banner:t.banner,specialname:t.specialname,intro:t.intro,loading:t.loading,total:t.total,page:t.page}},function(t){return{getDetail:function(e){t({type:"GET_PLIST_DETAIL_REQUEST",payload:e})},loadDetail:function(e){t({type:"LOAD_PLIST_DETAIL_REQUEST",payload:e})},initDetail:function(){t({type:"INIT_PLIST_DETAIL"})},showLoading:function(e){t({type:"CHANGE_PLIST_DETAIL_LOADING_STATE",payload:e})}}}),Object(w.immutableRenderDecorator)(o=n(o=Object(T.a)(o=function(e){function o(){var e,c;i()(this,o);for(var t=arguments.length,a=new Array(t),n=0;n<t;n++)a[n]=arguments[n];return c=p()(this,(e=f()(o)).call.apply(e,[this].concat(a))),v()(h()(h()(c)),"componentDidMount",function(){var e=c.props,t=e.page,a=e.getDetail,n=(e.list,e.match.params.id);n&&a({plistid:n,page:t})}),v()(h()(h()(c)),"componentWillUnmount",function(){var e=c.props;e.initDetail;e.list.length&&c.props.initDetail()}),v()(h()(h()(c)),"loadList",function(){var e=c.props,t=e.page,a=e.total,n=e.list,o=e.showLoading,r=e.loadDetail,i=e.match.params.id;a>n.length&&(o(!0),r({plistid:i,page:t+1}))}),c}return m()(o,e),l()(o,[{key:"render",value:function(){var e=this.props,t=e.list,a=e.specialname,n=e.banner,o=e.intro,r=e.loading,i=e.onSongClick,c=e.addPlayingList,l=e.onDownload,s=[{name:"播放",key:"play",onClick:function(e,t){i(e),t()}},{name:"添加到歌单",key:"add",onClick:function(e,t){c({id:e.id,author:e.desc,name:e.name}),T.c.show("添加成功"),t()}},{name:"分享",key:"share",onClick:function(e,t){T.c.show("该功能暂时没开通")}},{name:"下载",key:"download",onClick:function(e,t){l(e.id),t()}}];return E.a.createElement("div",{className:"plist-detail"},E.a.createElement(C.a,{style:{paddingBottom:70},loading:r,onBottom:this.loadList},E.a.createElement(O.a,{actions:s,onSongClick:i,banner:n,list:t,title:a,collapse:{header:a,content:o}})))}}]),o}(b.PureComponent))||o)||o)||o);t.default=S}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/less-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./public/src/pages/singer-classlist/singers/index.less":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/less-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./public/src/pages/singer-classlist/singers/index.less ***!
+  \**************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".singer-list .scroll {\n  padding-top: 5.625rem;\n}\n.singer-list .singer-classname {\n  background: white;\n  -webkit-box-shadow: 0 1.5Px 1.5Px 0 #f4f4f4;\n  box-shadow: 0 1.5Px 1.5Px 0 #f4f4f4;\n  height: 2.5rem;\n  color: #333;\n  font-size: 0.875rem;\n}\n.singer-list .singer-classname .icon-arrow-left {\n  color: silver;\n  font-size: 1.375rem;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./public/src/pages/singer-classlist/singers/index.js":
+/*!************************************************************!*\
+  !*** ./public/src/pages/singer-classlist/singers/index.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "./node_modules/@babel/runtime/helpers/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_immutable_render_mixin__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-immutable-render-mixin */ "./node_modules/react-immutable-render-mixin/lib/index.js");
+/* harmony import */ var react_immutable_render_mixin__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_immutable_render_mixin__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _components_card__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../components/card */ "./public/src/components/card/index.js");
+/* harmony import */ var _components_icon__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../components/icon */ "./public/src/components/icon/index.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../components/header */ "./public/src/components/header/index.js");
+/* harmony import */ var _components_scroll__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../components/scroll */ "./public/src/components/scroll/index.js");
+/* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./index.less */ "./public/src/pages/singer-classlist/singers/index.less");
+/* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_index_less__WEBPACK_IMPORTED_MODULE_15__);
+
+
+
+
+
+
+
+
+var _dec, _class, _temp;
+
+
+
+
+
+
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(_ref) {
+  var _ref$singerClasslist = _ref.singerClasslist,
+      singerList = _ref$singerClasslist.singerList,
+      classname = _ref$singerClasslist.classname,
+      page = _ref$singerClasslist.page,
+      loading = _ref$singerClasslist.loading,
+      total = _ref$singerClasslist.total;
+  return {
+    singerList: singerList,
+    classname: classname,
+    page: page,
+    loading: loading,
+    total: total
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    getList: function getList(payload) {
+      dispatch({
+        type: 'GET_SINGER_LIST_REQUEST',
+        payload: payload
+      });
+    },
+    loadSinger: function loadSinger(payload) {
+      dispatch({
+        type: 'LOAD_SINGER_LIST_REQUEST',
+        payload: payload
+      });
+    },
+    initSingerList: function initSingerList() {
+      dispatch({
+        type: 'INIT_SINGER_LIST'
+      });
+    },
+    showLoading: function showLoading(payload) {
+      dispatch({
+        type: 'CHANGE_SINGER_LIST_LOADING',
+        payload: payload
+      });
+    }
+  };
+};
+
+var Singers = (_dec = Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["connect"])(mapStateToProps, mapDispatchToProps), Object(react_immutable_render_mixin__WEBPACK_IMPORTED_MODULE_9__["immutableRenderDecorator"])(_class = _dec(_class = (_temp =
+/*#__PURE__*/
+function (_Component) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(Singers, _Component);
+
+  function Singers() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Singers);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(this, (_getPrototypeOf2 = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(Singers)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "componentDidMount", function () {
+      var _this$props = _this.props,
+          getList = _this$props.getList,
+          page = _this$props.page,
+          singerList = _this$props.singerList,
+          id = _this$props.match.params.id;
+
+      if (id && !singerList.length) {
+        getList({
+          classid: id,
+          page: page
+        });
+      }
+    });
+
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "componentWillUnmount", function () {
+      var initSingerList = _this.props.initSingerList;
+      initSingerList();
+    });
+
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "toSingerSongs", function (id) {
+      var history = _this.props.history;
+      history.push("/singer/".concat(id));
+    });
+
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "renderSingerList", function () {
+      var singerList = _this.props.singerList;
+      return singerList.map(function (d, i) {
+        var id = d.singerid,
+            title = d.singername,
+            imgurl = d.imgurl;
+        return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_components_card__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          onClick: _this.toSingerSongs.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), id),
+          key: i,
+          source: {
+            id: id,
+            title: title,
+            avatar: imgurl.replace(/{size}/g, 200)
+          },
+          extra: react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_components_icon__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            style: {
+              color: 'silver',
+              margin: 5,
+              fontSize: 18
+            },
+            type: "arrow-right"
+          })
+        });
+      });
+    });
+
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "handleBack", function () {
+      var history = _this.props.history;
+      history.go(-1);
+    });
+
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "loadList", function () {
+      var _this$props2 = _this.props,
+          loadSinger = _this$props2.loadSinger,
+          page = _this$props2.page,
+          total = _this$props2.total,
+          singerList = _this$props2.singerList,
+          showLoading = _this$props2.showLoading,
+          id = _this$props2.match.params.id;
+
+      if (total > singerList.length) {
+        showLoading(true);
+        loadSinger({
+          classid: id,
+          page: page + 1
+        });
+      }
+    });
+
+    return _this;
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Singers, [{
+    key: "render",
+    value: function render() {
+      var _this$props3 = this.props,
+          singerList = _this$props3.singerList,
+          classname = _this$props3.classname,
+          loading = _this$props3.loading;
+      return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
+        className: "singer-list"
+      }, !singerList.length && react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_components_icon__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        style: {
+          display: 'block',
+          margin: '55px auto',
+          fontSize: 22,
+          color: 'silver'
+        },
+        type: "loading"
+      }), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_components_scroll__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        style: {
+          paddingBottom: 70
+        },
+        loading: loading,
+        onBottom: this.loadList
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        fixed: true,
+        logo: react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("img", {
+          src: "http://m.kugou.com/v3/static/images/index/logo.png",
+          alt: "logo"
+        }),
+        extra: react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["NavLink"], {
+          to: "/search"
+        }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_components_icon__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          style: {
+            fontSize: 18,
+            color: 'white'
+          },
+          type: "search"
+        }))
+      }), classname && react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        className: "singer-classname",
+        fixed: true,
+        style: {
+          top: 50
+        },
+        logo: react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_components_icon__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          onClick: this.handleBack,
+          type: "arrow-left"
+        })
+      }, classname), this.renderSingerList()));
+    }
+  }]);
+
+  return Singers;
+}(react__WEBPACK_IMPORTED_MODULE_7__["Component"]), _temp)) || _class) || _class);
+/* harmony default export */ __webpack_exports__["default"] = (Singers);
+
+/***/ }),
+
+/***/ "./public/src/pages/singer-classlist/singers/index.less":
+/*!**************************************************************!*\
+  !*** ./public/src/pages/singer-classlist/singers/index.less ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/less-loader/dist/cjs.js!../../../../../node_modules/postcss-loader/src??postcss!./index.less */ "./node_modules/css-loader/index.js!./node_modules/less-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./public/src/pages/singer-classlist/singers/index.less");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(true) {
+	module.hot.accept(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/less-loader/dist/cjs.js!../../../../../node_modules/postcss-loader/src??postcss!./index.less */ "./node_modules/css-loader/index.js!./node_modules/less-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./public/src/pages/singer-classlist/singers/index.less", function() {
+		var newContent = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/less-loader/dist/cjs.js!../../../../../node_modules/postcss-loader/src??postcss!./index.less */ "./node_modules/css-loader/index.js!./node_modules/less-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./public/src/pages/singer-classlist/singers/index.less");
+
+		if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ })
+
+}]);
 //# sourceMappingURL=3.js.map

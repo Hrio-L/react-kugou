@@ -98,7 +98,7 @@ module.exports = (env,options) => {
             }),
             new HtmlWebpackPlugin({
                 template: path.join(__dirname, 'public', 'src', 'template', 'index.html'),
-                title: "Practice"
+                title: "kugou"
             }),
             new MiniCssExtractPlugin({
                 filename:'[name].css',
